@@ -3,12 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Foundrops | Outbound first, then FounderOps execution</title>
-  <meta name="description" content="Foundrops helps B2B founders build an outbound engine, then ships execution across fundraising ops and internal ops so priorities move without constant founder push." />
+  <title>Foundrops | FounderOps execution for B2B founders</title>
+  <meta name="description" content="Foundrops is a fractional operator partner for B2B founders. We build outbound systems, run fundraising ops, and ship urgent priorities with tight execution." />
 
-  <!-- Open Graph (optional: add an og image later) -->
   <meta property="og:title" content="Foundrops" />
-  <meta property="og:description" content="Outbound first, then FounderOps execution. Simple. Repeatable. Measurable." />
+  <meta property="og:description" content="Outbound is the wedge. FounderOps is the leverage layer. We ship priorities for B2B founders." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://foundrops.co" />
 
@@ -21,13 +20,24 @@
       --icy:#A3CEF1;
       --olive:#8B8C89;
 
+      /* Neutrals */
       --bg: var(--platinum);
-      --text: #0e1520;
-      --muted: rgba(14, 21, 32, 0.70);
-      --card: rgba(255,255,255,0.72);
+      --ink: #0b1220;
+      --muted: rgba(11,18,32,0.68);
+      --muted2: rgba(11,18,32,0.52);
+
+      /* Surfaces */
+      --card: rgba(255,255,255,0.78);
+      --card2: rgba(255,255,255,0.62);
       --stroke: rgba(39,76,119,0.14);
-      --shadow: 0 20px 60px rgba(39,76,119,0.12);
-      --radius: 18px;
+      --stroke2: rgba(39,76,119,0.10);
+
+      --shadow: 0 18px 55px rgba(39,76,119,0.14);
+      --shadow2: 0 10px 30px rgba(39,76,119,0.10);
+
+      --r12: 12px;
+      --r16: 16px;
+      --r20: 20px;
 
       --max: 1120px;
     }
@@ -37,309 +47,309 @@
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color: var(--text);
-      background: radial-gradient(1200px 600px at 15% -10%, rgba(163,206,241,0.65), transparent 60%),
-                  radial-gradient(900px 500px at 85% 0%, rgba(96,150,186,0.35), transparent 60%),
-                  linear-gradient(180deg, var(--bg), #f7f9fb 55%, var(--bg));
+      color: var(--ink);
+      background:
+        radial-gradient(900px 500px at 12% 10%, rgba(163,206,241,0.38), transparent 60%),
+        radial-gradient(800px 500px at 88% 18%, rgba(96,150,186,0.22), transparent 62%),
+        radial-gradient(900px 520px at 60% 110%, rgba(39,76,119,0.10), transparent 60%),
+        linear-gradient(180deg, var(--bg), #f9fbfd 52%, var(--bg));
       overflow-x:hidden;
     }
 
     a{color:inherit}
     .container{max-width:var(--max); margin:0 auto; padding:0 22px;}
+    .grid{display:grid; gap:16px;}
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
 
-    /* Top nav */
+    /* Nav */
     .nav{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(231,236,239,0.70);
+      backdrop-filter: blur(12px);
+      background: rgba(231,236,239,0.72);
       border-bottom: 1px solid rgba(39,76,119,0.10);
     }
     .nav-inner{
       display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:12px;
+      padding: 14px 0;
+      gap: 14px;
     }
     .brand{
-      display:flex; align-items:center; gap:10px; text-decoration:none;
-      font-weight:800; letter-spacing:-0.02em;
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:-0.02em;
     }
-    .logo{
-      width:34px; height:34px; border-radius:12px;
+    .mark{
+      width:36px; height:36px;
+      border-radius: 14px;
       background: linear-gradient(135deg, var(--dusk), var(--steel));
-      box-shadow: 0 10px 25px rgba(39,76,119,0.25);
+      box-shadow: 0 12px 30px rgba(39,76,119,0.22);
       position:relative;
       overflow:hidden;
     }
-    .logo:after{
+    .mark:after{
       content:"";
-      position:absolute; inset:-40%;
-      background: radial-gradient(circle at 30% 30%, rgba(163,206,241,0.85), transparent 55%);
-      transform: rotate(25deg);
-      opacity:0.9;
+      position:absolute; inset:-60%;
+      background: radial-gradient(circle at 35% 35%, rgba(163,206,241,0.95), transparent 55%);
+      transform: rotate(20deg);
+      opacity:0.85;
     }
-    .brand small{display:block; font-weight:600; color:var(--muted); letter-spacing:0.01em}
-    .nav-links{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
+    .brand small{
+      display:block;
+      font-weight:700;
+      letter-spacing:0.01em;
+      color: rgba(39,76,119,0.78);
+      margin-top:2px;
+    }
+
+    .nav-links{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
     .nav-links a{
       text-decoration:none;
-      color: rgba(14,21,32,0.82);
-      font-weight:600;
+      font-weight:700;
       font-size:14px;
-      padding:8px 10px;
-      border-radius:12px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: rgba(11,18,32,0.82);
     }
-    .nav-links a:hover{background: rgba(39,76,119,0.08)}
+    .nav-links a:hover{background: rgba(39,76,119,0.08);}
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
-      padding:12px 16px;
+      padding: 12px 16px;
       border-radius: 14px;
-      font-weight:800;
+      font-weight:900;
       text-decoration:none;
-      border:1px solid rgba(39,76,119,0.16);
-      box-shadow: 0 12px 30px rgba(39,76,119,0.12);
+      border: 1px solid rgba(39,76,119,0.18);
+      box-shadow: var(--shadow2);
       transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-      user-select:none;
       cursor:pointer;
       white-space:nowrap;
+      user-select:none;
     }
+    .btn:hover{transform: translateY(-1px); box-shadow: 0 16px 42px rgba(39,76,119,0.18);}
     .btn-primary{
       background: linear-gradient(135deg, var(--dusk), var(--steel));
-      color:white;
+      color:#fff;
       border-color: rgba(255,255,255,0.22);
     }
-    .btn-primary:hover{transform: translateY(-1px); box-shadow: 0 16px 40px rgba(39,76,119,0.20);}
     .btn-ghost{
-      background: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.65);
       color: var(--dusk);
     }
-    .btn-ghost:hover{transform: translateY(-1px); background: rgba(255,255,255,0.78);}
 
-    /* Hero */
-    .hero{padding:54px 0 22px;}
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 22px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .hero-grid{grid-template-columns:1fr; }
-      .nav-links{display:none;}
-    }
-    .card{
-      background: var(--card);
-      border:1px solid var(--stroke);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .hero-card{
-      padding: 28px;
-      position:relative;
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      background: rgba(39,76,119,0.08);
-      border:1px solid rgba(39,76,119,0.12);
-      color: rgba(39,76,119,0.95);
-      font-weight:800;
-      font-size:13px;
-    }
+    /* Sections */
+    section{padding: 46px 0;}
+    .section-head{display:flex; justify-content:space-between; gap:16px; align-items:flex-end; margin-bottom: 18px;}
     h1{
-      margin:14px 0 10px;
-      font-size: clamp(30px, 4.4vw, 52px);
+      margin: 10px 0 10px;
+      font-size: clamp(32px, 4.8vw, 56px);
       letter-spacing: -0.03em;
       line-height: 1.05;
     }
-    .subhead{
-      margin: 0 0 18px;
-      font-size: 17px;
-      line-height: 1.55;
-      color: var(--muted);
-      max-width: 62ch;
-    }
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top: 18px;}
-    .micro{
-      margin-top: 14px;
-      font-size: 13px;
-      color: rgba(14,21,32,0.62);
-      display:flex;
-      gap: 14px;
-      flex-wrap:wrap;
-    }
-    .micro span{display:inline-flex; gap:8px; align-items:center;}
-    .dot{
-      width:8px; height:8px; border-radius:50%;
-      background: var(--steel);
-      box-shadow: 0 0 0 4px rgba(96,150,186,0.20);
-    }
-
-    /* Side proof */
-    .proof-card{padding: 22px;}
-    .proof-title{font-weight:900; color: var(--dusk); letter-spacing:-0.02em;}
-    .proof-grid{
-      display:grid; gap: 10px; margin-top: 12px;
-    }
-    .proof{
-      background: rgba(255,255,255,0.62);
-      border:1px solid rgba(39,76,119,0.12);
-      border-radius: 16px;
-      padding: 14px 14px;
-    }
-    .proof strong{display:block; font-size: 18px;}
-    .proof small{color: var(--muted); font-weight:600;}
-
-    /* Section layout */
-    section{padding: 42px 0;}
-    .section-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
     h2{
       margin:0;
-      font-size: clamp(22px, 2.6vw, 34px);
-      letter-spacing:-0.02em;
+      font-size: clamp(22px, 2.8vw, 34px);
+      letter-spacing: -0.02em;
       color: var(--dusk);
     }
-    .section-sub{
-      margin:0;
-      color: var(--muted);
-      max-width: 70ch;
-      line-height:1.6;
-      font-weight:600;
-    }
-
-    /* Feature grid */
-    .grid-3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 980px){ .grid-3{grid-template-columns:1fr;} }
-    .feature{
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.62);
-      border:1px solid rgba(39,76,119,0.12);
-      position:relative;
-      overflow:hidden;
-      min-height: 170px;
-    }
-    .feature:before{
-      content:"";
-      position:absolute; inset:-60%;
-      background: radial-gradient(circle at 25% 25%, rgba(163,206,241,0.55), transparent 55%);
-      transform: rotate(20deg);
-      opacity:0.65;
-    }
-    .feature > *{position:relative}
-    .feature h3{
+    h3{
       margin: 0 0 8px;
       font-size: 18px;
-      letter-spacing:-0.01em;
+      letter-spacing: -0.01em;
       color: var(--dusk);
     }
-    .feature p{
-      margin: 0 0 10px;
-      color: var(--muted);
-      line-height: 1.55;
-      font-weight:600;
-    }
-    .feature ul{margin: 0; padding-left: 18px; color: rgba(14,21,32,0.76); font-weight:650; line-height:1.6;}
-    .feature li{margin: 6px 0;}
 
-    /* Process */
-    .process{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+    /* Cards */
+    .card{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--r20);
+      box-shadow: var(--shadow);
+      overflow:hidden;
     }
-    @media (max-width: 980px){ .process{grid-template-columns:1fr;} }
-    .step{
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.62);
-      border:1px solid rgba(39,76,119,0.12);
+    .panel{
+      background: var(--card2);
+      border: 1px solid var(--stroke2);
+      border-radius: var(--r16);
+      box-shadow: 0 10px 28px rgba(39,76,119,0.08);
     }
-    .step .k{
-      display:inline-flex; align-items:center; justify-content:center;
-      width: 34px; height: 34px;
-      border-radius: 12px;
-      background: rgba(39,76,119,0.10);
-      border: 1px solid rgba(39,76,119,0.15);
-      color: var(--dusk);
-      font-weight:900;
-      margin-bottom: 10px;
-    }
-    .step h3{margin: 0 0 6px; color: var(--dusk); letter-spacing:-0.01em;}
-    .step p{margin: 0; color: var(--muted); line-height:1.6; font-weight:600;}
 
-    /* Offers / pricing blocks */
-    .offers{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 980px){ .offers{grid-template-columns:1fr;} }
-    .offer{
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.70);
-      border:1px solid rgba(39,76,119,0.12);
-      box-shadow: 0 14px 40px rgba(39,76,119,0.08);
-    }
-    .offer .tag{
-      display:inline-flex;
-      font-weight:900;
-      color: white;
-      background: linear-gradient(135deg, var(--dusk), var(--steel));
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      letter-spacing:0.02em;
-    }
-    .offer h3{margin: 12px 0 8px; color: var(--dusk); letter-spacing:-0.01em;}
-    .offer p{margin: 0 0 10px; color: var(--muted); line-height:1.6; font-weight:600;}
-    .offer ul{margin: 0; padding-left: 18px; color: rgba(14,21,32,0.78); font-weight:650; line-height:1.6;}
-    .offer li{margin: 6px 0;}
-    .offer .cta{margin-top: 14px;}
-
-    /* Footer contact */
-    .footer{
-      padding: 28px 0 46px;
-      border-top: 1px solid rgba(39,76,119,0.10);
-      background: rgba(231,236,239,0.55);
-    }
-    .footer-grid{
+    /* Hero */
+    .hero{padding: 52px 0 18px;}
+    .hero-grid{
       display:grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap: 14px;
-      align-items:start;
+      gap: 16px;
+      align-items:stretch;
     }
-    @media (max-width: 980px){ .footer-grid{grid-template-columns:1fr;} }
-    .contact-card{padding: 18px;}
-    .contact-card h3{margin:0 0 6px; color: var(--dusk);}
-    .contact-card p{margin:0 0 12px; color: var(--muted); line-height:1.6; font-weight:600;}
-    .contact-list{display:grid; gap:8px; font-weight:700;}
-    .contact-list a{color: var(--dusk); text-decoration:none;}
-    .contact-list a:hover{text-decoration:underline;}
-    .fine{color: rgba(14,21,32,0.60); font-size: 12px; font-weight:650; margin-top:12px;}
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr;}
+      .nav-links{display:none;}
+    }
 
-    /* Animations */
-    .reveal{
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity .7s ease, transform .7s ease;
+    .hero-main{padding: 26px;}
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(39,76,119,0.08);
+      border: 1px solid rgba(39,76,119,0.14);
+      color: rgba(39,76,119,0.95);
+      font-weight:900;
+      font-size: 13px;
     }
-    .reveal.in{
-      opacity: 1;
-      transform: translateY(0);
+    .pill-dot{
+      width:9px; height:9px; border-radius:50%;
+      background: var(--steel);
+      box-shadow: 0 0 0 4px rgba(96,150,186,0.22);
     }
+    .subhead{
+      margin: 0 0 16px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 68ch;
+      font-weight:650;
+    }
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top: 18px;}
+    .hero-foot{
+      display:flex; gap:14px; flex-wrap:wrap;
+      margin-top: 16px;
+      color: rgba(11,18,32,0.64);
+      font-size: 13px;
+      font-weight:700;
+    }
+    .hero-foot span{display:inline-flex; gap:8px; align-items:center;}
+    .tick{
+      width:18px; height:18px; border-radius:6px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(163,206,241,0.45);
+      border: 1px solid rgba(39,76,119,0.16);
+      color: var(--dusk);
+      font-weight:900;
+      line-height: 1;
+    }
+
+    /* Right side: service firm "what you get" */
+    .hero-side{padding: 18px;}
+    .side-title{font-weight:900; color: var(--dusk); letter-spacing:-0.02em; margin-bottom: 10px;}
+    .deliverables{display:grid; gap:10px;}
+    .deliverable{
+      padding: 14px;
+      border-radius: var(--r16);
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(39,76,119,0.12);
+    }
+    .deliverable strong{display:block; font-size: 15px; letter-spacing:-0.01em;}
+    .deliverable small{display:block; margin-top:4px; color: var(--muted); font-weight:650; line-height:1.5;}
+    .accent-line{
+      height: 4px; width: 56px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--dusk), var(--steel), var(--icy));
+      margin: 10px 0 14px;
+    }
+
+    /* Service blocks */
+    .cols-3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;}
+    @media (max-width: 980px){ .cols-3{grid-template-columns:1fr;} }
+
+    .svc{padding: 18px;}
+    .svc p{margin:0; color: var(--muted); line-height:1.6; font-weight:650;}
+    .svc ul{margin:12px 0 0; padding-left:18px; color: rgba(11,18,32,0.78); font-weight:650; line-height:1.7;}
+    .svc li{margin: 6px 0;}
+
+    .icon{
+      width:38px; height:38px;
+      border-radius: 14px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(39,76,119,0.08);
+      border: 1px solid rgba(39,76,119,0.14);
+      margin-bottom: 10px;
+    }
+    .icon svg{width:18px; height:18px; fill: var(--dusk);}
+
+    /* Process */
+    .process{display:grid; grid-template-columns: 1fr 1fr; gap: 14px;}
+    @media (max-width: 980px){ .process{grid-template-columns:1fr;} }
+    .step{padding: 18px;}
+    .k{
+      width: 34px; height: 34px;
+      border-radius: 14px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(96,150,186,0.18);
+      border: 1px solid rgba(39,76,119,0.16);
+      color: var(--dusk);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .step p{margin:0; color: var(--muted); line-height:1.6; font-weight:650;}
+
+    /* Engagement */
+    .eng{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;}
+    @media (max-width: 980px){ .eng{grid-template-columns:1fr;} }
+    .plan{padding: 18px;}
+    .tag{
+      display:inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-weight:900;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      background: rgba(39,76,119,0.08);
+      border: 1px solid rgba(39,76,119,0.14);
+      color: rgba(39,76,119,0.95);
+    }
+    .tag.primary{
+      background: linear-gradient(135deg, var(--dusk), var(--steel));
+      border-color: rgba(255,255,255,0.22);
+      color:#fff;
+    }
+    .plan p{margin:10px 0 0; color: var(--muted); line-height:1.6; font-weight:650;}
+    .plan ul{margin:12px 0 0; padding-left:18px; color: rgba(11,18,32,0.78); font-weight:650; line-height:1.7;}
+    .plan li{margin: 6px 0;}
+    .plan .cta{margin-top: 14px;}
+
+    /* FAQ */
+    details{
+      border: 1px solid rgba(39,76,119,0.12);
+      background: rgba(255,255,255,0.70);
+      border-radius: var(--r16);
+      padding: 14px 14px;
+    }
+    details + details{margin-top: 10px;}
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      color: var(--dusk);
+      letter-spacing:-0.01em;
+    }
+    details p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight:650;
+    }
+
+    /* Footer */
+    .footer{
+      padding: 30px 0 52px;
+      border-top: 1px solid rgba(39,76,119,0.10);
+      background: rgba(231,236,239,0.62);
+    }
+    .footer-grid{display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px;}
+    @media (max-width: 980px){ .footer-grid{grid-template-columns:1fr;} }
+    .contact{padding: 18px;}
+    .contact p{margin:0 0 12px; color: var(--muted); line-height:1.65; font-weight:650;}
+    .list{display:grid; gap:8px; font-weight:800;}
+    .list a{text-decoration:none; color: var(--dusk);}
+    .list a:hover{text-decoration:underline;}
+    .fine{margin-top:12px; font-size:12px; color: rgba(11,18,32,0.56); font-weight:650;}
+
+    /* Reveal */
+    .reveal{opacity:0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease;}
+    .reveal.in{opacity:1; transform: translateY(0);}
     @media (prefers-reduced-motion: reduce){
       .reveal{opacity:1; transform:none; transition:none;}
       html{scroll-behavior:auto;}
@@ -351,19 +361,19 @@
   <div class="nav">
     <div class="container nav-inner">
       <a class="brand" href="#top">
-        <span class="logo" aria-hidden="true"></span>
+        <span class="mark" aria-hidden="true"></span>
         <span>
           Foundrops
-          <small>Outbound first. Then FounderOps execution.</small>
+          <small>Fractional operator partner for B2B founders</small>
         </span>
       </a>
 
       <div class="nav-links">
         <a href="#services">Services</a>
-        <a href="#process">How it works</a>
-        <a href="#offers">Ways to work</a>
-        <a href="#contact">Contact</a>
-        <a class="btn btn-primary" href="#contact">Book a call</a>
+        <a href="#process">How we work</a>
+        <a href="#engagements">Engagements</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn-primary" href="#contact">Contact</a>
       </div>
     </div>
   </div>
@@ -371,50 +381,47 @@
   <main id="top" class="container">
     <section class="hero">
       <div class="hero-grid">
-        <div class="card hero-card reveal">
+        <div class="card hero-main reveal">
           <div class="badge">
-            <span class="dot" aria-hidden="true"></span>
-            Fractional Operator for B2B founders
+            <span class="pill-dot" aria-hidden="true"></span>
+            Outbound wedge, FounderOps delivery
           </div>
 
-          <h1>Systems that create pipeline. Execution that ships priorities.</h1>
+          <h1>We ship your priorities with clean execution.</h1>
 
           <p class="subhead">
-            We help B2B founders build an outbound engine that is simple, repeatable, and measurable.
-            Then we stay on as FounderOps to keep sales, fundraising ops, and internal execution moving without constant founder push.
+            Foundrops is a service firm, not a product. We work as your fractional operator: we build a repeatable outbound system, run the day-to-day execution, and take the messy ops off your plate so you can stay focused on strategy and growth.
           </p>
 
           <div class="cta-row">
             <!-- Replace with Calendly later if you want -->
-            <a class="btn btn-primary" href="#contact">Book a call</a>
-            <a class="btn btn-ghost" href="#services">See what we do</a>
+            <a class="btn btn-primary" href="#contact">Talk to us</a>
+            <a class="btn btn-ghost" href="#services">See services</a>
           </div>
 
-          <div class="micro">
-            <span><span class="dot" style="background: var(--dusk)"></span> Email + LinkedIn execution</span>
-            <span><span class="dot" style="background: var(--steel)"></span> Fundraising ops support</span>
-            <span><span class="dot" style="background: var(--icy)"></span> Internal ops and systems</span>
+          <div class="hero-foot">
+            <span><span class="tick">✓</span> Clear scope and weekly updates</span>
+            <span><span class="tick">✓</span> Fast turnaround, high ownership</span>
+            <span><span class="tick">✓</span> No micromanagement needed</span>
           </div>
         </div>
 
-        <div class="card proof-card reveal">
-          <div class="proof-title">By the numbers</div>
-          <div class="proof-grid">
-            <div class="proof">
-              <strong>$2.5M+</strong>
-              <small>Raised as fundraising lead alongside founders</small>
+        <div class="panel hero-side reveal">
+          <div class="side-title">What you get</div>
+          <div class="accent-line" aria-hidden="true"></div>
+
+          <div class="deliverables">
+            <div class="deliverable">
+              <strong>Pipeline that stays active</strong>
+              <small>Targeting, lists, messaging, follow-ups, and tracking that keeps moving every week.</small>
             </div>
-            <div class="proof">
-              <strong>100+</strong>
-              <small>Databases built and campaigns launched</small>
+            <div class="deliverable">
+              <strong>Founder time back</strong>
+              <small>We handle execution and coordination so your calendar does not become the bottleneck.</small>
             </div>
-            <div class="proof">
-              <strong>35+</strong>
-              <small>Analysts trained in investor relations and sales</small>
-            </div>
-            <div class="proof">
-              <strong>3+ years</strong>
-              <small>Hands-on execution across ops and growth</small>
+            <div class="deliverable">
+              <strong>Ops that do not break</strong>
+              <small>CRM hygiene, reporting, workflows, and lightweight SOPs that scale with you.</small>
             </div>
           </div>
         </div>
@@ -424,44 +431,53 @@
     <section id="services">
       <div class="section-head reveal">
         <div>
-          <h2>What we do</h2>
-          <p class="section-sub">
-            Outbound is the wedge. FounderOps is the extended execution layer. We start with clarity, then we run the engine and keep things moving. :contentReference[oaicite:2]{index=2}
-          </p>
+          <h2>Services</h2>
+          <div class="muted" style="max-width:72ch; line-height:1.6; font-weight:650; margin-top:8px;">
+            We start where most founders feel the most pain: outbound and follow-through. Then we extend into FounderOps so urgent priorities keep shipping on time.
+          </div>
         </div>
       </div>
 
-      <div class="grid-3">
-        <div class="feature reveal">
-          <h3>Outbound Engine</h3>
-          <p>Build and run the pipeline across email + LinkedIn, with clean reporting and follow-through.</p>
+      <div class="cols-3">
+        <div class="panel svc reveal">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 5h18v4H3V5zm0 6h18v8H3v-8zm4 2v4h10v-4H7z"/></svg>
+          </div>
+          <h3>Outbound Execution</h3>
+          <p>Build and run a system across email and LinkedIn with disciplined iteration.</p>
           <ul>
-            <li>ICP, lead lists, enrichment</li>
+            <li>ICP and lead lists, enrichment</li>
             <li>Messaging, sequencing, A/B testing</li>
-            <li>Deliverability, inbox ops, follow-ups</li>
-            <li>CRM hygiene + weekly reporting</li>
+            <li>Deliverability and inbox ops</li>
+            <li>Follow-ups, reporting, CRM hygiene</li>
           </ul>
         </div>
 
-        <div class="feature reveal">
+        <div class="panel svc reveal">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5-3.8 9.7-9 10-5.2-.3-9-5-9-10V6l9-4zm0 4L6 8v4c0 3.8 2.4 7.3 6 8 3.6-.7 6-4.2 6-8V8l-6-2z"/></svg>
+          </div>
           <h3>Fundraising Ops</h3>
-          <p>Keep fundraising structured so momentum does not die in spreadsheets and forgotten follow-ups.</p>
+          <p>Structure the pipeline so momentum does not die in spreadsheets.</p>
           <ul>
             <li>Investor research and lists</li>
             <li>Outreach, applications, follow-ups</li>
-            <li>Pipeline tracking and data rooms</li>
-            <li>Founder-ready updates</li>
+            <li>Pipeline tracking and data room support</li>
+            <li>Founder-ready weekly updates</li>
           </ul>
         </div>
 
-        <div class="feature reveal">
+        <div class="panel svc reveal">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16v2H4V7zm0 4h10v2H4v-2zm0 4h16v2H4v-2z"/></svg>
+          </div>
           <h3>FounderOps</h3>
-          <p>Your right-hand execution support for the “this needs to be done right” work.</p>
+          <p>Your right-hand execution partner for urgent, high-importance work.</p>
           <ul>
-            <li>Workflows, SOPs, dashboards</li>
+            <li>Dashboards, SOPs, workflows</li>
             <li>Tooling setup and automation</li>
-            <li>Special projects and coordination</li>
-            <li>Async updates, no micromanagement</li>
+            <li>Internal ops and coordination</li>
+            <li>Special projects with ownership</li>
           </ul>
         </div>
       </div>
@@ -470,95 +486,87 @@
     <section id="process">
       <div class="section-head reveal">
         <div>
-          <h2>How it works</h2>
-          <p class="section-sub">
-            Speed without chaos: fix fundamentals first, then ship execution consistently. :contentReference[oaicite:3]{index=3}
-          </p>
+          <h2>How we work</h2>
+          <div class="muted" style="max-width:72ch; line-height:1.6; font-weight:650; margin-top:8px;">
+            Clear scope. Fast execution. Weekly iteration. You get leverage without the operational drag.
+          </div>
         </div>
       </div>
 
       <div class="process">
-        <div class="step reveal">
+        <div class="panel step reveal">
           <div class="k">1</div>
-          <h3>Baseline and clarity</h3>
-          <p>
-            We align on ICP, offers, and the execution cadence. If outbound feels random, we clean the inputs first.
-          </p>
+          <h3>Scope and baseline</h3>
+          <p>We define outcomes, constraints, and cadence. If outbound feels random, we clean inputs first.</p>
         </div>
-        <div class="step reveal">
+        <div class="panel step reveal">
           <div class="k">2</div>
-          <h3>Build and launch</h3>
-          <p>
-            We set up lists, messaging, sequencing, and tracking. Then we start running the engine across email and LinkedIn.
-          </p>
+          <h3>Build the system</h3>
+          <p>Lists, messaging, sequencing, tracking, and workflows set up with clean ownership.</p>
         </div>
-        <div class="step reveal">
+        <div class="panel step reveal">
           <div class="k">3</div>
-          <h3>Operate and iterate</h3>
-          <p>
-            Weekly reporting, continuous improvements, and disciplined follow-ups. You get leverage without managing the details.
-          </p>
+          <h3>Run execution weekly</h3>
+          <p>We execute, report, and improve. You get crisp updates, not noise.</p>
         </div>
-        <div class="step reveal">
+        <div class="panel step reveal">
           <div class="k">4</div>
           <h3>Extend into FounderOps</h3>
-          <p>
-            Once outbound is steady, we take on fundraising ops and internal execution so priorities keep shipping on time.
-          </p>
+          <p>Once outbound is steady, we take on fundraising ops and internal priorities to keep shipping.</p>
         </div>
       </div>
     </section>
 
-    <section id="offers">
+    <section id="engagements">
       <div class="section-head reveal">
         <div>
-          <h2>Ways to work together</h2>
-          <p class="section-sub">
-            Simple options that map to how founders actually operate: launch fast, then stay consistent. :contentReference[oaicite:4]{index=4}
-          </p>
+          <h2>Engagements</h2>
+          <div class="muted" style="max-width:72ch; line-height:1.6; font-weight:650; margin-top:8px;">
+            Pick the level of support you need today. You can always upgrade as priorities expand.
+          </div>
         </div>
       </div>
 
-      <div class="offers">
-        <div class="offer reveal">
-          <span class="tag">START HERE</span>
-          <h3>Outbound Launch Kit</h3>
-          <p>Structured outbound setup for early traction.</p>
+      <div class="eng">
+        <div class="panel plan reveal">
+          <span class="tag">START</span>
+          <h3 style="margin-top:12px;">Outbound Launch</h3>
+          <p>A fast setup to get the engine running with clarity and discipline.</p>
           <ul>
-            <li>4-week outbound engine setup</li>
-            <li>Target list + messaging foundation</li>
-            <li>Email and inbox support</li>
-            <li>Lightweight CRM + handoffs</li>
+            <li>ICP, targeting, list build</li>
+            <li>Messaging and sequences</li>
+            <li>Deliverability and tracking</li>
+            <li>Weekly reporting cadence</li>
           </ul>
           <div class="cta">
-            <a class="btn btn-ghost" href="#contact">Get the scope</a>
+            <a class="btn btn-ghost" href="#contact">Ask for scope</a>
           </div>
         </div>
 
-        <div class="offer reveal">
-          <span class="tag">MOST COMMON</span>
-          <h3>Growth Ops Partner</h3>
-          <p>Ongoing execution for lean teams.</p>
+        <div class="panel plan reveal">
+          <span class="tag primary">MOST COMMON</span>
+          <h3 style="margin-top:12px;">Operator Retainer</h3>
+          <p>Ongoing execution across outbound plus one additional priority lane.</p>
           <ul>
-            <li>Weekly execution across 2 focus areas</li>
-            <li>Outbound, fundraising ops, or systems</li>
-            <li>Weekly update + tracking dashboard</li>
-            <li>Clean follow-through and reporting</li>
+            <li>Weekly execution and iteration</li>
+            <li>Outbound + fundraising ops or internal ops</li>
+            <li>Dashboards and CRM hygiene</li>
+            <li>Crisp weekly update memo</li>
           </ul>
           <div class="cta">
-            <a class="btn btn-primary" href="#contact">Book a call</a>
+            <a class="btn btn-primary" href="#contact">Talk to us</a>
           </div>
         </div>
 
-        <div class="offer reveal">
-          <span class="tag">DEEP SUPPORT</span>
-          <h3>Embedded Operator</h3>
-          <p>High-leverage support across ops, outbound, and special projects.</p>
+        <div class="panel plan reveal">
+          <span class="tag">DEEP</span>
+          <h3 style="margin-top:12px;">Embedded FounderOps</h3>
+          <p>High ownership support across multiple workstreams and special projects.</p>
           <ul>
-            <li>Execution across multiple workstreams</li>
-            <li>FounderOps support + special projects</li>
-            <li>Dashboards, SOPs, workflows</li>
-            <li>Async updates and clear ownership</li>
+            <li>Execution across 2 to 3 lanes</li>
+            <li>Workflows, automation, SOPs</li>
+            <li>Coordination and follow-through</li>
+            <li>Async-first, low overhead</li>
           </ul>
           <div class="cta">
             <a class="btn btn-ghost" href="#contact">Discuss fit</a>
@@ -566,43 +574,63 @@
         </div>
       </div>
     </section>
+
+    <section id="faq">
+      <div class="section-head reveal">
+        <div>
+          <h2>FAQ</h2>
+          <div class="muted" style="max-width:72ch; line-height:1.6; font-weight:650; margin-top:8px;">
+            The basics founders ask before working together.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <details class="reveal">
+          <summary>Are you an outbound agency?</summary>
+          <p>Outbound is the starting point because it creates leverage fast. The longer-term value is FounderOps: we stay embedded to keep priorities shipping across ops and fundraising.</p>
+        </details>
+        <details class="reveal">
+          <summary>How do you communicate?</summary>
+          <p>Async-first. You get a weekly update memo with what shipped, what is blocked, and what we are doing next. Calls only when needed.</p>
+        </details>
+        <details class="reveal">
+          <summary>How fast can we start?</summary>
+          <p>Typically within days, assuming access to the tools and context. We prioritize speed, but we do not skip fundamentals that will break later.</p>
+        </details>
+      </div>
+    </section>
   </main>
 
   <footer id="contact" class="footer">
     <div class="container footer-grid">
-      <div class="card contact-card reveal">
-        <h3>Contact</h3>
-        <p>
-          If you want execution support that runs without constant check-ins, send a note.
-          We will reply with a crisp scope and next steps. :contentReference[oaicite:5]{index=5}
-        </p>
-
-        <div class="contact-list">
-          <div>Email: <a href="mailto:mihirmakwana5720@gmail.com">mihirmakwana5720@gmail.com</a></div>
-          <div>Phone: <a href="tel:+919920108492">+91 99201 08492</a></div>
-          <div>LinkedIn: <a href="https://www.linkedin.com/in/makwana-mihir/" target="_blank" rel="noreferrer">/in/makwana-mihir</a></div>
+      <div class="card contact reveal">
+        <h2 style="margin-bottom:10px;">Contact</h2>
+        <p>If you want a reliable operator partner that ships execution without constant check-ins, send a note with context and what you need done.</p>
+        <div class="list">
+          <!-- Change this to your Workspace email when ready -->
+          <div>Email: <a href="mailto:hello@foundrops.co">hello@foundrops.co</a></div>
+          <div>LinkedIn: <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">Add your LinkedIn link</a></div>
         </div>
-
-        <div class="fine">
-          Tip: once your Google Workspace email is ready, replace the email above with your @foundrops.co address.
-        </div>
+        <div class="fine">Tip: replace the LinkedIn link above with your exact profile URL.</div>
       </div>
 
-      <div class="card contact-card reveal">
-        <h3>Quick note on positioning</h3>
-        <p>
-          Outbound is the starting point. FounderOps is the long-term leverage layer.
-          You get pipeline, then you get consistent execution across fundraising ops and internal ops.
+      <div class="card contact reveal">
+        <h2 style="margin-bottom:10px;">Quick intro template</h2>
+        <p class="muted2" style="margin-bottom:12px;">
+          Copy-paste this in your email. We will reply with next steps and scope.
         </p>
-        <a class="btn btn-primary" href="mailto:mihirmakwana5720@gmail.com?subject=Foundrops%20-%20Quick%20Intro&body=Hey%20Mihir%2C%0A%0AI%20want%20help%20with%20%5Boutbound%2Ffundraising%20ops%2Ffounderops%5D.%0A%0AContext%3A%20%0A%0A%28Add%20a%20few%20lines%29%0A%0AThanks%2C">
+        <a class="btn btn-primary"
+           href="mailto:hello@foundrops.co?subject=Foundrops%20-%20Quick%20Intro&body=Hey%20Mihir%2C%0A%0AI%20need%20help%20with%20(outbound%20%2F%20fundraising%20ops%20%2F%20founderops).%0A%0AContext%3A%20%0A-%20Company%3A%20%0A-%20Offer%3A%20%0A-%20Ideal%20customer%3A%20%0A-%20Timeline%3A%20%0A%0AThanks%2C">
           Email to start
         </a>
+        <div class="fine">If you want a Calendly button, send your Calendly link and I’ll wire it in.</div>
       </div>
     </div>
   </footer>
 
   <script>
-    // Simple scroll reveal
+    // Subtle reveal animations
     const els = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
