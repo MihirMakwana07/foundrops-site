@@ -3,644 +3,357 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Foundrops | FounderOps execution for B2B founders</title>
-  <meta name="description" content="FoundrOps is a fractional operator partner for B2B founders. We build outbound systems, run fundraising ops, and ship urgent priorities with tight execution." />
+  <meta name="description" content="Catalyse is a high-trust execution partner for ex-MBB and ex-FAANG B2B founders. Outbound systems, fundraising ops, and founder ops. Simple. Repeatable. Measurable." />
+  <meta name="theme-color" content="#0B1320" />
 
-  <meta property="og:title" content="FoundrOps" />
-  <meta property="og:description" content="Outbound is the wedge. FounderOps is the leverage layer. We ship priorities for B2B founders." />
+  <title>Catalyse | Fractional Operator for ex-MBB & FAANG B2B Founders</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Catalyse | Execution partner for ex-MBB & ex-FAANG B2B founders" />
+  <meta property="og:description" content="Outbound, fundraising ops, and founder ops. Built and run with you, then documented so it stays clean without you micromanaging." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://foundrops.co" />
 
-  <style>
-    :root{
-      /* Your palette */
-      --platinum:#E7ECEF;
-      --dusk:#274C77;
-      --steel:#6096BA;
-      --icy:#A3CEF1;
-      --olive:#8B8C89;
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-      /* Neutrals */
-      --bg: var(--platinum);
-      --ink: #0b1220;
-      --muted: rgba(11,18,32,0.68);
-      --muted2: rgba(11,18,32,0.52);
-
-      /* Surfaces */
-      --card: rgba(255,255,255,0.78);
-      --card2: rgba(255,255,255,0.62);
-      --stroke: rgba(39,76,119,0.14);
-      --stroke2: rgba(39,76,119,0.10);
-
-      --shadow: 0 18px 55px rgba(39,76,119,0.14);
-      --shadow2: 0 10px 30px rgba(39,76,119,0.10);
-
-      --r12: 12px;
-      --r16: 16px;
-      --r20: 20px;
-
-      --max: 1120px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color: var(--ink);
-      background:
-        radial-gradient(900px 500px at 12% 10%, rgba(163,206,241,0.38), transparent 60%),
-        radial-gradient(800px 500px at 88% 18%, rgba(96,150,186,0.22), transparent 62%),
-        radial-gradient(900px 520px at 60% 110%, rgba(39,76,119,0.10), transparent 60%),
-        linear-gradient(180deg, var(--bg), #f9fbfd 52%, var(--bg));
-      overflow-x:hidden;
-    }
-
-    a{color:inherit}
-    .container{max-width:var(--max); margin:0 auto; padding:0 22px;}
-    .grid{display:grid; gap:16px;}
-    .muted{color:var(--muted)}
-    .muted2{color:var(--muted2)}
-
-    /* Nav */
-    .nav{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(12px);
-      background: rgba(231,236,239,0.72);
-      border-bottom: 1px solid rgba(39,76,119,0.10);
-    }
-    .nav-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 14px 0;
-      gap: 14px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      text-decoration:none;
-      font-weight:900;
-      letter-spacing:-0.02em;
-    }
-    .mark{
-      width:36px; height:36px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--dusk), var(--steel));
-      box-shadow: 0 12px 30px rgba(39,76,119,0.22);
-      position:relative;
-      overflow:hidden;
-    }
-    .mark:after{
-      content:"";
-      position:absolute; inset:-60%;
-      background: radial-gradient(circle at 35% 35%, rgba(163,206,241,0.95), transparent 55%);
-      transform: rotate(20deg);
-      opacity:0.85;
-    }
-    .brand small{
-      display:block;
-      font-weight:700;
-      letter-spacing:0.01em;
-      color: rgba(39,76,119,0.78);
-      margin-top:2px;
-    }
-
-    .nav-links{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
-    .nav-links a{
-      text-decoration:none;
-      font-weight:700;
-      font-size:14px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      color: rgba(11,18,32,0.82);
-    }
-    .nav-links a:hover{background: rgba(39,76,119,0.08);}
-
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      font-weight:900;
-      text-decoration:none;
-      border: 1px solid rgba(39,76,119,0.18);
-      box-shadow: var(--shadow2);
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-      cursor:pointer;
-      white-space:nowrap;
-      user-select:none;
-    }
-    .btn:hover{transform: translateY(-1px); box-shadow: 0 16px 42px rgba(39,76,119,0.18);}
-    .btn-primary{
-      background: linear-gradient(135deg, var(--dusk), var(--steel));
-      color:#fff;
-      border-color: rgba(255,255,255,0.22);
-    }
-    .btn-ghost{
-      background: rgba(255,255,255,0.65);
-      color: var(--dusk);
-    }
-
-    /* Sections */
-    section{padding: 46px 0;}
-    .section-head{display:flex; justify-content:space-between; gap:16px; align-items:flex-end; margin-bottom: 18px;}
-    h1{
-      margin: 10px 0 10px;
-      font-size: clamp(32px, 4.8vw, 56px);
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-    }
-    h2{
-      margin:0;
-      font-size: clamp(22px, 2.8vw, 34px);
-      letter-spacing: -0.02em;
-      color: var(--dusk);
-    }
-    h3{
-      margin: 0 0 8px;
-      font-size: 18px;
-      letter-spacing: -0.01em;
-      color: var(--dusk);
-    }
-
-    /* Cards */
-    .card{
-      background: var(--card);
-      border: 1px solid var(--stroke);
-      border-radius: var(--r20);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .panel{
-      background: var(--card2);
-      border: 1px solid var(--stroke2);
-      border-radius: var(--r16);
-      box-shadow: 0 10px 28px rgba(39,76,119,0.08);
-    }
-
-    /* Hero */
-    .hero{padding: 52px 0 18px;}
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 16px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .hero-grid{grid-template-columns: 1fr;}
-      .nav-links{display:none;}
-    }
-
-    .hero-main{padding: 26px;}
-    .badge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(39,76,119,0.08);
-      border: 1px solid rgba(39,76,119,0.14);
-      color: rgba(39,76,119,0.95);
-      font-weight:900;
-      font-size: 13px;
-    }
-    .pill-dot{
-      width:9px; height:9px; border-radius:50%;
-      background: var(--steel);
-      box-shadow: 0 0 0 4px rgba(96,150,186,0.22);
-    }
-    .subhead{
-      margin: 0 0 16px;
-      font-size: 17px;
-      line-height: 1.6;
-      color: var(--muted);
-      max-width: 68ch;
-      font-weight:650;
-    }
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top: 18px;}
-    .hero-foot{
-      display:flex; gap:14px; flex-wrap:wrap;
-      margin-top: 16px;
-      color: rgba(11,18,32,0.64);
-      font-size: 13px;
-      font-weight:700;
-    }
-    .hero-foot span{display:inline-flex; gap:8px; align-items:center;}
-    .tick{
-      width:18px; height:18px; border-radius:6px;
-      display:inline-flex; align-items:center; justify-content:center;
-      background: rgba(163,206,241,0.45);
-      border: 1px solid rgba(39,76,119,0.16);
-      color: var(--dusk);
-      font-weight:900;
-      line-height: 1;
-    }
-
-    /* Right side: service firm "what you get" */
-    .hero-side{padding: 18px;}
-    .side-title{font-weight:900; color: var(--dusk); letter-spacing:-0.02em; margin-bottom: 10px;}
-    .deliverables{display:grid; gap:10px;}
-    .deliverable{
-      padding: 14px;
-      border-radius: var(--r16);
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(39,76,119,0.12);
-    }
-    .deliverable strong{display:block; font-size: 15px; letter-spacing:-0.01em;}
-    .deliverable small{display:block; margin-top:4px; color: var(--muted); font-weight:650; line-height:1.5;}
-    .accent-line{
-      height: 4px; width: 56px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--dusk), var(--steel), var(--icy));
-      margin: 10px 0 14px;
-    }
-
-    /* Service blocks */
-    .cols-3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;}
-    @media (max-width: 980px){ .cols-3{grid-template-columns:1fr;} }
-
-    .svc{padding: 18px;}
-    .svc p{margin:0; color: var(--muted); line-height:1.6; font-weight:650;}
-    .svc ul{margin:12px 0 0; padding-left:18px; color: rgba(11,18,32,0.78); font-weight:650; line-height:1.7;}
-    .svc li{margin: 6px 0;}
-
-    .icon{
-      width:38px; height:38px;
-      border-radius: 14px;
-      display:inline-flex; align-items:center; justify-content:center;
-      background: rgba(39,76,119,0.08);
-      border: 1px solid rgba(39,76,119,0.14);
-      margin-bottom: 10px;
-    }
-    .icon svg{width:18px; height:18px; fill: var(--dusk);}
-
-    /* Process */
-    .process{display:grid; grid-template-columns: 1fr 1fr; gap: 14px;}
-    @media (max-width: 980px){ .process{grid-template-columns:1fr;} }
-    .step{padding: 18px;}
-    .k{
-      width: 34px; height: 34px;
-      border-radius: 14px;
-      display:inline-flex; align-items:center; justify-content:center;
-      background: rgba(96,150,186,0.18);
-      border: 1px solid rgba(39,76,119,0.16);
-      color: var(--dusk);
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-    .step p{margin:0; color: var(--muted); line-height:1.6; font-weight:650;}
-
-    /* Engagement */
-    .eng{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;}
-    @media (max-width: 980px){ .eng{grid-template-columns:1fr;} }
-    .plan{padding: 18px;}
-    .tag{
-      display:inline-flex;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-weight:900;
-      font-size: 12px;
-      letter-spacing: 0.02em;
-      background: rgba(39,76,119,0.08);
-      border: 1px solid rgba(39,76,119,0.14);
-      color: rgba(39,76,119,0.95);
-    }
-    .tag.primary{
-      background: linear-gradient(135deg, var(--dusk), var(--steel));
-      border-color: rgba(255,255,255,0.22);
-      color:#fff;
-    }
-    .plan p{margin:10px 0 0; color: var(--muted); line-height:1.6; font-weight:650;}
-    .plan ul{margin:12px 0 0; padding-left:18px; color: rgba(11,18,32,0.78); font-weight:650; line-height:1.7;}
-    .plan li{margin: 6px 0;}
-    .plan .cta{margin-top: 14px;}
-
-    /* FAQ */
-    details{
-      border: 1px solid rgba(39,76,119,0.12);
-      background: rgba(255,255,255,0.70);
-      border-radius: var(--r16);
-      padding: 14px 14px;
-    }
-    details + details{margin-top: 10px;}
-    summary{
-      cursor:pointer;
-      font-weight:900;
-      color: var(--dusk);
-      letter-spacing:-0.01em;
-    }
-    details p{
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.65;
-      font-weight:650;
-    }
-
-    /* Footer */
-    .footer{
-      padding: 30px 0 52px;
-      border-top: 1px solid rgba(39,76,119,0.10);
-      background: rgba(231,236,239,0.62);
-    }
-    .footer-grid{display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px;}
-    @media (max-width: 980px){ .footer-grid{grid-template-columns:1fr;} }
-    .contact{padding: 18px;}
-    .contact p{margin:0 0 12px; color: var(--muted); line-height:1.65; font-weight:650;}
-    .list{display:grid; gap:8px; font-weight:800;}
-    .list a{text-decoration:none; color: var(--dusk);}
-    .list a:hover{text-decoration:underline;}
-    .fine{margin-top:12px; font-size:12px; color: rgba(11,18,32,0.56); font-weight:650;}
-
-    /* Reveal */
-    .reveal{opacity:0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease;}
-    .reveal.in{opacity:1; transform: translateY(0);}
-    @media (prefers-reduced-motion: reduce){
-      .reveal{opacity:1; transform:none; transition:none;}
-      html{scroll-behavior:auto;}
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <div class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="#top">
-        <span class="mark" aria-hidden="true"></span>
-        <span>
-          Foundrops
-          <small>Fractional operator partner for B2B founders</small>
-        </span>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Catalyse home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Catalyse</span>
       </a>
 
-      <div class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#process">How we work</a>
-        <a href="#engagements">Engagements</a>
-        <a href="#faq">FAQ</a>
-        <a class="btn btn-primary" href="#contact">Contact</a>
-      </div>
-    </div>
-  </div>
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
+          Menu
+        </button>
 
-  <main id="top" class="container">
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="card hero-main reveal">
-          <div class="badge">
-            <span class="pill-dot" aria-hidden="true"></span>
-            Outbound wedge, FounderOps delivery
+        <div id="nav-panel" class="nav-panel" role="dialog" aria-label="Navigation panel">
+          <a class="nav-link" href="#services">Services</a>
+          <a class="nav-link" href="#process">How it works</a>
+          <a class="nav-link" href="#proof">Proof</a>
+          <a class="nav-link" href="#faq">FAQ</a>
+          <a class="btn btn-primary" href="#contact">Book a call</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="top" class="section hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="reveal">
+            <p class="eyebrow">Fractional Operator for ex-MBB &amp; ex-FAANG B2B founders</p>
+            <h1>Execution partner for founders who want speed without chaos.</h1>
+            <p class="lead">
+              Outbound, fundraising ops, and founder ops.
+              Built and run with you, then documented so it stays clean without you micromanaging.
+            </p>
+
+            <div class="hero-cta">
+              <!-- Replace with your Calendly link if you have one -->
+              <a class="btn btn-primary" href="#contact">Book a call</a>
+              <a class="btn btn-ghost" href="mailto:mihirmakwana5720@gmail.com?subject=Catalyse%20-%20Quick%20chat">Email me</a>
+            </div>
+
+            <div class="fit-box">
+              <p class="fit-title">Good fit if:</p>
+              <ul class="fit-list">
+                <li>Outbound feels random and you want a repeatable system.</li>
+                <li>Fundraising needs structure: pipeline, follow-ups, data room.</li>
+                <li>Execution is stalling because you are the bottleneck.</li>
+              </ul>
+              <p class="fit-note">Simple. Repeatable. Measurable.</p>
+            </div>
           </div>
 
-          <h1>We ship your priorities with clean execution.</h1>
+          <aside class="hero-card reveal" aria-label="By the numbers">
+            <h2 class="card-title">By the numbers</h2>
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric-value">$2.5M+</div>
+                <div class="metric-label">Raised alongside founders</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">100+</div>
+                <div class="metric-label">Databases and campaigns shipped</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">35+</div>
+                <div class="metric-label">Analysts trained (IR + sales)</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">3+ yrs</div>
+                <div class="metric-label">Hands-on execution</div>
+              </div>
+            </div>
 
+            <div class="divider"></div>
+
+            <p class="small">
+              Minimal founder push. Clear reporting. Clean handoffs.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>What I run for you</h2>
           <p class="subhead">
-            Foundrops is a service firm, not a product. We work as your fractional operator: we build a repeatable outbound system, run the day-to-day execution, and take the messy ops off your plate so you can stay focused on strategy and growth.
+            Pick the wedge. I can expand once the system is working.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card reveal">
+            <h3>Outbound Engine</h3>
+            <p>
+              ICP, lead lists, messaging, deliverability, sequencing, follow-ups, and reporting across email and LinkedIn.
+            </p>
+            <ul class="list">
+              <li>Clear ICP and clean lists</li>
+              <li>Sequencing and follow-up system</li>
+              <li>Weekly reporting you can scan in minutes</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <h3>Fundraising Ops</h3>
+            <p>
+              Investor research, outreach, applications, follow-ups, pipeline tracking, and data room management.
+            </p>
+            <ul class="list">
+              <li>Structured investor pipeline</li>
+              <li>Application and follow-up cadence</li>
+              <li>Data room hygiene and updates</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <h3>Founder Ops</h3>
+            <p>
+              SOPs, dashboards, tooling, workflows, and special projects that keep execution moving without you pushing every step.
+            </p>
+            <ul class="list">
+              <li>SOPs and documentation hubs</li>
+              <li>Notion or Sheets dashboards</li>
+              <li>Special projects and internal ops</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="note reveal">
+          <p class="small">
+            You can start with a focused sprint, then move to a retainer if it is working.
+            Typical modes include an outbound launch kit, a weekly ops partner, or a deeper embedded operator setup.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="section section-alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>How we work</h2>
+          <p class="subhead">
+            Clear cadence, low noise, and systems that survive beyond you.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step reveal">
+            <div class="step-num">01</div>
+            <h3>Diagnose</h3>
+            <p>We align on the goal, constraints, and the fastest leverage point. No bloated scope.</p>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-num">02</div>
+            <h3>Build</h3>
+            <p>Systems, templates, tracking, and the minimum SOPs needed to run clean execution.</p>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-num">03</div>
+            <h3>Run</h3>
+            <p>Execution with async updates and weekly reporting. You stay focused on decisions.</p>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-num">04</div>
+            <h3>Handoff</h3>
+            <p>Documentation and clean ownership so it keeps moving without constant founder push.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF -->
+    <section id="proof" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Proof you can verify</h2>
+          <p class="subhead">
+            Premium services are won on credibility, not cleverness.
+          </p>
+        </div>
+
+        <div class="proof-grid">
+          <div class="proof-card reveal">
+            <h3>Track record</h3>
+            <ul class="list">
+              <li><strong>$2.5M+</strong> raised as fundraising lead alongside founders</li>
+              <li><strong>100+</strong> databases built and campaigns launched</li>
+              <li><strong>35+</strong> analysts trained in investor relations and sales</li>
+              <li><strong>3+ years</strong> hands-on execution</li>
+            </ul>
+          </div>
+
+          <div class="proof-card reveal">
+            <h3>What you get</h3>
+            <ul class="list">
+              <li>Operating cadence that stays consistent</li>
+              <li>Reporting that is measurable and easy to manage</li>
+              <li>Clean CRM and pipeline hygiene</li>
+              <li>Playbooks and SOPs that reduce founder interruptions</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="about reveal">
+          <h3>About Mihir</h3>
+          <p>
+            I’m a fractional operator focused on outbound, fundraising ops, and internal execution.
+            I’ve led end-to-end fundraising ops, built outbound systems, trained analysts, and shipped playbooks that keep teams moving.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section id="why" class="section section-alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Why Catalyse</h2>
+          <p class="subhead">Operator energy. Systems thinking. Calm execution.</p>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-card reveal">
+            <h3>Execution, not slides</h3>
+            <p>Advice is cheap. I build and run the system with you, then leave it cleaner than I found it.</p>
+          </div>
+          <div class="why-card reveal">
+            <h3>Speed without chaos</h3>
+            <p>Fast does not mean messy. The work ships on time, with tracking you can trust.</p>
+          </div>
+          <div class="why-card reveal">
+            <h3>Low-touch for founders</h3>
+            <p>Async-first updates, weekly reporting, and clear handoffs so you are not stuck babysitting execution.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>FAQ</h2>
+          <p class="subhead">Honest answers upfront. Less friction later.</p>
+        </div>
+
+        <div class="faq reveal">
+          <details>
+            <summary>What if I already have a team?</summary>
+            <p>
+              Great. I plug into your existing workflow and take ownershipged: I can own a lane (outbound ops, fundraising ops, founder ops)
+              and build SOPs so your team can keep it running.
+            </p>
+          </details>
+
+          <details>
+            <summary>Do you guarantee results?</summary>
+            <p>
+              No. Anyone who guarantees outcomes in outbound or fundraising is selling you a story.
+              What I do guarantee is execution quality: clear inputs, clean tracking, consistent cadence, and honest reporting.
+            </p>
+          </details>
+
+          <details>
+            <summary>What do you need from me weekly?</summary>
+            <p>
+              One short weekly sync (or async check-in) plus decisions on the few items only you can decide.
+              Everything else is handled through a shared tracker and updates.
+            </p>
+          </details>
+
+          <details>
+            <summary>Do you work async?</summary>
+            <p>
+              Yes. Async-first by default (Slack, Notion, email), with a light weekly sync to keep momentum.
+            </p>
+          </details>
+
+          <details>
+            <summary>What tools do you use?</summary>
+            <p>
+              Whatever is already working for you. Common stacks include Notion, Google Sheets, Airtable, and CRM tooling.
+              The priority is clean tracking and simple handoffs.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section section-cta">
+      <div class="container">
+        <div class="cta-card reveal">
+          <h2>If you want execution off your plate, let’s talk.</h2>
+          <p class="subhead">
+            If there’s a fit, we’ll pick one wedge and ship the first system fast.
           </p>
 
-          <div class="cta-row">
-            <!-- Replace with Calendly later if you want -->
-            <a class="btn btn-primary" href="#contact">Talk to us</a>
-            <a class="btn btn-ghost" href="#services">See services</a>
+          <div class="cta-actions">
+            <!-- Replace this anchor with your Calendly URL when ready -->
+            <a class="btn btn-primary" href="mailto:mihirmakwana5720@gmail.com?subject=Catalyse%20-%20Book%20a%20call">Book a call</a>
+            <a class="btn btn-ghost" href="mailto:mihirmakwana5720@gmail.com?subject=Catalyse%20-%20Quick%20chat">Email</a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/makwana-mihir" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
 
-          <div class="hero-foot">
-            <span><span class="tick">✓</span> Clear scope and weekly updates</span>
-            <span><span class="tick">✓</span> Fast turnaround, high ownership</span>
-            <span><span class="tick">✓</span> No micromanagement needed</span>
-          </div>
-        </div>
-
-        <div class="panel hero-side reveal">
-          <div class="side-title">What you get</div>
-          <div class="accent-line" aria-hidden="true"></div>
-
-          <div class="deliverables">
-            <div class="deliverable">
-              <strong>Pipeline that stays active</strong>
-              <small>Targeting, lists, messaging, follow-ups, and tracking that keeps moving every week.</small>
-            </div>
-            <div class="deliverable">
-              <strong>Founder time back</strong>
-              <small>We handle execution and coordination so your calendar does not become the bottleneck.</small>
-            </div>
-            <div class="deliverable">
-              <strong>Ops that do not break</strong>
-              <small>CRM hygiene, reporting, workflows, and lightweight SOPs that scale with you.</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="services">
-      <div class="section-head reveal">
-        <div>
-          <h2>Services</h2>
-          <div class="muted" style="max-width:72ch; line-height:1.6; font-weight:650; margin-top:8px;">
-            We start where most founders feel the most pain: outbound and follow-through. Then we extend into FounderOps so urgent priorities keep shipping on time.
-          </div>
-        </div>
-      </div>
-
-      <div class="cols-3">
-        <div class="panel svc reveal">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M3 5h18v4H3V5zm0 6h18v8H3v-8zm4 2v4h10v-4H7z"/></svg>
-          </div>
-          <h3>Outbound Execution</h3>
-          <p>Build and run a system across email and LinkedIn with disciplined iteration.</p>
-          <ul>
-            <li>ICP and lead lists, enrichment</li>
-            <li>Messaging, sequencing, A/B testing</li>
-            <li>Deliverability and inbox ops</li>
-            <li>Follow-ups, reporting, CRM hygiene</li>
-          </ul>
-        </div>
-
-        <div class="panel svc reveal">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5-3.8 9.7-9 10-5.2-.3-9-5-9-10V6l9-4zm0 4L6 8v4c0 3.8 2.4 7.3 6 8 3.6-.7 6-4.2 6-8V8l-6-2z"/></svg>
-          </div>
-          <h3>Fundraising Ops</h3>
-          <p>Structure the pipeline so momentum does not die in spreadsheets.</p>
-          <ul>
-            <li>Investor research and lists</li>
-            <li>Outreach, applications, follow-ups</li>
-            <li>Pipeline tracking and data room support</li>
-            <li>Founder-ready weekly updates</li>
-          </ul>
-        </div>
-
-        <div class="panel svc reveal">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 7h16v2H4V7zm0 4h10v2H4v-2zm0 4h16v2H4v-2z"/></svg>
-          </div>
-          <h3>FounderOps</h3>
-          <p>Your right-hand execution partner for urgent, high-importance work.</p>
-          <ul>
-            <li>Dashboards, SOPs, workflows</li>
-            <li>Tooling setup and automation</li>
-            <li>Internal ops and coordination</li>
-            <li>Special projects with ownership</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="process">
-      <div class="section-head reveal">
-        <div>
-          <h2>How we work</h2>
-          <div class="muted" style="max-width:72ch; line-height:1.6; font-weight:650; margin-top:8px;">
-            Clear scope. Fast execution. Weekly iteration. You get leverage without the operational drag.
-          </div>
-        </div>
-      </div>
-
-      <div class="process">
-        <div class="panel step reveal">
-          <div class="k">1</div>
-          <h3>Scope and baseline</h3>
-          <p>We define outcomes, constraints, and cadence. If outbound feels random, we clean inputs first.</p>
-        </div>
-        <div class="panel step reveal">
-          <div class="k">2</div>
-          <h3>Build the system</h3>
-          <p>Lists, messaging, sequencing, tracking, and workflows set up with clean ownership.</p>
-        </div>
-        <div class="panel step reveal">
-          <div class="k">3</div>
-          <h3>Run execution weekly</h3>
-          <p>We execute, report, and improve. You get crisp updates, not noise.</p>
-        </div>
-        <div class="panel step reveal">
-          <div class="k">4</div>
-          <h3>Extend into FounderOps</h3>
-          <p>Once outbound is steady, we take on fundraising ops and internal priorities to keep shipping.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="engagements">
-      <div class="section-head reveal">
-        <div>
-          <h2>Engagements</h2>
-          <div class="muted" style="max-width:72ch; line-height:1.6; font-weight:650; margin-top:8px;">
-            Pick the level of support you need today. You can always upgrade as priorities expand.
-          </div>
-        </div>
-      </div>
-
-      <div class="eng">
-        <div class="panel plan reveal">
-          <span class="tag">START</span>
-          <h3 style="margin-top:12px;">Outbound Launch</h3>
-          <p>A fast setup to get the engine running with clarity and discipline.</p>
-          <ul>
-            <li>ICP, targeting, list build</li>
-            <li>Messaging and sequences</li>
-            <li>Deliverability and tracking</li>
-            <li>Weekly reporting cadence</li>
-          </ul>
-          <div class="cta">
-            <a class="btn btn-ghost" href="#contact">Ask for scope</a>
+          <div class="contact-meta">
+            <a href="tel:+919920108492">+91 99201 08492</a>
+            <span class="dot" aria-hidden="true">•</span>
+            <span>Mumbai, India (remote)</span>
           </div>
         </div>
 
-        <div class="panel plan reveal">
-          <span class="tag primary">MOST COMMON</span>
-          <h3 style="margin-top:12px;">Operator Retainer</h3>
-          <p>Ongoing execution across outbound plus one additional priority lane.</p>
-          <ul>
-            <li>Weekly execution and iteration</li>
-            <li>Outbound + fundraising ops or internal ops</li>
-            <li>Dashboards and CRM hygiene</li>
-            <li>Crisp weekly update memo</li>
-          </ul>
-          <div class="cta">
-            <a class="btn btn-primary" href="#contact">Talk to us</a>
+        <footer class="footer">
+          <div class="footer-inner">
+            <p class="small">© <span id="year"></span> Catalyse. All rights reserved.</p>
+            <p class="small">Built for clarity, trust, and speed.</p>
           </div>
-        </div>
-
-        <div class="panel plan reveal">
-          <span class="tag">DEEP</span>
-          <h3 style="margin-top:12px;">Embedded FounderOps</h3>
-          <p>High ownership support across multiple workstreams and special projects.</p>
-          <ul>
-            <li>Execution across 2 to 3 lanes</li>
-            <li>Workflows, automation, SOPs</li>
-            <li>Coordination and follow-through</li>
-            <li>Async-first, low overhead</li>
-          </ul>
-          <div class="cta">
-            <a class="btn btn-ghost" href="#contact">Discuss fit</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq">
-      <div class="section-head reveal">
-        <div>
-          <h2>FAQ</h2>
-          <div class="muted" style="max-width:72ch; line-height:1.6; font-weight:650; margin-top:8px;">
-            The basics founders ask before working together.
-          </div>
-        </div>
-      </div>
-
-      <div class="grid">
-        <details class="reveal">
-          <summary>Are you an outbound agency?</summary>
-          <p>Outbound is the starting point because it creates leverage fast. The longer-term value is FounderOps: we stay embedded to keep priorities shipping across ops and fundraising.</p>
-        </details>
-        <details class="reveal">
-          <summary>How do you communicate?</summary>
-          <p>Async-first. You get a weekly update memo with what shipped, what is blocked, and what we are doing next. Calls only when needed.</p>
-        </details>
-        <details class="reveal">
-          <summary>How fast can we start?</summary>
-          <p>Typically within days, assuming access to the tools and context. We prioritize speed, but we do not skip fundamentals that will break later.</p>
-        </details>
+        </footer>
       </div>
     </section>
   </main>
 
-  <footer id="contact" class="footer">
-    <div class="container footer-grid">
-      <div class="card contact reveal">
-        <h2 style="margin-bottom:10px;">Contact</h2>
-        <p>If you want a reliable operator partner that ships execution without constant check-ins, send a note with context and what you need done.</p>
-        <div class="list">
-          <!-- Change this to your Workspace email when ready -->
-          <div>Email: <a href="mailto:hello@foundrops.co">hello@foundrops.co</a></div>
-          <div>LinkedIn: <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">Add your LinkedIn link</a></div>
-        </div>
-        <div class="fine">Tip: replace the LinkedIn link above with your exact profile URL.</div>
-      </div>
-
-      <div class="card contact reveal">
-        <h2 style="margin-bottom:10px;">Quick intro template</h2>
-        <p class="muted2" style="margin-bottom:12px;">
-          Copy-paste this in your email. We will reply with next steps and scope.
-        </p>
-        <a class="btn btn-primary"
-           href="mailto:hello@foundrops.co?subject=Foundrops%20-%20Quick%20Intro&body=Hey%20Mihir%2C%0A%0AI%20need%20help%20with%20(outbound%20%2F%20fundraising%20ops%20%2F%20founderops).%0A%0AContext%3A%20%0A-%20Company%3A%20%0A-%20Offer%3A%20%0A-%20Ideal%20customer%3A%20%0A-%20Timeline%3A%20%0A%0AThanks%2C">
-          Email to start
-        </a>
-        <div class="fine">If you want a Calendly button, send your Calendly link and I’ll wire it in.</div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Subtle reveal animations
-    const els = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    els.forEach(el => io.observe(el));
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
