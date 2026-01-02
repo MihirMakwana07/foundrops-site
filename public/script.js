@@ -1,7 +1,7 @@
 (function () {
   const body = document.body;
 
-  // Mobile menu
+  // ---------------- Mobile menu ----------------
   const menuBtn = document.getElementById("menuBtn");
   const mobileMenu = document.getElementById("mobileMenu");
 
@@ -19,6 +19,10 @@
     body.classList.add("menu-open");
   }
 
+  function isMenuOpen() {
+    return mobileMenu && !mobileMenu.hidden;
+  }
+
   if (menuBtn && mobileMenu) {
     menuBtn.addEventListener("click", () => {
       const expanded = menuBtn.getAttribute("aria-expanded") === "true";
@@ -33,9 +37,17 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeMenu();
     });
+
+    // Close menu on scroll (mobile + desktop)
+    let lastScrollY = window.scrollY;
+    window.addEventListener("scroll", () => {
+      const y = window.scrollY;
+      if (isMenuOpen() && Math.abs(y - lastScrollY) > 4) closeMenu();
+      lastScrollY = y;
+    }, { passive: true });
   }
 
-  // Header CTA MECE logic
+  // ---------------- Header CTA MECE logic ----------------
   const heroBook = document.getElementById("heroBook");
   const ctaSection = document.getElementById("cta");
 
@@ -75,119 +87,65 @@
     { threshold: 0.25 }
   );
 
-  // ---------- How we work: rail + dots + auto expand ----------
+  // ---------------- How we work: rail + dots + smooth open ----------------
   const stepsRail = document.getElementById("stepsRail");
   const railProgress = document.getElementById("railProgress");
-  const stepsWrap = document.getElementById("steps");
   const steps = Array.from(document.querySelectorAll(".step"));
   const topSentinel = document.getElementById("howTopSentinel");
   const bottomSentinel = document.getElementById("howBottomSentinel");
 
   let activeIndex = -1;
+  let lastScrollIndex = 0;
+  let hoverOverride = false;
 
-  function expandPanel(panel) {
-    if (!panel || !panel.hidden) return;
-
-    panel.hidden = false;
-    panel.style.overflow = "hidden";
-    panel.style.height = "0px";
-    panel.style.opacity = "0";
-
-    requestAnimationFrame(() => {
-      const h = panel.scrollHeight;
-      panel.style.transition = "height 240ms ease, opacity 240ms ease";
-      panel.style.height = h + "px";
-      panel.style.opacity = "1";
-      panel.addEventListener("transitionend", () => {
-        panel.style.transition = "";
-        panel.style.height = "auto";
-        panel.style.overflow = "";
-      }, { once: true });
-    });
-  }
-
-  function collapsePanel(panel) {
-    if (!panel || panel.hidden) return;
-
-    panel.style.overflow = "hidden";
-    panel.style.height = panel.scrollHeight + "px";
-    panel.style.opacity = "1";
-
-    requestAnimationFrame(() => {
-      panel.style.transition = "height 220ms ease, opacity 220ms ease";
-      panel.style.height = "0px";
-      panel.style.opacity = "0";
-      panel.addEventListener("transitionend", () => {
-        panel.hidden = true;
-        panel.style.transition = "";
-        panel.style.height = "";
-        panel.style.opacity = "";
-        panel.style.overflow = "";
-      }, { once: true });
-    });
-  }
-
-  function setOpen(i, open) {
-    const step = steps[i];
-    if (!step) return;
-    const btn = step.querySelector(".step-summary");
+  function setOpen(stepEl, open) {
+    const btn = stepEl.querySelector(".step-summary");
     const panelId = btn?.getAttribute("aria-controls");
     const panel = panelId ? document.getElementById(panelId) : null;
 
-    if (open) {
-      step.classList.add("is-open");
-      btn?.setAttribute("aria-expanded", "true");
-      expandPanel(panel);
-    } else {
-      step.classList.remove("is-open");
-      btn?.setAttribute("aria-expanded", "false");
-      collapsePanel(panel);
-    }
+    stepEl.classList.toggle("is-open", open);
+    btn?.setAttribute("aria-expanded", open ? "true" : "false");
+    panel?.setAttribute("aria-hidden", open ? "false" : "true");
   }
 
-  function setActive(idx, mode) {
-    // mode: "top" | "mid" | "bottom"
+  function setActive(idx, source) {
+    // source: "scroll" | "hover" | "click" | "top" | "bottom"
     activeIndex = idx;
 
     steps.forEach((s, i) => {
       s.classList.remove("is-active", "is-done");
       if (idx >= 0 && i < idx) s.classList.add("is-done");
+      if (idx < 0) s.classList.remove("is-done");
     });
 
     if (idx >= 0) {
       steps[idx].classList.add("is-active");
-      steps.forEach((_, i) => setOpen(i, i === idx));
+      steps.forEach((s, i) => setOpen(s, i === idx));
     } else {
-      // close all if none active
-      steps.forEach((_, i) => setOpen(i, false));
-      // if user scrolled past the end, keep the rail filled but no open panels
-      if (mode === "bottom") {
-        steps.forEach((s) => s.classList.add("is-done"));
-      }
+      steps.forEach((s) => setOpen(s, false));
+      if (source === "bottom") steps.forEach((s) => s.classList.add("is-done"));
     }
 
-    // rail update after layout settles
     requestAnimationFrame(() => {
       layoutRail();
-      updateRailProgress();
+      updateRailProgress(source);
     });
   }
 
   function layoutRail() {
-    if (!stepsRail || !stepsWrap || steps.length === 0) return;
-
+    if (!stepsRail || steps.length === 0) return;
     const first = steps[0];
     const last = steps[steps.length - 1];
 
-    // Align rail to start near Step 1 and end at middle of Step 4 (as requested)
-    const startY = first.offsetTop + 24; // matches dot/top
+    // start near Step 1 dot, end at middle of Step 4
+    const startY = first.offsetTop + 24;
     const endY = last.offsetTop + (last.offsetHeight / 2);
 
     stepsRail.style.top = startY + "px";
     stepsRail.style.height = Math.max(0, endY - startY) + "px";
   }
 
-  function updateRailProgress() {
+  function updateRailProgress(source) {
     if (!railProgress || !stepsRail || steps.length === 0) return;
 
     const railTop = parseFloat(stepsRail.style.top || "0");
@@ -195,10 +153,7 @@
     if (railH <= 0) return;
 
     if (activeIndex < 0) {
-      // top = empty, bottom = full (handled by mode)
-      // If bottom sentinel is active, we leave is-done on all and show full.
-      const allDone = steps.every((s) => s.classList.contains("is-done"));
-      railProgress.style.height = allDone ? "100%" : "0%";
+      railProgress.style.height = (source === "bottom") ? "100%" : "0%";
       return;
     }
 
@@ -209,23 +164,31 @@
     railProgress.style.height = (clamped * 100) + "%";
   }
 
-  // click behavior: open the clicked step, close others
+  // Click toggles: click a step to activate; click again collapses all
   steps.forEach((step, i) => {
     const btn = step.querySelector(".step-summary");
     btn?.addEventListener("click", () => {
-      setActive(i, "mid");
+      hoverOverride = false;
+      if (activeIndex === i) {
+        setActive(-1, "click");
+      } else {
+        setActive(i, "click");
+        lastScrollIndex = i;
+      }
     });
   });
 
-  // scroll behavior: auto activate step near viewport center
+  // Scroll activation via IntersectionObserver
   function initStepObserver() {
     if (!("IntersectionObserver" in window) || steps.length === 0) {
       layoutRail();
-      setActive(0, "mid");
+      setActive(0, "scroll");
       return;
     }
 
     const stepObserver = new IntersectionObserver((entries) => {
+      if (hoverOverride) return;
+
       const visible = entries
         .filter((e) => e.isIntersecting)
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -233,31 +196,81 @@
       if (!visible) return;
 
       const idx = steps.indexOf(visible.target);
-      if (idx >= 0 && idx !== activeIndex) setActive(idx, "mid");
+      if (idx >= 0) {
+        lastScrollIndex = idx;
+        if (idx !== activeIndex) setActive(idx, "scroll");
+      }
     }, {
-      threshold: [0.25, 0.4, 0.6],
+      threshold: [0.25, 0.45, 0.65],
       rootMargin: "-40% 0px -45% 0px"
     });
 
     steps.forEach((s) => stepObserver.observe(s));
   }
 
-  // close all when above first / below last (the "shut back" behavior)
+  // Sentinels: close all above first / below last
   function initSentinels() {
     if (!("IntersectionObserver" in window)) return;
 
     const topIO = new IntersectionObserver((entries) => {
       const e = entries[0];
-      if (e.isIntersecting) setActive(-1, "top");
+      if (e.isIntersecting && !hoverOverride) setActive(-1, "top");
     }, { threshold: 0.01, rootMargin: "-45% 0px -45% 0px" });
 
     const bottomIO = new IntersectionObserver((entries) => {
       const e = entries[0];
-      if (e.isIntersecting) setActive(-1, "bottom");
+      if (e.isIntersecting && !hoverOverride) setActive(-1, "bottom");
     }, { threshold: 0.01, rootMargin: "-45% 0px -45% 0px" });
 
     if (topSentinel) topIO.observe(topSentinel);
     if (bottomSentinel) bottomIO.observe(bottomSentinel);
+  }
+
+  // Hover behavior (desktop only): hover activates that step
+  const canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (canHover) {
+    steps.forEach((step, i) => {
+      step.addEventListener("mouseenter", () => {
+        hoverOverride = true;
+        setActive(i, "hover");
+      });
+      step.addEventListener("mouseleave", () => {
+        // Return to scroll-determined step smoothly
+        hoverOverride = false;
+        setTimeout(() => {
+          if (!hoverOverride) setActive(lastScrollIndex, "scroll");
+        }, 60);
+      });
+    });
+
+    // Magic-wand glow follow cursor (CSS variables)
+    let raf = 0;
+    let lastEl = null;
+
+    function setGlowVars(el, clientX, clientY) {
+      const r = el.getBoundingClientRect();
+      const x = ((clientX - r.left) / r.width) * 100;
+      const y = ((clientY - r.top) / r.height) * 100;
+      el.style.setProperty("--mx", x.toFixed(2) + "%");
+      el.style.setProperty("--my", y.toFixed(2) + "%");
+    }
+
+    document.querySelectorAll(".step-summary").forEach((btn) => {
+      btn.addEventListener("mousemove", (e) => {
+        lastEl = btn;
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          if (lastEl) setGlowVars(lastEl, e.clientX, e.clientY);
+        });
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        btn.style.setProperty("--mx", "50%");
+        btn.style.setProperty("--my", "40%");
+      });
+    });
   }
 
   window.addEventListener("load", () => {
@@ -266,17 +279,16 @@
     initSentinels();
     updateHeaderCta();
 
-    // fonts can shift layout
     setTimeout(() => {
       layoutRail();
-      updateRailProgress();
+      updateRailProgress("scroll");
       updateHeaderCta();
     }, 250);
   });
 
   window.addEventListener("resize", () => {
     layoutRail();
-    updateRailProgress();
+    updateRailProgress("scroll");
     updateHeaderCta();
   });
 })();
