@@ -1,484 +1,366 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0B1220" />
 
-    <title>FoundrOps | High-trust execution partners for founders</title>
-    <meta
-      name="description"
-      content="High-trust execution partners for ex-MBB and ex-FAANG B2B founders. Sales, fundraising ops, and founder ops. Built with you, then handed off clean."
-    />
+  <title>FoundrOps | High-trust execution partners</title>
+  <meta name="description" content="High-trust execution partners for ex-MBB & ex-FAANG B2B founders. Sales, Fundraising & Ops. Built, run, and handed off with clean documentation." />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="group.png" />
-    <link rel="apple-touch-icon" href="group.png" />
-    <meta name="theme-color" content="#0B1020" />
+  <!-- Favicon / tab icon -->
+  <link rel="icon" type="image/png" href="group.png" />
+  <link rel="apple-touch-icon" href="group.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Social -->
-    <meta property="og:title" content="FoundrOps" />
-    <meta
-      property="og:description"
-      content="High-trust execution partners for ex-MBB and ex-FAANG B2B founders. Sales, fundraising ops, and founder ops."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="group.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-    <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+<body>
+  <a class="skip" href="#main">Skip to content</a>
 
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="script.js"></script>
-  </head>
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="FoundrOps home">
+        <img src="group.png" alt="" class="brand-logo" width="22" height="22" loading="eager" />
+        <span class="brand-name">FoundrOps</span>
+      </a>
 
-  <body>
-    <!-- Header -->
-    <header class="site-header" id="siteHeader">
-      <div class="container header-inner">
-        <a class="brand" href="#top" aria-label="FoundrOps">
-          <img class="brand-logo" src="group.png" alt="FoundrOps logo" />
-          <span class="brand-name">FoundrOps</span>
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="#services">Services</a>
+        <a class="nav-link" href="#how">How we work</a>
+        <a class="nav-link" href="#proof">Proof</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+      </nav>
+
+      <!-- Header CTA: hidden until hero CTA is out of view, and hidden again when bottom CTA is in view -->
+      <a class="btn btn-primary header-cta" id="headerCta" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">
+        Book a call
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+      <div class="mobile-nav-inner container">
+        <a class="mobile-link" href="#services">Services</a>
+        <a class="mobile-link" href="#how">How we work</a>
+        <a class="mobile-link" href="#proof">Proof</a>
+        <a class="mobile-link" href="#faq">FAQ</a>
+
+        <a class="btn btn-primary mobile-cta" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">
+          Book a call
         </a>
-
-        <nav class="nav" aria-label="Primary navigation">
-          <a class="nav-link" href="#services">Services</a>
-          <a class="nav-link" href="#how">How we work</a>
-          <a class="nav-link" href="#proof">Proof</a>
-          <a class="nav-link" href="#faq">FAQ</a>
-        </nav>
-
-        <div class="header-actions">
-          <a
-            class="btn btn-primary header-cta"
-            id="headerCta"
-            href="https://calendly.com/mihirmakwana5720/20min"
-            target="_blank"
-            rel="noopener"
-            aria-label="Book a call"
-          >
-            Book a call
-          </a>
-
-          <button
-            class="hamburger"
-            id="hamburger"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="mobileMenu"
-          >
-            <span class="hamburger-lines" aria-hidden="true">
-              <span></span><span></span><span></span>
-            </span>
-          </button>
-        </div>
       </div>
+    </div>
+  </header>
 
-      <div class="mobile-menu" id="mobileMenu" hidden>
-        <div class="mobile-menu-inner">
-          <a class="mobile-link" href="#services">Services</a>
-          <a class="mobile-link" href="#how">How we work</a>
-          <a class="mobile-link" href="#proof">Proof</a>
-          <a class="mobile-link" href="#faq">FAQ</a>
-
-          <a
-            class="btn btn-primary mobile-cta"
-            href="https://calendly.com/mihirmakwana5720/20min"
-            target="_blank"
-            rel="noopener"
-          >
-            Book a call
-          </a>
-        </div>
-      </div>
-    </header>
-
-    <main id="top">
-      <!-- Hero -->
-      <section class="section hero">
-        <div class="container hero-inner">
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="hero-top">
           <div class="hero-copy">
-            <p class="eyebrow">
-              High-trust execution partners for ex-MBB &amp; ex-FAANG B2B founders
-            </p>
-
             <h1 class="hero-title">
-              Helping founders <span class="accent nowrap">win back</span>
-              their <span class="accent nowrap">time</span>.
+              Helping founders <span class="accent nowrap">win back</span><br class="br-md" />
+              their <span class="accent">time</span>.
             </h1>
 
             <p class="hero-sub">
+              High-trust execution partners for ex-MBB &amp; ex-FAANG B2B founders.
+            </p>
+            <p class="hero-sub hero-sub-strong">
               Sales, Fundraising &amp; Ops.
             </p>
 
-            <div class="hero-actions">
-              <a
-                class="btn btn-primary"
-                id="heroCta"
-                href="https://calendly.com/mihirmakwana5720/20min"
-                target="_blank"
-                rel="noopener"
-              >
+            <div class="hero-actions" id="heroCtaBlock">
+              <a class="btn btn-primary btn-lg" id="heroCta" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">
                 Book a call
               </a>
             </div>
+          </div>
+        </div>
 
-            <div class="hero-bento">
-              <div class="bento bento-dark glow" data-glow>
-                <h3 class="bento-title">By the numbers</h3>
-                <div class="bento-grid">
-                  <div class="stat">
-                    <div class="stat-value">$2.5M+</div>
-                    <div class="stat-label">Raised alongside founders</div>
-                  </div>
-                  <div class="stat">
-                    <div class="stat-value">100+</div>
-                    <div class="stat-label">Databases and campaigns shipped</div>
-                  </div>
-                  <div class="stat">
-                    <div class="stat-value">35+</div>
-                    <div class="stat-label">Analysts trained</div>
-                  </div>
-                  <div class="stat">
-                    <div class="stat-value">3+ years</div>
-                    <div class="stat-label">Hands-on execution</div>
-                  </div>
-                </div>
+        <div class="hero-cards">
+          <article class="card sheen">
+            <h3 class="card-title">By the numbers</h3>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-num">$2.5M+</div>
+                <div class="stat-label">Raised alongside founders</div>
               </div>
+              <div class="stat">
+                <div class="stat-num">100+</div>
+                <div class="stat-label">Databases and campaigns shipped</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">35+</div>
+                <div class="stat-label">Analysts trained</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">3+ years</div>
+                <div class="stat-label">Hands-on execution</div>
+              </div>
+            </div>
+          </article>
 
-              <div class="bento glow" data-glow>
-                <h3 class="bento-title">What you get</h3>
-                <ul class="bullets">
-                  <li>Clear priorities, weekly momentum</li>
-                  <li>Systems that run without founder push</li>
-                  <li>Clean handoff: docs, SOPs, trackers</li>
+          <article class="card sheen">
+            <h3 class="card-title">What you get</h3>
+            <ul class="bullets">
+              <li>Clear priorities, weekly momentum</li>
+              <li>Systems that run without founder push</li>
+              <li>Clean handoff: docs, SOPs, trackers</li>
+            </ul>
+            <div class="tagline">Simple. Repeatable. Measurable.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <h2>Services</h2>
+          <p>Clear entry points. We build the system, run it, and hand it off clean.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card sheen">
+            <h3>Outbound and Sales Ops</h3>
+            <p>ICP, lists, sequencing, deliverability, follow-ups, tracking, reporting.</p>
+            <div class="mini">Output: a repeatable outbound system you can trust.</div>
+          </article>
+
+          <article class="card sheen">
+            <h3>Fundraising Ops</h3>
+            <p>Investor lists, outreach, pipeline hygiene, follow-ups, data room structure.</p>
+            <div class="mini">Output: a clean fundraise workflow with momentum.</div>
+          </article>
+
+          <article class="card sheen">
+            <h3>Founder Ops</h3>
+            <p>SOPs, tooling, dashboards, execution support, and handoff to your team.</p>
+            <div class="mini">Output: leverage without chaos.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW WE WORK -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head">
+          <h2>How we work</h2>
+          <p>A simple operating rhythm. Clear handoffs.</p>
+        </div>
+
+        <div class="work">
+          <div class="work-rail" aria-hidden="true">
+            <div class="rail-track" id="railTrack"></div>
+            <div class="rail-fill" id="railFill"></div>
+            <div class="rail-dots" id="railDots"></div>
+          </div>
+
+          <div class="work-steps" id="workSteps">
+            <article class="step-card sheen" data-step="0">
+              <button class="step-trigger" id="stepBtn0" type="button" aria-expanded="false" aria-controls="stepPanel0">
+                <div class="step-meta">STEP 1</div>
+                <div class="step-row">
+                  <div class="step-title">Diagnose</div>
+                  <div class="step-icon" aria-hidden="true">+</div>
+                </div>
+                <div class="step-sub">Clarify the objective, constraints, and the system to build.</div>
+                <div class="step-out">Outputs: scope, success metrics, weekly cadence</div>
+              </button>
+
+              <div class="step-panel" id="stepPanel0" role="region" aria-labelledby="stepBtn0" hidden>
+                <ul class="bullets tight">
+                  <li>Clarify priorities and what “done” looks like</li>
+                  <li>Map the workflow, tools, and handoffs</li>
+                  <li>Agree weekly cadence and reporting format</li>
                 </ul>
-                <div class="bento-foot">Simple. Repeatable. Measurable.</div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Services -->
-      <section class="section" id="services">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">Services</h2>
-            <p class="section-sub">
-              Three entry points. Pick the one that removes your biggest bottleneck.
-            </p>
-          </div>
-
-          <div class="cards cards-3">
-            <article class="card glow" data-glow>
-              <h3>Outbound and Sales Ops</h3>
-              <p>
-                ICP, lists, sequencing, deliverability, QA, tracking, and weekly iteration.
-              </p>
-              <p class="muted">
-                Best for: founders who want pipeline without chaos.
-              </p>
             </article>
 
-            <article class="card glow" data-glow>
-              <h3>Fundraising Ops</h3>
-              <p>
-                Investor lists, outreach, follow-ups, pipeline tracking, data room hygiene.
-              </p>
-              <p class="muted">
-                Best for: founders who want a clean, accountable process.
-              </p>
-            </article>
-
-            <article class="card glow" data-glow>
-              <h3>Founder Ops</h3>
-              <p>
-                SOPs, tooling, dashboards, internal workflows, and execution support.
-              </p>
-              <p class="muted">
-                Best for: founders who want execution off their plate.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- How we work -->
-      <section class="section" id="how">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">How we work</h2>
-            <p class="section-sub">
-              Clear steps. Clean handoff. No drama.
-            </p>
-          </div>
-
-          <div class="work">
-            <div class="work-rail" aria-hidden="true">
-              <div class="rail-track" id="railTrack"></div>
-              <div class="rail-progress" id="railProgress"></div>
-            </div>
-
-            <div class="work-steps" id="workSteps">
-              <div class="step" data-step="0">
-                <span class="step-dot" aria-hidden="true"></span>
-                <button class="step-summary glow" data-glow type="button" aria-expanded="false">
-                  <div class="step-top">
-                    <div>
-                      <div class="step-meta">STEP 1</div>
-                      <div class="step-title">Diagnose</div>
-                      <div class="step-desc">
-                        Clarify the objective, constraints, and the system to build.
-                      </div>
-                      <div class="step-outputs">
-                        <span>Outputs:</span> scope, success metrics, weekly cadence
-                      </div>
-                    </div>
-                    <span class="step-toggle" aria-hidden="true"></span>
-                  </div>
-                </button>
-
-                <div class="step-panel" hidden>
-                  <ul>
-                    <li>Clarify priorities and what “done” looks like</li>
-                    <li>Map the workflow, tools, and handoffs</li>
-                    <li>Agree weekly cadence and reporting format</li>
-                  </ul>
+            <article class="step-card sheen" data-step="1">
+              <button class="step-trigger" id="stepBtn1" type="button" aria-expanded="false" aria-controls="stepPanel1">
+                <div class="step-meta">STEP 2</div>
+                <div class="step-row">
+                  <div class="step-title">Build</div>
+                  <div class="step-icon" aria-hidden="true">+</div>
                 </div>
+                <div class="step-sub">Set up the workflow: tools, templates, tracking, QA.</div>
+                <div class="step-out">Outputs: setup, playbooks, dashboards</div>
+              </button>
+
+              <div class="step-panel" id="stepPanel1" role="region" aria-labelledby="stepBtn1" hidden>
+                <ul class="bullets tight">
+                  <li>Set up tooling and clean structure</li>
+                  <li>Create templates, checklists, trackers</li>
+                  <li>Install QA so execution stays consistent</li>
+                </ul>
               </div>
-
-              <div class="step" data-step="1">
-                <span class="step-dot" aria-hidden="true"></span>
-                <button class="step-summary glow" data-glow type="button" aria-expanded="false">
-                  <div class="step-top">
-                    <div>
-                      <div class="step-meta">STEP 2</div>
-                      <div class="step-title">Build</div>
-                      <div class="step-desc">
-                        Set up the workflow: tools, templates, tracking, QA.
-                      </div>
-                      <div class="step-outputs">
-                        <span>Outputs:</span> setup, playbooks, dashboards
-                      </div>
-                    </div>
-                    <span class="step-toggle" aria-hidden="true"></span>
-                  </div>
-                </button>
-
-                <div class="step-panel" hidden>
-                  <ul>
-                    <li>Implement the system in your tools</li>
-                    <li>Ship templates and QA checks</li>
-                    <li>Make it simple to run without micromanagement</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="step" data-step="2">
-                <span class="step-dot" aria-hidden="true"></span>
-                <button class="step-summary glow" data-glow type="button" aria-expanded="false">
-                  <div class="step-top">
-                    <div>
-                      <div class="step-meta">STEP 3</div>
-                      <div class="step-title">Run</div>
-                      <div class="step-desc">
-                        Operate the system with clean execution and weekly iteration.
-                      </div>
-                      <div class="step-outputs">
-                        <span>Outputs:</span> shipped work, reporting, improvements
-                      </div>
-                    </div>
-                    <span class="step-toggle" aria-hidden="true"></span>
-                  </div>
-                </button>
-
-                <div class="step-panel" hidden>
-                  <ul>
-                    <li>Weekly execution with tight feedback loops</li>
-                    <li>Clear reporting, clean CRM hygiene</li>
-                    <li>Continuous iteration without thrash</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="step" data-step="3">
-                <span class="step-dot" aria-hidden="true"></span>
-                <button class="step-summary glow" data-glow type="button" aria-expanded="false">
-                  <div class="step-top">
-                    <div>
-                      <div class="step-meta">STEP 4</div>
-                      <div class="step-title">Handoff</div>
-                      <div class="step-desc">
-                        Document and transfer the system so it keeps running without us.
-                      </div>
-                      <div class="step-outputs">
-                        <span>Outputs:</span> SOPs, checklists, ownership transfer
-                      </div>
-                    </div>
-                    <span class="step-toggle" aria-hidden="true"></span>
-                  </div>
-                </button>
-
-                <div class="step-panel" hidden>
-                  <ul>
-                    <li>Document SOPs and edge cases</li>
-                    <li>Ownership transfer and QA checklist</li>
-                    <li>Optional: train your hire to run it</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Proof -->
-      <section class="section" id="proof">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">Proof</h2>
-            <p class="section-sub">
-              We’re built for founders who care about detail, speed, and clean execution.
-            </p>
-          </div>
-
-          <div class="cards cards-3">
-            <article class="card glow" data-glow>
-              <h3>Execution you can trust</h3>
-              <p>
-                Strong QA, crisp tracking, and clean handoffs. The goal is leverage without mess.
-              </p>
             </article>
 
-            <article class="card glow" data-glow>
-              <h3>Founder-friendly cadence</h3>
-              <p>
-                Weekly momentum, minimal interruptions, and clear next steps. No chaos.
-              </p>
+            <article class="step-card sheen" data-step="2">
+              <button class="step-trigger" id="stepBtn2" type="button" aria-expanded="false" aria-controls="stepPanel2">
+                <div class="step-meta">STEP 3</div>
+                <div class="step-row">
+                  <div class="step-title">Run</div>
+                  <div class="step-icon" aria-hidden="true">+</div>
+                </div>
+                <div class="step-sub">Operate the system with clean execution and weekly iteration.</div>
+                <div class="step-out">Outputs: shipped work, reporting, improvements</div>
+              </button>
+
+              <div class="step-panel" id="stepPanel2" role="region" aria-labelledby="stepBtn2" hidden>
+                <ul class="bullets tight">
+                  <li>Execute weekly with speed and consistency</li>
+                  <li>Track outcomes and tighten the loop</li>
+                  <li>Improve what matters, cut what doesn’t</li>
+                </ul>
+              </div>
             </article>
 
-            <article class="card glow" data-glow>
-              <h3>Systems, not heroics</h3>
-              <p>
-                We build repeatable workflows and ship them. Then we document so they stay clean.
-              </p>
+            <article class="step-card sheen" data-step="3">
+              <button class="step-trigger" id="stepBtn3" type="button" aria-expanded="false" aria-controls="stepPanel3">
+                <div class="step-meta">STEP 4</div>
+                <div class="step-row">
+                  <div class="step-title">Handoff</div>
+                  <div class="step-icon" aria-hidden="true">+</div>
+                </div>
+                <div class="step-sub">Document and transfer the system so it keeps running without us.</div>
+                <div class="step-out">Outputs: SOPs, checklists, ownership transfer</div>
+              </button>
+
+              <div class="step-panel" id="stepPanel3" role="region" aria-labelledby="stepBtn3" hidden>
+                <ul class="bullets tight">
+                  <li>Document the system end-to-end</li>
+                  <li>Transfer ownership with clear standards</li>
+                  <li>Leave behind a workflow your team can run</li>
+                </ul>
+              </div>
             </article>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- FAQ -->
-      <section class="section" id="faq">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">FAQ</h2>
-            <p class="section-sub">
-              Straight answers. No marketing fluff.
-            </p>
-          </div>
-
-          <div class="faq">
-            <details class="faq-item glow" data-glow>
-              <summary>
-                What does a typical engagement look like?
-                <span class="chev" aria-hidden="true"></span>
-              </summary>
-              <div class="faq-body">
-                We start with a short diagnose, align on outcomes and cadence, then build and run the system.
-                If you want, we hand it off with SOPs and training.
-              </div>
-            </details>
-
-            <details class="faq-item glow" data-glow>
-              <summary>
-                Do you do strategy or execution?
-                <span class="chev" aria-hidden="true"></span>
-              </summary>
-              <div class="faq-body">
-                Both, but execution is the anchor. We make judgment calls and then ship the work.
-              </div>
-            </details>
-
-            <details class="faq-item glow" data-glow>
-              <summary>
-                Who is this not for?
-                <span class="chev" aria-hidden="true"></span>
-              </summary>
-              <div class="faq-body">
-                If you want “ideas only” or a flashy growth agency, we are not a fit.
-                This is for founders who want clean systems and consistent execution.
-              </div>
-            </details>
-
-            <details class="faq-item glow" data-glow>
-              <summary>
-                How fast can we start?
-                <span class="chev" aria-hidden="true"></span>
-              </summary>
-              <div class="faq-body">
-                If there’s a clear scope, we can start quickly. Book a call and we’ll align in one conversation.
-              </div>
-            </details>
-          </div>
+    <!-- PROOF -->
+    <section class="section" id="proof">
+      <div class="container">
+        <div class="section-head">
+          <h2>Proof</h2>
+          <p>We’re built for founders who care about detail, speed, and clean execution.</p>
         </div>
-      </section>
 
-      <!-- CTA -->
-      <section class="section cta" id="cta">
-        <div class="container">
-          <div class="cta-box glow" data-glow>
-            <h2>Want execution off your plate?</h2>
-            <p>
-              If you want an operator team that can take execution off your plate without constant check-ins, book a call.
-            </p>
-            <div class="cta-actions">
-              <a
-                class="btn btn-primary"
-                id="ctaButton"
-                href="https://calendly.com/mihirmakwana5720/20min"
-                target="_blank"
-                rel="noopener"
-              >
-                Book a call
-              </a>
-            </div>
-          </div>
+        <div class="grid-2">
+          <article class="card sheen">
+            <h3>Execution you can trust</h3>
+            <p>We’re obsessive about systems, QA, tracking, and handoff. The goal is leverage that doesn’t fall apart.</p>
+          </article>
+
+          <article class="card sheen">
+            <h3>Clarity over noise</h3>
+            <p>No fluff. No “growth hacks”. Just clear priorities, clean work, and a cadence you can rely on.</p>
+          </article>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Footer -->
-      <footer class="site-footer">
-        <div class="container footer-inner">
-          <div class="footer-left">
-            <div class="footer-brand">
-              <img class="footer-logo" src="group.png" alt="FoundrOps logo" />
-              <div>
-                <div class="footer-name">FoundrOps</div>
-                <div class="footer-tag">High-trust execution partners for founders.</div>
-              </div>
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2>FAQ</h2>
+          <p>Quick answers to the questions founders usually ask before starting.</p>
+        </div>
+
+        <div class="faq">
+          <details class="faq-item sheen">
+            <summary>
+              <span>What does an engagement look like?</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-body">
+              We start with a fast diagnose, align on outputs, then build and run weekly. Once stable, we document and hand off.
             </div>
-          </div>
+          </details>
 
-          <div class="footer-right">
-            <a class="footer-link" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
-            <a
-              class="footer-linkedin"
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noopener"
-              aria-label="LinkedIn"
-            >
-              <img src="linkedin.png" alt="LinkedIn" />
+          <details class="faq-item sheen">
+            <summary>
+              <span>Do you work with early-stage founders?</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-body">
+              Yes, if the founder values systems and consistency. We’re a fit when you want repeatable execution, not experiments for experiments’ sake.
+            </div>
+          </details>
+
+          <details class="faq-item sheen">
+            <summary>
+              <span>Can you run this without constant founder input?</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-body">
+              That’s the point. We set up structure, reporting, and QA so the work moves with minimal check-ins.
+            </div>
+          </details>
+
+          <details class="faq-item sheen">
+            <summary>
+              <span>What tools do you work in?</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-body">
+              Whatever your stack is. We typically operate across CRM, email tooling, spreadsheets, docs, and lightweight automation.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="cta">
+      <div class="container">
+        <div class="cta-card sheen" id="ctaBlock">
+          <h2>Want execution off your plate?</h2>
+          <p>If you want an operator team that can take execution off your plate without constant check-ins, book a call.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary btn-lg" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">
+              Book a call
             </a>
           </div>
         </div>
-      </footer>
-    </main>
-  </body>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <img src="group.png" alt="" class="footer-logo" width="22" height="22" loading="lazy" />
+          <div>
+            <div class="footer-name">FoundrOps</div>
+            <div class="footer-sub">High-trust execution partner for founders.</div>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <a class="footer-link" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
+          <a class="footer-linkedin" href="https://www.linkedin.com/in/makwana-mihir/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <img src="linkedin.png" alt="LinkedIn" loading="lazy" />
+          </a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
 </html>
