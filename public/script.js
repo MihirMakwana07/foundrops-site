@@ -41,7 +41,6 @@
     const io = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        // If hero is not sufficiently visible, show header CTA
         if (!entry.isIntersecting || entry.intersectionRatio < 0.45) {
           body.classList.add("is-scrolled");
         } else {
@@ -52,14 +51,13 @@
     );
     io.observe(hero);
   } else {
-    // fallback
     window.addEventListener("scroll", () => {
       if (window.scrollY > 140) body.classList.add("is-scrolled");
       else body.classList.remove("is-scrolled");
     });
   }
 
-  // How we work: dialog on step tap
+  // Step dialog (native <dialog>)
   const dialog = document.getElementById("stepDialog");
   const dialogTitle = document.getElementById("dialogTitle");
   const dialogBody = document.getElementById("dialogBody");
@@ -77,8 +75,6 @@
     if (dialogBody) dialogBody.textContent = detail;
     if (dialogOuts) dialogOuts.textContent = outs;
 
-    // showModal is the modern way to do modal dialogs with inert background
-    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal 
     dialog.showModal();
   }
 
@@ -93,7 +89,6 @@
 
   dialogClose?.addEventListener("click", closeDialog);
 
-  // Close dialog on clicking backdrop
   if (dialog) {
     dialog.addEventListener("click", (e) => {
       const rect = dialog.getBoundingClientRect();
@@ -107,53 +102,87 @@
     });
   }
 
-  // Process rail progress: extend through Step 4 (to the middle)
+  // How we work rail: gray track + blue progress END at middle of Step 4
+  const rail = document.getElementById("processRail");
   const railProgress = document.getElementById("railProgress");
+  const stepsWrap = document.getElementById("steps");
   const stepCards = Array.from(document.querySelectorAll(".step-card"));
 
-  function setProgressByIndex(idx) {
-    if (!railProgress) return;
-    // Middle of each step: (idx + 0.5)/4
-    // Step 4 middle => 0.875 (87.5%) which matches your request
-    const p = (idx + 0.5) / stepCards.length;
-    railProgress.style.height = `${Math.max(0, Math.min(1, p)) * 100}%`;
+  let railStartY = 0;
+  let railHeight = 0;
+
+  function layoutRail() {
+    if (!rail || !stepsWrap || stepCards.length === 0) return;
+
+    const first = stepCards[0];
+    const last = stepCards[stepCards.length - 1];
+
+    // Start slightly inside Step 1 so it looks visually aligned
+    const startOffset = 16;
+
+    railStartY = first.offsetTop + startOffset;
+    const endY = last.offsetTop + (last.offsetHeight / 2);
+    railHeight = Math.max(0, endY - railStartY);
+
+    rail.style.top = `${railStartY}px`;
+    rail.style.height = `${railHeight}px`;
   }
 
-  if (railProgress && stepCards.length && "IntersectionObserver" in window) {
+  function setProgressToIndex(idx) {
+    if (!railProgress || stepCards.length === 0 || railHeight <= 0) return;
+
+    const el = stepCards[idx];
+    const centerY = el.offsetTop + (el.offsetHeight / 2);
+
+    const p = (centerY - railStartY) / railHeight;
+    const clamped = Math.max(0, Math.min(1, p));
+    railProgress.style.height = `${clamped * 100}%`;
+  }
+
+  function initRailObserver() {
+    if (!("IntersectionObserver" in window) || stepCards.length === 0) {
+      layoutRail();
+      setProgressToIndex(0);
+      return;
+    }
+
     const stepObserver = new IntersectionObserver(
       (entries) => {
-        // Choose the entry closest to the center (most "active")
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
         if (!visible) return;
+
         const idx = stepCards.indexOf(visible.target);
-        if (idx >= 0) setProgressByIndex(idx);
+        if (idx >= 0) setProgressToIndex(idx);
       },
       {
-        // Make the "active step" the one near the middle of the viewport
-        root: null,
         threshold: [0.35, 0.5, 0.7],
         rootMargin: "-40% 0px -40% 0px",
       }
     );
 
     stepCards.forEach((c) => stepObserver.observe(c));
-    setProgressByIndex(0);
+
+    layoutRail();
+    setProgressToIndex(0);
   }
 
-  // Optional cleanup: if you previously had a service worker cached from older tests,
-  // this can prevent "why does my site not update" confusion.
-  // You can remove this block later.
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.getRegistrations().then((regs) => {
-      regs.forEach((r) => r.unregister()); // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/unregister 
-    });
-  }
-  if ("caches" in window) {
-    caches.keys().then((keys) => {
-      keys.forEach((k) => caches.delete(k)); // https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage/delete 
-    });
-  }
+  // Run rail layout on load + resize (fonts can shift layout too)
+  window.addEventListener("load", () => {
+    layoutRail();
+    initRailObserver();
+    setTimeout(() => {
+      layoutRail();
+      setProgressToIndex(0);
+    }, 250);
+  });
+
+  window.addEventListener("resize", () => {
+    layoutRail();
+    // keep progress aligned to whichever step is most visible by forcing a refresh:
+    // if no observer, default to step 0
+    setProgressToIndex(0);
+  });
 })();
