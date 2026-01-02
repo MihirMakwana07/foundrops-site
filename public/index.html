@@ -7,13 +7,11 @@
   <title>FoundrOps | High-trust execution partners for founders</title>
   <meta name="description" content="FoundrOps helps ex-MBB & ex-FAANG B2B founders win back time with high-trust execution across Sales, Fundraising, and Ops." />
 
-  <!-- Open Graph -->
   <meta property="og:title" content="FoundrOps | High-trust execution partners for founders" />
   <meta property="og:description" content="Helping founders win back their time. Sales, Fundraising & Ops." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://foundrops.co/" />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -36,7 +34,7 @@
         <a href="#services">Services</a>
         <a href="#how">How we work</a>
         <a href="#proof">Proof</a>
-        <a href="#faq">FAQ</a>
+        <a href="#faq">FAQs</a>
       </nav>
 
       <div class="header-actions">
@@ -57,10 +55,14 @@
         <a href="#services" class="mobile-link">Services</a>
         <a href="#how" class="mobile-link">How we work</a>
         <a href="#proof" class="mobile-link">Proof</a>
-        <a href="#faq" class="mobile-link">FAQ</a>
+        <a href="#faq" class="mobile-link">FAQs</a>
+
         <div class="mobile-ctas">
           <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">Book a call</a>
-          <a class="btn btn-secondary" href="mailto:hello@foundrops.co">Email us</a>
+        </div>
+
+        <div class="mobile-contact">
+          <a class="mobile-email" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
         </div>
       </div>
     </div>
@@ -70,7 +72,7 @@
     <!-- Hero -->
     <section class="section hero">
       <div class="container">
-        <div class="hero-grid">
+        <div class="hero-stack">
           <div class="hero-copy">
             <h1 class="hero-title">
               Helping founders <span class="accent">win back</span><br />
@@ -84,13 +86,11 @@
               <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">
                 Book a call
               </a>
-              <a class="btn btn-secondary" href="mailto:hello@foundrops.co">
-                Email us
-              </a>
             </div>
           </div>
 
-          <div class="hero-proof" aria-label="Summary proof">
+          <!-- Cards BELOW CTA, horizontal on desktop -->
+          <div class="hero-cards" aria-label="Summary proof">
             <div class="bento bento-dark">
               <div class="bento-title">By the numbers</div>
               <div class="metrics">
@@ -105,6 +105,10 @@
                 <div class="metric">
                   <div class="metric-value">35+</div>
                   <div class="metric-label">Analysts trained</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value">3+ years</div>
+                  <div class="metric-label">Hands-on execution</div>
                 </div>
               </div>
             </div>
@@ -139,7 +143,7 @@
         <div class="cards">
           <article class="card">
             <h3>Sales Outbound</h3>
-            <p>ICP, lists, messaging, sequencing, follow-ups, tracking. Built to be repeatable, not “spray and pray.”</p>
+            <p>ICP, lists, messaging, sequencing, follow-ups, tracking. Built to be repeatable, not random.</p>
             <div class="card-meta">Typical output: campaigns, lead engines, reporting</div>
           </article>
 
@@ -166,9 +170,9 @@
           <p>Compact on the page. Tap any step for the full detail.</p>
         </div>
 
-        <div class="process">
-          <div class="process-rail" aria-hidden="true">
-            <div class="rail-track"></div>
+        <div class="process" id="process">
+          <div class="process-rail" aria-hidden="true" id="processRail">
+            <div class="rail-track" id="railTrack"></div>
             <div class="rail-progress" id="railProgress"></div>
           </div>
 
@@ -233,7 +237,7 @@
 
           <article class="card">
             <h3>Founder-to-founder clarity</h3>
-            <p>No fluff. No “agency speak.” Clear priorities, crisp comms, and weekly momentum.</p>
+            <p>No fluff. No agency speak. Clear priorities, crisp comms, and weekly momentum.</p>
           </article>
         </div>
       </div>
@@ -243,7 +247,7 @@
     <section class="section" id="faq">
       <div class="container">
         <div class="section-head">
-          <h2>FAQ</h2>
+          <h2>FAQs</h2>
           <p>Fast answers to the obvious questions.</p>
         </div>
 
@@ -258,7 +262,7 @@
           <details class="faq-item">
             <summary>What’s not a fit?</summary>
             <div class="faq-a">
-              If you want one-off “random tasks,” or you want a marketing agency vibe, we’re not it. We focus on systems, ownership, and repeatable execution.
+              If you want one-off random tasks, or you want a marketing agency vibe, we’re not it. We focus on systems, ownership, and repeatable execution.
             </div>
           </details>
 
@@ -272,7 +276,7 @@
           <details class="faq-item">
             <summary>How do you price?</summary>
             <div class="faq-a">
-              Depends on scope and the operating cadence. The goal is a tight scope, measurable outputs, and clean ownership transfer.
+              Depends on scope and operating cadence. The goal is a tight scope, measurable outputs, and clean ownership transfer.
             </div>
           </details>
         </div>
@@ -284,10 +288,9 @@
       <div class="container">
         <div class="cta-box">
           <h2>Want execution off your plate?</h2>
-          <p>If you want an operator team that can take execution without constant check-ins, book a call or email us.</p>
+          <p>If you want an operator team that can take execution without constant check-ins, book a call.</p>
           <div class="cta-actions">
             <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">Book a call</a>
-            <a class="btn btn-secondary" href="mailto:hello@foundrops.co">Email us</a>
           </div>
         </div>
       </div>
@@ -305,11 +308,13 @@
       <div class="footer-right">
         <a class="footer-link" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
 
-        <a class="footer-link footer-icon" href="https://in.linkedin.com/in/makwana-mihir" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM0.5 8.5H4.5V24H0.5V8.5ZM8.5 8.5H12.3V10.6H12.36C12.89 9.6 14.18 8.5 16.12 8.5C20.2 8.5 21 11.2 21 14.7V24H17V15.6C17 13.6 16.96 11.1 14.3 11.1C11.6 11.1 11.2 13.2 11.2 15.4V24H7.2V8.5H8.5Z"></path>
+        <a class="footer-link footer-linkedin" href="https://in.linkedin.com/in/makwana-mihir" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+          <!-- Simple wordmark-style SVG (icon + LinkedIn text as one logo) -->
+          <svg width="108" height="22" viewBox="0 0 120 24" role="img" aria-hidden="true" focusable="false">
+            <rect x="0" y="2" width="20" height="20" rx="4" fill="currentColor"></rect>
+            <text x="5.4" y="17" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="12.5" font-weight="800" fill="#ffffff">in</text>
+            <text x="28" y="17" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="14.5" font-weight="750" fill="currentColor">LinkedIn</text>
           </svg>
-          <span>LinkedIn</span>
         </a>
       </div>
     </div>
