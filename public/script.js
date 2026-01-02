@@ -1,264 +1,159 @@
-/* FoundrOps site JS
-   Goals:
-   - Keep it light and reliable
-   - Fix mobile nav
-   - Scroll reveals (subtle)
-   - Spotlight hover (desktop only)
-   - Process: tap-to-open modal (no new page)
-   - Work around stale service worker caches if present
-*/
-
 (function () {
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const body = document.body;
 
-  // 1) If an old service worker exists (your Network screenshot shows sw.js),
-  // unregister it once and clear caches to avoid stale assets.
-  // This helps with "my changes aren't showing" and weird layout behaviors.
-  // MDN: unregister() :contentReference[oaicite:10]{index=10}
-  (async function cleanupServiceWorkerOnce() {
-    try {
-      if (!("serviceWorker" in navigator)) return;
-      const key = "fo_sw_cleanup_done_v1";
-      if (localStorage.getItem(key) === "1") return;
+  // Mobile menu
+  const menuBtn = document.getElementById("menuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
 
-      const regs = await navigator.serviceWorker.getRegistrations();
-      if (regs && regs.length) {
-        await Promise.all(regs.map(r => r.unregister()));
-      }
+  function closeMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.hidden = true;
+    menuBtn?.setAttribute("aria-expanded", "false");
+    body.classList.remove("menu-open");
+  }
 
-      if ("caches" in window) {
-        const keys = await caches.keys();
-        await Promise.all(keys.map(k => caches.delete(k)));
-      }
+  function openMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.hidden = false;
+    menuBtn?.setAttribute("aria-expanded", "true");
+    body.classList.add("menu-open");
+  }
 
-      localStorage.setItem(key, "1");
-    } catch (e) {
-      // Silent fail. We do not want user-facing breakage.
-    }
-  })();
-
-  // 2) Mobile nav
-  const toggle = $(".nav-toggle");
-  const menu = $("#navMenu");
-  if (toggle && menu) {
-    const closeMenu = () => {
-      menu.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Open menu");
-    };
-    toggle.addEventListener("click", () => {
-      const open = menu.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", String(open));
-      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener("click", () => {
+      const expanded = menuBtn.getAttribute("aria-expanded") === "true";
+      expanded ? closeMenu() : openMenu();
     });
 
-    // Close on link click
-    $$(".nav-link", menu).forEach(a => a.addEventListener("click", closeMenu));
-
-    // Close on outside click
-    document.addEventListener("click", (e) => {
-      const target = e.target;
-      if (!menu.classList.contains("is-open")) return;
-      if (target === toggle || toggle.contains(target)) return;
-      if (target === menu || menu.contains(target)) return;
-      closeMenu();
+    mobileMenu.addEventListener("click", (e) => {
+      const t = e.target;
+      if (t && t.classList && t.classList.contains("mobile-link")) closeMenu();
     });
 
-    // Close on escape
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeMenu();
     });
   }
 
-  // 3) Scroll reveal (subtle, stagger via CSS var --d)
-  const reveals = $$(".reveal");
-  if ("IntersectionObserver" in window && reveals.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          io.unobserve(entry.target);
+  // Header CTA appears after scrolling past hero
+  const hero = document.querySelector(".hero");
+  if (hero && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        // If hero is not sufficiently visible, show header CTA
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.45) {
+          body.classList.add("is-scrolled");
+        } else {
+          body.classList.remove("is-scrolled");
         }
-      });
-    }, { threshold: 0.18 });
-    reveals.forEach((el) => io.observe(el));
+      },
+      { threshold: [0, 0.45, 0.7] }
+    );
+    io.observe(hero);
   } else {
-    reveals.forEach((el) => el.classList.add("is-visible"));
-  }
-
-  // 4) Spotlight hover (desktop pointer only)
-  const spotlight = document.querySelector("[data-spotlight]");
-  if (spotlight && window.matchMedia("(hover:hover)").matches) {
-    const setPos = (e) => {
-      const r = spotlight.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width) * 100;
-      const y = ((e.clientY - r.top) / r.height) * 100;
-      spotlight.style.setProperty("--mx", `${x}%`);
-      spotlight.style.setProperty("--my", `${y}%`);
-    };
-    spotlight.addEventListener("pointermove", setPos);
-  }
-
-  // 5) Process modal using <dialog>
-  // MDN dialog + showModal :contentReference[oaicite:11]{index=11}
-  const dialog = $("#processDialog");
-  const closeBtn = $("#processClose");
-  const kickerEl = $("#processKicker");
-  const titleEl = $("#processTitle");
-  const bodyEl = $("#processBody");
-
-  const PROCESS = {
-    diagnose: {
-      kicker: "Step 1",
-      title: "Diagnose",
-      body: `
-        <p>We align on what “good” looks like, what we are optimizing for, and what cannot break.</p>
-        <h4>What we clarify</h4>
-        <ul>
-          <li>Objective, constraints, timeline</li>
-          <li>Success metrics and leading indicators</li>
-          <li>Ownership, feedback loop, weekly cadence</li>
-        </ul>
-        <h4>Output</h4>
-        <ul>
-          <li>Scope + milestones</li>
-          <li>System map (what we build first)</li>
-        </ul>
-      `
-    },
-    build: {
-      kicker: "Step 2",
-      title: "Build",
-      body: `
-        <p>We set up the workflow so it can be run consistently and measured cleanly.</p>
-        <h4>What we set up</h4>
-        <ul>
-          <li>Tools, templates, trackers, QA checks</li>
-          <li>Playbooks for repeatability</li>
-          <li>Reporting that drives decisions</li>
-        </ul>
-        <h4>Output</h4>
-        <ul>
-          <li>Working system (not a doc)</li>
-          <li>Dashboards + operating rhythm</li>
-        </ul>
-      `
-    },
-    run: {
-      kicker: "Step 3",
-      title: "Run",
-      body: `
-        <p>We operate the system, ship work weekly, and improve what the data tells us.</p>
-        <h4>What happens weekly</h4>
-        <ul>
-          <li>Execution + QA</li>
-          <li>Tracking + insights</li>
-          <li>Iterate messaging, targeting, or ops flow</li>
-        </ul>
-        <h4>Output</h4>
-        <ul>
-          <li>Consistent throughput</li>
-          <li>Measurable improvements over time</li>
-        </ul>
-      `
-    },
-    handoff: {
-      kicker: "Step 4",
-      title: "Handoff",
-      body: `
-        <p>We document and transfer ownership so the system keeps running without us.</p>
-        <h4>What we hand over</h4>
-        <ul>
-          <li>SOPs + checklists</li>
-          <li>Templates + trackers</li>
-          <li>Clear ownership and next steps</li>
-        </ul>
-        <h4>Output</h4>
-        <ul>
-          <li>Clean handoff</li>
-          <li>Less founder drag going forward</li>
-        </ul>
-      `
-    }
-  };
-
-  const openProcess = (key) => {
-    if (!dialog || !PROCESS[key]) return;
-    const data = PROCESS[key];
-    if (kickerEl) kickerEl.textContent = data.kicker;
-    if (titleEl) titleEl.textContent = data.title;
-    if (bodyEl) bodyEl.innerHTML = data.body;
-
-    try {
-      // Prefer showModal if supported
-      if (typeof dialog.showModal === "function") dialog.showModal();
-      else dialog.setAttribute("open", "open");
-    } catch (e) {
-      dialog.setAttribute("open", "open");
-    }
-  };
-
-  const closeProcess = () => {
-    if (!dialog) return;
-    try {
-      if (typeof dialog.close === "function") dialog.close();
-      else dialog.removeAttribute("open");
-    } catch (e) {
-      dialog.removeAttribute("open");
-    }
-  };
-
-  $$(".step-card").forEach(btn => {
-    btn.addEventListener("click", () => openProcess(btn.getAttribute("data-step")));
-  });
-
-  if (closeBtn) closeBtn.addEventListener("click", closeProcess);
-
-  if (dialog) {
-    // Close when clicking backdrop area
-    dialog.addEventListener("click", (e) => {
-      if (e.target === dialog) closeProcess();
+    // fallback
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 140) body.classList.add("is-scrolled");
+      else body.classList.remove("is-scrolled");
     });
   }
 
-  // 6) Process rail progress fill (visual feedback, subtle)
-  const processSection = $("#process");
-  const progressEl = $("#railProgress");
-  const updateProgress = () => {
-    if (!processSection || !progressEl) return;
-    const r = processSection.getBoundingClientRect();
-    const vh = window.innerHeight || 1;
-    const start = vh * 0.15;
-    const end = vh * 0.85;
+  // How we work: dialog on step tap
+  const dialog = document.getElementById("stepDialog");
+  const dialogTitle = document.getElementById("dialogTitle");
+  const dialogBody = document.getElementById("dialogBody");
+  const dialogOuts = document.getElementById("dialogOuts");
+  const dialogClose = document.getElementById("dialogClose");
 
-    // When section enters, progress increases as user scrolls through it.
-    const total = (r.height + (end - start));
-    const seen = (end - r.top);
-    const p = Math.max(0, Math.min(1, seen / total));
-    progressEl.style.height = `${p * 100}%`;
-  };
+  function openStep(stepEl) {
+    if (!dialog) return;
 
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  window.addEventListener("resize", updateProgress);
-  updateProgress();
+    const title = stepEl.getAttribute("data-step") || "Step";
+    const detail = stepEl.getAttribute("data-detail") || "";
+    const outs = stepEl.getAttribute("data-outputs") || "";
 
-  // 7) FAQ accordion
-  const accordion = document.querySelector("[data-accordion]");
-  if (accordion) {
-    $$(".faq-item", accordion).forEach(item => {
-      const q = $(".faq-q", item);
-      const a = $(".faq-a", item);
-      if (!q || !a) return;
+    if (dialogTitle) dialogTitle.textContent = title;
+    if (dialogBody) dialogBody.textContent = detail;
+    if (dialogOuts) dialogOuts.textContent = outs;
 
-      q.addEventListener("click", () => {
-        const open = q.getAttribute("aria-expanded") === "true";
-        q.setAttribute("aria-expanded", String(!open));
-        a.hidden = open;
+    // showModal is the modern way to do modal dialogs with inert background
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal 
+    dialog.showModal();
+  }
 
-        const icon = $(".faq-icon", q);
-        if (icon) icon.textContent = open ? "+" : "–";
-      });
+  function closeDialog() {
+    if (!dialog) return;
+    dialog.close();
+  }
+
+  document.querySelectorAll(".step-card").forEach((btn) => {
+    btn.addEventListener("click", () => openStep(btn));
+  });
+
+  dialogClose?.addEventListener("click", closeDialog);
+
+  // Close dialog on clicking backdrop
+  if (dialog) {
+    dialog.addEventListener("click", (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const inDialog =
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width;
+
+      if (!inDialog) closeDialog();
+    });
+  }
+
+  // Process rail progress: extend through Step 4 (to the middle)
+  const railProgress = document.getElementById("railProgress");
+  const stepCards = Array.from(document.querySelectorAll(".step-card"));
+
+  function setProgressByIndex(idx) {
+    if (!railProgress) return;
+    // Middle of each step: (idx + 0.5)/4
+    // Step 4 middle => 0.875 (87.5%) which matches your request
+    const p = (idx + 0.5) / stepCards.length;
+    railProgress.style.height = `${Math.max(0, Math.min(1, p)) * 100}%`;
+  }
+
+  if (railProgress && stepCards.length && "IntersectionObserver" in window) {
+    const stepObserver = new IntersectionObserver(
+      (entries) => {
+        // Choose the entry closest to the center (most "active")
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible) return;
+        const idx = stepCards.indexOf(visible.target);
+        if (idx >= 0) setProgressByIndex(idx);
+      },
+      {
+        // Make the "active step" the one near the middle of the viewport
+        root: null,
+        threshold: [0.35, 0.5, 0.7],
+        rootMargin: "-40% 0px -40% 0px",
+      }
+    );
+
+    stepCards.forEach((c) => stepObserver.observe(c));
+    setProgressByIndex(0);
+  }
+
+  // Optional cleanup: if you previously had a service worker cached from older tests,
+  // this can prevent "why does my site not update" confusion.
+  // You can remove this block later.
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then((regs) => {
+      regs.forEach((r) => r.unregister()); // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/unregister 
+    });
+  }
+  if ("caches" in window) {
+    caches.keys().then((keys) => {
+      keys.forEach((k) => caches.delete(k)); // https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage/delete 
     });
   }
 })();
