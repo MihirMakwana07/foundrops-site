@@ -8,13 +8,10 @@
   <title>FoundrOps | High-trust execution partners</title>
   <meta name="description" content="FoundrOps helps ex-MBB & ex-FAANG B2B founders win back time with high-trust execution across Sales, Fundraising, and Ops." />
 
-  <!-- Favicon (uses your existing group.png) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="group.png" />
   <link rel="apple-touch-icon" href="group.png" />
   <link rel="shortcut icon" href="group.png" />
-  <!-- Link rel usage is standard for icons. -->
-  <!-- (Reference: MDN link element rel/icon behavior) -->
-  <!-- :contentReference[oaicite:2]{index=2} -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,10 +62,7 @@
         <div class="mobile-ctas">
           <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">Book a call</a>
         </div>
-
-        <div class="mobile-contact">
-          <a class="mobile-email" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
-        </div>
+        <!-- Email removed from mobile menu as requested -->
       </div>
     </div>
   </header>
@@ -177,13 +171,13 @@
         </div>
 
         <div class="process" id="process">
-          <!-- rail (track + progress) -->
+          <!-- rail -->
           <div class="steps-rail" aria-hidden="true" id="stepsRail">
             <div class="rail-track"></div>
             <div class="rail-progress" id="railProgress"></div>
           </div>
 
-          <!-- top/bottom sentinels so we can close steps when above/below -->
+          <!-- sentinels (for auto close above / below) -->
           <div class="process-sentinel" id="howTopSentinel" aria-hidden="true"></div>
 
           <div class="steps" id="steps">
@@ -194,7 +188,7 @@
                 <span class="step-title">Diagnose</span>
                 <span class="step-desc">Clarify the objective, constraints, and the system to build.</span>
               </button>
-              <div class="step-panel" id="panel-1" hidden>
+              <div class="step-panel" id="panel-1" aria-hidden="true">
                 <div class="step-detail">We clarify the objective, constraints, and what “good” looks like. We map the system before building anything.</div>
                 <div class="step-outs">Outputs: scope, success metrics, weekly cadence</div>
               </div>
@@ -207,7 +201,7 @@
                 <span class="step-title">Build</span>
                 <span class="step-desc">Set up the workflow: tools, templates, tracking, QA.</span>
               </button>
-              <div class="step-panel" id="panel-2" hidden>
+              <div class="step-panel" id="panel-2" aria-hidden="true">
                 <div class="step-detail">We set up tools, templates, tracking, QA, and the workflow so execution is clean and measurable.</div>
                 <div class="step-outs">Outputs: setup, playbooks, dashboards</div>
               </div>
@@ -220,7 +214,7 @@
                 <span class="step-title">Run</span>
                 <span class="step-desc">Operate the system with clean execution and weekly iteration.</span>
               </button>
-              <div class="step-panel" id="panel-3" hidden>
+              <div class="step-panel" id="panel-3" aria-hidden="true">
                 <div class="step-detail">We operate the system with weekly iteration. We fix bottlenecks, improve quality, and keep momentum.</div>
                 <div class="step-outs">Outputs: shipped work, reporting, improvements</div>
               </div>
@@ -233,7 +227,7 @@
                 <span class="step-title">Handoff</span>
                 <span class="step-desc">Document and transfer the system so it keeps running without us.</span>
               </button>
-              <div class="step-panel" id="panel-4" hidden>
+              <div class="step-panel" id="panel-4" aria-hidden="true">
                 <div class="step-detail">We document the system so it keeps running without us. Ownership, SOPs, checklists, and clarity.</div>
                 <div class="step-outs">Outputs: SOPs, checklists, ownership transfer</div>
               </div>
