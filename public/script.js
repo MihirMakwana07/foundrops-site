@@ -35,29 +35,7 @@
     });
   }
 
-  // Header CTA appears after scrolling past hero
-  const hero = document.querySelector(".hero");
-  if (hero && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (!entry.isIntersecting || entry.intersectionRatio < 0.45) {
-          body.classList.add("is-scrolled");
-        } else {
-          body.classList.remove("is-scrolled");
-        }
-      },
-      { threshold: [0, 0.45, 0.7] }
-    );
-    io.observe(hero);
-  } else {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 140) body.classList.add("is-scrolled");
-      else body.classList.remove("is-scrolled");
-    });
-  }
-
-  // Step dialog (native <dialog>)
+  // Step dialog
   const dialog = document.getElementById("stepDialog");
   const dialogTitle = document.getElementById("dialogTitle");
   const dialogBody = document.getElementById("dialogBody");
@@ -102,25 +80,81 @@
     });
   }
 
-  // How we work rail: gray track + blue progress END at middle of Step 4
+  // Header CTA MECE logic:
+  // Show header "Book a call" only when:
+  // - hero book button is NOT visible, AND
+  // - bottom CTA section is NOT visible
+  const heroBook = document.getElementById("heroBook");
+  const ctaSection = document.getElementById("cta");
+
+  let heroVisible = true;
+  let ctaVisible = false;
+
+  function updateHeaderCta() {
+    if (!heroVisible && !ctaVisible) body.classList.add("show-header-cta");
+    else body.classList.remove("show-header-cta");
+  }
+
+  function observeVisibility(target, onChange, opts) {
+    if (!target || !("IntersectionObserver" in window)) return null;
+    const io = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      onChange(entry.isIntersecting);
+    }, opts);
+    io.observe(target);
+    return io;
+  }
+
+  // hero button visibility
+  observeVisibility(
+    heroBook,
+    (isVisible) => {
+      heroVisible = isVisible;
+      updateHeaderCta();
+    },
+    { threshold: 0.6 }
+  );
+
+  // bottom CTA visibility (hide header CTA when CTA is in view)
+  observeVisibility(
+    ctaSection,
+    (isVisible) => {
+      ctaVisible = isVisible;
+      updateHeaderCta();
+    },
+    { threshold: 0.25 }
+  );
+
+  // Fallback (older browsers)
+  if (!("IntersectionObserver" in window)) {
+    window.addEventListener("scroll", () => {
+      const heroRect = heroBook?.getBoundingClientRect();
+      const ctaRect = ctaSection?.getBoundingClientRect();
+
+      heroVisible = !!heroRect && heroRect.top >= 0 && heroRect.bottom <= window.innerHeight;
+      ctaVisible = !!ctaRect && ctaRect.top < window.innerHeight && ctaRect.bottom > 0;
+
+      updateHeaderCta();
+    }, { passive: true });
+  }
+
+  // How we work rail: end at middle of Step 4
   const rail = document.getElementById("processRail");
   const railProgress = document.getElementById("railProgress");
-  const stepsWrap = document.getElementById("steps");
   const stepCards = Array.from(document.querySelectorAll(".step-card"));
 
   let railStartY = 0;
   let railHeight = 0;
 
   function layoutRail() {
-    if (!rail || !stepsWrap || stepCards.length === 0) return;
+    if (!rail || stepCards.length === 0) return;
 
     const first = stepCards[0];
     const last = stepCards[stepCards.length - 1];
 
-    // Start slightly inside Step 1 so it looks visually aligned
-    const startOffset = 16;
-
+    const startOffset = 16; // looks aligned with Step 1 content
     railStartY = first.offsetTop + startOffset;
+
     const endY = last.offsetTop + (last.offsetHeight / 2);
     railHeight = Math.max(0, endY - railStartY);
 
@@ -169,20 +203,22 @@
     setProgressToIndex(0);
   }
 
-  // Run rail layout on load + resize (fonts can shift layout too)
   window.addEventListener("load", () => {
     layoutRail();
     initRailObserver();
+    updateHeaderCta();
+
+    // fonts can shift layout after load
     setTimeout(() => {
       layoutRail();
       setProgressToIndex(0);
+      updateHeaderCta();
     }, 250);
   });
 
   window.addEventListener("resize", () => {
     layoutRail();
-    // keep progress aligned to whichever step is most visible by forcing a refresh:
-    // if no observer, default to step 0
     setProgressToIndex(0);
+    updateHeaderCta();
   });
 })();
