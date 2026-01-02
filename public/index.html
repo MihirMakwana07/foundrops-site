@@ -3,72 +3,94 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="FoundrOps is a high-trust execution and advisory partner for ex-MBB and ex-FAANG B2B founders. Outbound systems, fundraising ops, and founder ops. Simple. Repeatable. Measurable." />
-  <meta name="theme-color" content="#0B1320" />
+  <meta name="color-scheme" content="light" />
 
-  <title>FoundrOps | Execution partner for ex-MBB &amp; FAANG B2B founders</title>
+  <title>FoundrOps | Execution partner for founders who want speed without chaos</title>
+  <meta name="description" content="FoundrOps is a high-trust execution and advisory partner for founders. We build and run outbound, fundraising ops, and founder ops, then hand it off with clean documentation." />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="FoundrOps | Execution partner for ex-MBB &amp; ex-FAANG B2B founders" />
-  <meta property="og:description" content="Helping founders win back their time. Outbound, fundraising ops, and founder ops, built to run clean with minimal founder push." />
+  <link rel="canonical" href="https://foundrops.co/" />
+
+  <!-- Fonts: keep weights tight for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Preload CSS to reduce render-blocking -->
+  <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+
+  <meta property="og:title" content="FoundrOps | Execution partner for founders who want speed without chaos" />
+  <meta property="og:description" content="We build and run outbound, fundraising ops, and founder ops, then hand it off with clean documentation." />
   <meta property="og:type" content="website" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css" />
+  <meta property="og:url" content="https://foundrops.co/" />
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="header">
-    <div class="container header-inner">
+  <header class="site-header">
+    <nav class="nav">
       <a class="brand" href="#top" aria-label="FoundrOps home">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-dot" aria-hidden="true"></span>
         <span class="brand-name">FoundrOps</span>
       </a>
 
-      <nav class="nav" aria-label="Primary">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
-          Menu
-        </button>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span class="nav-toggle-lines" aria-hidden="true"></span>
+      </button>
 
-        <div id="nav-panel" class="nav-panel" role="dialog" aria-label="Navigation panel">
-          <a class="nav-link" href="#services">Services</a>
-          <a class="nav-link" href="#process">How it works</a>
-          <a class="nav-link" href="#proof">Proof</a>
-          <a class="nav-link" href="#faq">FAQ</a>
-          <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener noreferrer">Book a call</a>
-        </div>
-      </nav>
-    </div>
+      <div class="nav-menu" id="navMenu">
+        <a class="nav-link" href="#services">Services</a>
+        <a class="nav-link" href="#process">How we work</a>
+        <a class="nav-link" href="#proof">Proof</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+
+        <a class="btn btn-primary btn-sm nav-cta" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noreferrer">
+          <span class="status-pill" aria-hidden="true">
+            <span class="status-dot"></span>
+            Accepting partners
+          </span>
+          Book a call
+        </a>
+      </div>
+
+      <div class="nav-right">
+        <a class="btn btn-primary btn-sm" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noreferrer">
+          <span class="status-pill" aria-hidden="true">
+            <span class="status-dot"></span>
+            Accepting partners
+          </span>
+          Book a call
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main id="main">
     <!-- HERO -->
     <section id="top" class="section hero">
       <div class="container">
-        <div class="hero-grid">
-          <div class="reveal">
-            <p class="eyebrow">High-trust execution partner for ex-MBB &amp; ex-FAANG B2B founders</p>
-            <h1>Helping founders win back their time.</h1>
-            <p class="lead">
-              Outbound, fundraising ops, and founder ops.
-              We build the system, run it, and document it so it stays clean.
-            </p>
+        <p class="eyebrow reveal" style="--d:0ms">
+          High-trust execution + advisory partner for ex-MBB &amp; ex-FAANG B2B founders
+        </p>
 
-            <div class="hero-cta">
-              <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener noreferrer">Book a call</a>
-              <a class="btn btn-ghost" href="mailto:mihir@foundrops.co?subject=FoundrOps%20-%20Quick%20chat">Email us</a>
-            </div>
-          </div>
+        <h1 class="hero-title reveal" style="--d:90ms">
+          Helping founders <span class="accent">win back</span> their <span class="accent">time</span>.
+        </h1>
 
-          <aside class="hero-card reveal" aria-label="By the numbers">
-            <h2 class="card-title">By the numbers</h2>
-            <div class="metrics">
+        <p class="hero-subtitle reveal" style="--d:180ms">
+          We build and run outbound, fundraising ops, and founder ops, then hand it off with clean documentation so it stays clean without micromanagement.
+        </p>
+
+        <div class="hero-cta reveal" style="--d:270ms">
+          <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noreferrer">Book a call</a>
+          <a class="btn btn-secondary" href="mailto:mihirmakwana5720@gmail.com?subject=FoundrOps%20-%20Quick%20chat">Email us</a>
+        </div>
+
+        <div class="hero-proof reveal" style="--d:360ms">
+          <div class="bento bento-dark">
+            <h2 class="bento-title">By the numbers</h2>
+            <div class="bento-grid">
               <div class="metric">
                 <div class="metric-value">$2.5M+</div>
                 <div class="metric-label">Raised alongside founders</div>
@@ -79,20 +101,23 @@
               </div>
               <div class="metric">
                 <div class="metric-value">35+</div>
-                <div class="metric-label">Analysts trained (IR + sales)</div>
+                <div class="metric-label">Analysts trained in IR and sales ops</div>
               </div>
               <div class="metric">
                 <div class="metric-value">3+ yrs</div>
-                <div class="metric-label">Hands-on execution</div>
+                <div class="metric-label">Hands-on operator experience</div>
               </div>
             </div>
+          </div>
 
-            <div class="divider"></div>
-
-            <p class="small">
-              Minimal founder push. Clear reporting. Clean handoffs.
-            </p>
-          </aside>
+          <div class="bento bento-light">
+            <h2 class="bento-title">What you get</h2>
+            <ul class="list-compact">
+              <li>Clear priorities, weekly momentum</li>
+              <li>Systems that run without founder push</li>
+              <li>Clean handoff: docs, SOPs, trackers</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -101,96 +126,92 @@
     <section id="services" class="section">
       <div class="container">
         <div class="section-head reveal">
-          <h2>What we run for you</h2>
-          <p class="subhead">
-            Pick the wedge. We can expand once the system is working.
-          </p>
+          <h2 class="section-title">Choose your starting point</h2>
+          <p class="section-subtitle">Pick the wedge. We can expand once the first system is running clean.</p>
         </div>
 
-        <div class="cards">
-          <article class="card reveal">
-            <h3>Outbound Engine</h3>
-            <p>
-              ICP, lead lists, messaging, deliverability, sequencing, follow-ups, and reporting across email and LinkedIn.
-            </p>
-            <ul class="list">
-              <li>Clear ICP and clean lists</li>
-              <li>Sequencing and follow-up system</li>
-              <li>Weekly reporting you can scan in minutes</li>
+        <div class="card-grid spotlight-grid reveal" data-spotlight>
+          <article class="card">
+            <h3 class="card-title">Outbound engine</h3>
+            <p class="card-body">ICP clarity, lists, sequencing, deliverability, and reporting. Built to be repeatable.</p>
+            <ul class="card-list">
+              <li>Targeting + list building</li>
+              <li>Email + LinkedIn sequencing</li>
+              <li>QA, tracking, weekly insights</li>
             </ul>
           </article>
 
-          <article class="card reveal">
-            <h3>Fundraising Ops</h3>
-            <p>
-              Investor research, outreach, applications, follow-ups, pipeline tracking, and data room management.
-            </p>
-            <ul class="list">
-              <li>Structured investor pipeline</li>
-              <li>Application and follow-up cadence</li>
-              <li>Data room hygiene and updates</li>
+          <article class="card">
+            <h3 class="card-title">Fundraising ops</h3>
+            <p class="card-body">We keep fundraising structured so founders can stay focused on the story and meetings.</p>
+            <ul class="card-list">
+              <li>Investor lists + outreach</li>
+              <li>Applications + follow-ups</li>
+              <li>Data room + updates cadence</li>
             </ul>
           </article>
 
-          <article class="card reveal">
-            <h3>Founder Ops</h3>
-            <p>
-              SOPs, dashboards, tooling, workflows, and special projects that keep execution moving without you pushing every step.
-            </p>
-            <ul class="list">
-              <li>SOPs and documentation hubs</li>
-              <li>Notion or Sheets dashboards</li>
-              <li>Special projects and internal ops</li>
+          <article class="card">
+            <h3 class="card-title">Founder ops</h3>
+            <p class="card-body">Internal systems that reduce founder drag and keep execution moving without chaos.</p>
+            <ul class="card-list">
+              <li>SOPs + documentation hubs</li>
+              <li>Dashboards, trackers, hygiene</li>
+              <li>Async execution rhythms</li>
             </ul>
           </article>
-        </div>
-
-        <div class="note reveal">
-          <p class="small">
-            You can start with a focused sprint, then move to a retainer if it is working.
-            Typical modes include an outbound launch kit, a weekly ops partner, or a deeper embedded operator setup.
-          </p>
         </div>
       </div>
     </section>
 
-    <!-- PROCESS -->
-    <section id="process" class="section section-alt">
+    <!-- HOW WE WORK -->
+    <section id="process" class="section section-muted">
       <div class="container">
         <div class="section-head reveal">
-          <h2>How we work</h2>
-          <p class="subhead">
-            Clear cadence, low noise, and systems that survive beyond you.
+          <h2 class="section-title">How we work</h2>
+          <p class="section-subtitle">
+            Compact on the page. Tap any step for the full detail.
           </p>
         </div>
 
-        <div class="steps">
-          <div class="step reveal">
-            <div class="step-num">01</div>
-            <h3>Diagnose</h3>
-            <p>We align on the goal, constraints, and the fastest leverage point. No bloated scope.</p>
+        <div class="process">
+          <div class="process-rail" aria-hidden="true">
+            <div class="process-rail-line"></div>
+            <div class="process-rail-progress" id="railProgress"></div>
           </div>
 
-          <div class="step reveal">
-            <div class="step-num">02</div>
-            <h3>Build</h3>
-            <p>Systems, templates, tracking, and the minimum SOPs needed to run clean execution.</p>
-          </div>
+          <div class="process-steps">
+            <button class="step-card reveal" type="button" data-step="diagnose" aria-label="Open step: Diagnose">
+              <div class="step-kicker">Step 1</div>
+              <div class="step-title">Diagnose</div>
+              <div class="step-teaser">Clarify the objective, constraints, and the system to build.</div>
+              <div class="step-meta">Outputs: scope, success metrics, weekly cadence</div>
+            </button>
 
-          <div class="step reveal">
-            <div class="step-num">03</div>
-            <h3>Run</h3>
-            <p>Execution with async updates and weekly reporting. You stay focused on decisions.</p>
-          </div>
+            <button class="step-card reveal" type="button" data-step="build" aria-label="Open step: Build">
+              <div class="step-kicker">Step 2</div>
+              <div class="step-title">Build</div>
+              <div class="step-teaser">Set up the workflow: tools, templates, tracking, QA.</div>
+              <div class="step-meta">Outputs: setup, playbooks, dashboards</div>
+            </button>
 
-          <div class="step reveal">
-            <div class="step-num">04</div>
-            <h3>Handoff</h3>
-            <p>Documentation and clean ownership so it keeps moving without constant founder push.</p>
+            <button class="step-card reveal" type="button" data-step="run" aria-label="Open step: Run">
+              <div class="step-kicker">Step 3</div>
+              <div class="step-title">Run</div>
+              <div class="step-teaser">Operate the system with clean execution and weekly iteration.</div>
+              <div class="step-meta">Outputs: shipped work, reporting, improvements</div>
+            </button>
+
+            <button class="step-card reveal" type="button" data-step="handoff" aria-label="Open step: Handoff">
+              <div class="step-kicker">Step 4</div>
+              <div class="step-title">Handoff</div>
+              <div class="step-teaser">Document and transfer the system so it keeps running without us.</div>
+              <div class="step-meta">Outputs: SOPs, checklists, ownership transfer</div>
+            </button>
           </div>
         </div>
 
-        <p class="fit-note reveal">Simple. Repeatable. Measurable.</p>
+        <p class="process-tagline reveal">Simple. Repeatable. Measurable.</p>
       </div>
     </section>
 
@@ -198,138 +219,117 @@
     <section id="proof" class="section">
       <div class="container">
         <div class="section-head reveal">
-          <h2>Proof you can verify</h2>
-          <p class="subhead">
-            Premium services are won on credibility, not cleverness.
-          </p>
+          <h2 class="section-title">Proof, not promises</h2>
+          <p class="section-subtitle">We do not sell magic. We build systems, then run them until they are reliable.</p>
         </div>
 
-        <div class="proof-grid">
-          <div class="proof-card reveal">
-            <h3>Track record</h3>
-            <ul class="list">
-              <li><strong>$2.5M+</strong> raised alongside founders</li>
-              <li><strong>100+</strong> databases built and campaigns launched</li>
-              <li><strong>35+</strong> analysts trained in investor relations and sales</li>
-              <li><strong>3+ years</strong> hands-on execution</li>
-            </ul>
+        <div class="proof-grid reveal">
+          <div class="proof-card">
+            <h3 class="proof-title">Fundraising stays structured</h3>
+            <p class="proof-body">We own the investor pipeline, applications, follow-ups, and data room hygiene so fundraising does not become a second job.</p>
           </div>
 
-          <div class="proof-card reveal">
-            <h3>What you get</h3>
-            <ul class="list">
-              <li>Operating cadence that stays consistent</li>
-              <li>Reporting that is measurable and easy to manage</li>
-              <li>Clean CRM and pipeline hygiene</li>
-              <li>Playbooks and SOPs that reduce founder interruptions</li>
-            </ul>
+          <div class="proof-card">
+            <h3 class="proof-title">Outbound becomes a machine</h3>
+            <p class="proof-body">Clear targeting, clean lists, sequencing, deliverability, and reporting. Consistent execution, less founder push.</p>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- WHY -->
-    <section id="why" class="section section-alt">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Why FoundrOps</h2>
-          <p class="subhead">Operator energy. Systems thinking. Calm execution.</p>
-        </div>
-
-        <div class="why-grid">
-          <div class="why-card reveal">
-            <h3>Execution, not slides</h3>
-            <p>Advice is cheap. We build and run the system with you, then leave it cleaner than we found it.</p>
-          </div>
-          <div class="why-card reveal">
-            <h3>Speed without chaos</h3>
-            <p>Fast does not mean messy. The work ships on time, with tracking you can trust.</p>
-          </div>
-          <div class="why-card reveal">
-            <h3>Low-touch for founders</h3>
-            <p>Async-first updates, weekly reporting, and clear handoffs so you are not stuck babysitting execution.</p>
+          <div class="proof-card">
+            <h3 class="proof-title">Ops gets documented</h3>
+            <p class="proof-body">SOPs and trackers are part of the deliverable. If it cannot be handed off, it is not done.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="section">
+    <section id="faq" class="section section-muted">
       <div class="container">
         <div class="section-head reveal">
-          <h2>FAQ</h2>
-          <p class="subhead">Honest answers upfront. Less friction later.</p>
+          <h2 class="section-title">FAQ</h2>
+          <p class="section-subtitle">Objections handled upfront. No pressure language.</p>
         </div>
 
-        <div class="faq reveal">
-          <details>
-            <summary>What if we already have a team?</summary>
-            <p>
-              Great. We plug into your existing workflow and take ownership of a lane (outbound ops, fundraising ops, founder ops).
-              We also build SOPs so your team can keep it running.
-            </p>
-          </details>
+        <div class="faq reveal" data-accordion>
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              What kind of founders is this for?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" hidden>
+              <p>Founders who want speed without chaos, and who value clean execution, clear communication, and systems that can be handed off.</p>
+            </div>
+          </div>
 
-          <details>
-            <summary>Do you guarantee results?</summary>
-            <p>
-              No. Anyone who guarantees outcomes in outbound or fundraising is selling you a story.
-              What we do guarantee is execution quality: clear inputs, clean tracking, consistent cadence, and honest reporting.
-            </p>
-          </details>
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Do you do strategy or execution?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" hidden>
+              <p>Both. We align on the plan quickly, then we own the execution. The goal is to reduce founder drag, not add meetings.</p>
+            </div>
+          </div>
 
-          <details>
-            <summary>What do you need from us weekly?</summary>
-            <p>
-              One short weekly sync (or async check-in) plus decisions on the few items only you can decide.
-              Everything else is handled through a shared tracker and updates.
-            </p>
-          </details>
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              How do you work day-to-day?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" hidden>
+              <p>Remote-first. Async updates, clean trackers, and a simple weekly rhythm. You stay in control without being pulled into every detail.</p>
+            </div>
+          </div>
 
-          <details>
-            <summary>Do you work async?</summary>
-            <p>
-              Yes. Async-first by default (Slack, Notion, email), with a light weekly sync to keep momentum.
-            </p>
-          </details>
-
-          <details>
-            <summary>What tools do you use?</summary>
-            <p>
-              Whatever is already working for you. Common stacks include Notion, Google Sheets, Airtable, and CRM tooling.
-              The priority is clean tracking and simple handoffs.
-            </p>
-          </details>
+          <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+              How do we start?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" hidden>
+              <p>Book a call. If there is a fit, we define the first wedge, agree on success metrics, and start with a short, focused build phase.</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section section-cta">
-      <div class="container">
         <div class="cta-card reveal">
-          <h2>If you want execution off your plate, let’s talk.</h2>
-          <p class="subhead">
-            If there’s a fit, we’ll pick one wedge and ship the first system fast.
-          </p>
-
+          <h3 class="cta-title">Want to talk through your bottleneck?</h3>
+          <p class="cta-body">If you want an operator team that can take execution off your plate without constant check-ins, book a call or email us.</p>
           <div class="cta-actions">
-            <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener noreferrer">Book a call</a>
-            <a class="btn btn-ghost" href="mailto:mihir@foundrops.co?subject=FoundrOps%20-%20Quick%20chat">Email</a>
-            <a class="btn btn-ghost" href="https://www.linkedin.com/in/makwana-mihir" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="btn btn-primary" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noreferrer">Book a call</a>
+            <a class="btn btn-secondary" href="mailto:mihirmakwana5720@gmail.com?subject=FoundrOps%20-%20Quick%20chat">Email us</a>
           </div>
         </div>
-
-        <footer class="footer">
-          <div class="footer-inner">
-            <p class="small">© <span id="year"></span> FoundrOps. All rights reserved.</p>
-            <p class="small">Built for clarity, trust, and speed.</p>
-          </div>
-        </footer>
       </div>
     </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">FoundrOps</span>
+          <span class="footer-note">High-trust execution partner for founders.</span>
+        </div>
+        <div class="footer-right">
+          <a class="footer-link" href="mailto:mihirmakwana5720@gmail.com">mihirmakwana5720@gmail.com</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <script src="script.js"></script>
+  <!-- PROCESS MODAL -->
+  <dialog class="modal" id="processDialog" aria-labelledby="processTitle">
+    <div class="modal-inner">
+      <div class="modal-head">
+        <div>
+          <div class="modal-kicker" id="processKicker">Step</div>
+          <h3 class="modal-title" id="processTitle">Title</h3>
+        </div>
+        <button class="icon-btn" type="button" id="processClose" aria-label="Close dialog" title="Close">×</button>
+      </div>
+      <div class="modal-body" id="processBody"></div>
+    </div>
+  </dialog>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
