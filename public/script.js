@@ -1,303 +1,266 @@
 (() => {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ---- Mobile menu ----
+  // -------------------------
+  // Mobile nav
+  // -------------------------
   const navToggle = document.getElementById("navToggle");
-  const mobileMenu = document.getElementById("mobileMenu");
+  const mobileNav = document.getElementById("mobileNav");
 
-  function closeMobileMenu() {
-    if (!mobileMenu) return;
-    mobileMenu.classList.remove("is-open");
-    mobileMenu.setAttribute("aria-hidden", "true");
+  const closeMobileNav = () => {
+    if (!mobileNav) return;
+    mobileNav.setAttribute("aria-hidden", "true");
     navToggle?.setAttribute("aria-expanded", "false");
     navToggle?.setAttribute("aria-label", "Open menu");
-  }
-
-  function openMobileMenu() {
-    if (!mobileMenu) return;
-    mobileMenu.classList.add("is-open");
-    mobileMenu.setAttribute("aria-hidden", "false");
-    navToggle?.setAttribute("aria-expanded", "true");
-    navToggle?.setAttribute("aria-label", "Close menu");
-  }
-
-  navToggle?.addEventListener("click", () => {
-    const isOpen = mobileMenu.classList.contains("is-open");
-    if (isOpen) closeMobileMenu();
-    else openMobileMenu();
-  });
-
-  // Close menu when clicking any link
-  mobileMenu?.addEventListener("click", (e) => {
-    const target = e.target;
-    if (target && target.classList && target.classList.contains("mobile-link")) {
-      closeMobileMenu();
-    }
-  });
-
-  // Close menu on scroll (mobile UX)
-  let scrollCloseTick = 0;
-  window.addEventListener("scroll", () => {
-    if (!mobileMenu?.classList.contains("is-open")) return;
-    if (scrollCloseTick) return;
-    scrollCloseTick = requestAnimationFrame(() => {
-      closeMobileMenu();
-      scrollCloseTick = 0;
-    });
-  }, { passive: true });
-
-  // ---- Header CTA visibility (MECE: never show 2 CTAs in same frame) ----
-  const headerCta = document.getElementById("headerCta");
-  const heroCta = document.querySelector('[data-observe="hero-cta"]');
-  const bottomCta = document.querySelector('[data-observe="bottom-cta"]');
-
-  let heroVisible = true;
-  let bottomVisible = false;
-
-  function syncHeaderCta() {
-    if (!headerCta) return;
-    // Show header CTA only if hero CTA is not visible AND bottom CTA is not visible
-    const shouldShow = !heroVisible && !bottomVisible;
-    headerCta.classList.toggle("is-visible", shouldShow);
-  }
-
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.target === heroCta) heroVisible = entry.isIntersecting;
-          if (entry.target === bottomCta) bottomVisible = entry.isIntersecting;
-        }
-        syncHeaderCta();
-      },
-      {
-        root: null,
-        threshold: 0.12,
-      }
-    );
-
-    if (heroCta) io.observe(heroCta);
-    if (bottomCta) io.observe(bottomCta);
-  } else {
-    // Fallback: show header CTA after a small scroll
-    window.addEventListener("scroll", () => {
-      heroVisible = window.scrollY < 250;
-      bottomVisible = false;
-      syncHeaderCta();
-    }, { passive: true });
-  }
-
-  // ---- Magic wand shimmer (all .magic elements) ----
-  // Uses rAF to avoid spamming style recalcs.
-  const magicEls = Array.from(document.querySelectorAll(".magic"));
-  const finePointer = window.matchMedia("(pointer: fine)").matches;
-
-  if (finePointer && magicEls.length) {
-    magicEls.forEach((el) => {
-      let raf = 0;
-      el.addEventListener("pointermove", (e) => {
-        if (prefersReducedMotion) return;
-        if (raf) return;
-        raf = requestAnimationFrame(() => {
-          const rect = el.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-          const y = ((e.clientY - rect.top) / rect.height) * 100;
-          el.style.setProperty("--mx", `${x}%`);
-          el.style.setProperty("--my", `${y}%`);
-          raf = 0;
-        });
-      });
-    });
-  }
-
-  // ---- How we work: static rail + smooth fill + detail drawer ----
-  const workStepsWrap = document.getElementById("workSteps");
-  const workSteps = workStepsWrap ? Array.from(workStepsWrap.querySelectorAll(".work-step")) : [];
-  const railDotsWrap = document.getElementById("railDots");
-  const railDots = railDotsWrap ? Array.from(railDotsWrap.querySelectorAll(".rail-dot")) : [];
-  const railFill = document.getElementById("railFill");
-  const workDetail = document.getElementById("workDetail");
-  const workDetailList = document.getElementById("workDetailList");
-
-  const details = [
-    [
-      "Clarify priorities and what “done” looks like",
-      "Map the workflow, tools, and handoffs",
-      "Agree weekly cadence and reporting format",
-    ],
-    [
-      "Set up tooling and clean structure",
-      "Create templates, checklists, trackers",
-      "Install QA so execution stays consistent",
-    ],
-    [
-      "Run execution with a weekly operating rhythm",
-      "Track pipeline, deliverables, and follow-ups",
-      "Tight iteration based on what’s working",
-    ],
-    [
-      "Document SOPs and ownership transfer",
-      "Make handoff clean so it runs without us",
-      "Leave a system, not a dependency",
-    ],
-  ];
-
-  let active = -1;
-  let locked = -1;
-
-  function setIcons() {
-    workSteps.forEach((btn, idx) => {
-      const icon = btn.querySelector(".work-icon");
-      if (!icon) return;
-      icon.textContent = idx === active ? "−" : "+";
-    });
-  }
-
-  function renderDetail(idx) {
-    if (!workDetail || !workDetailList) return;
-
-    if (idx < 0) {
-      workDetail.hidden = true;
-      workDetail.classList.remove("is-open");
-      workDetailList.innerHTML = "";
-      return;
-    }
-
-    workDetailList.innerHTML = details[idx].map((t) => `<li>${t}</li>`).join("");
-    workDetail.hidden = false;
-
-    if (!prefersReducedMotion) {
-      workDetail.classList.remove("is-open");
-      // restart animation cleanly
-      void workDetail.offsetWidth;
-      workDetail.classList.add("is-open");
-    }
-  }
-
-  // Static rail geometry: compute once (no jumping when steps open/close)
-  function positionRail() {
-    if (!railDots.length || !workSteps.length) return;
-
-    const rail = railDotsWrap.closest(".work-rail");
-    if (!rail) return;
-
-    const railRect = rail.getBoundingClientRect();
-    const firstRect = workSteps[0].getBoundingClientRect();
-    const lastRect = workSteps[workSteps.length - 1].getBoundingClientRect();
-
-    const top = (firstRect.top + firstRect.height / 2) - railRect.top;
-    const bottom = (lastRect.top + lastRect.height / 2) - railRect.top;
-    const height = Math.max(60, bottom - top);
-
-    rail.style.setProperty("--rail-top", `${top}px`);
-    rail.style.setProperty("--rail-height", `${height}px`);
-
-    // Dot positions: align to step centers (static)
-    railDots.forEach((dot, idx) => {
-      const stepRect = workSteps[idx].getBoundingClientRect();
-      const center = (stepRect.top + stepRect.height / 2) - railRect.top;
-      dot.style.top = `${center - top}px`; // relative to rail-dots container
-    });
-
-    // Ensure fill updates with correct geometry
-    updateRailFill(active);
-  }
-
-  function updateRailFill(idx) {
-    if (!railFill || !railDotsWrap || !railDots.length) return;
-
-    if (idx < 0) {
-      railFill.style.transform = "translateX(-50%) scaleY(0)";
-      return;
-    }
-
-    // Fill length = from first dot to active dot (in dot-container coords)
-    const activeDot = railDots[idx];
-    const y = parseFloat(activeDot.style.top || "0"); // relative to dot box
-    const railHeight = parseFloat(getComputedStyle(railDotsWrap.closest(".work-rail")).getPropertyValue("--rail-height")) || 1;
-
-    // y is relative to dots container; dots container height == railHeight
-    const ratio = Math.max(0, Math.min(1, y / railHeight));
-    railFill.style.transform = `translateX(-50%) scaleY(${ratio})`;
-  }
-
-  function setDotsState(idx) {
-    railDots.forEach((dot, i) => {
-      dot.classList.toggle("is-active", i === idx);
-      dot.classList.toggle("is-done", idx >= 0 && i < idx);
-    });
-  }
-
-  function setActive(idx, { lock = false } = {}) {
-    active = idx;
-    if (lock) locked = idx;
-
-    workSteps.forEach((btn, i) => btn.classList.toggle("is-active", i === idx));
-    setIcons();
-    renderDetail(idx);
-    setDotsState(idx);
-    updateRailFill(idx);
-  }
-
-  function clearActive() {
-    active = -1;
-    locked = -1;
-    setActive(-1);
-  }
-
-  function bindWorkSteps() {
-    if (!workSteps.length) return;
-
-    // Click/tap locks the step
-    workSteps.forEach((btn, idx) => {
-      btn.addEventListener("click", () => {
-        if (active === idx && locked === idx) {
-          clearActive();
-          return;
-        }
-        setActive(idx, { lock: true });
-      });
-
-      // Hover previews (desktop)
-      btn.addEventListener("mouseenter", () => {
-        if (!finePointer) return;
-        setActive(idx, { lock: false });
-      });
-      btn.addEventListener("mouseleave", () => {
-        if (!finePointer) return;
-        if (locked >= 0) setActive(locked, { lock: false });
-        else setActive(-1, { lock: false });
-      });
-    });
-
-    // Click outside closes if not locked
-    document.addEventListener("click", (e) => {
-      const within = workStepsWrap?.contains(e.target);
-      if (within) return;
-      if (locked >= 0) return;
-      setActive(-1, { lock: false });
-    });
-  }
-
-  bindWorkSteps();
-
-  // After fonts/layout settle, compute rail once.
-  const onReady = () => {
-    requestAnimationFrame(() => {
-      positionRail();
-      // Default closed (clean)
-      setActive(-1, { lock: false });
-    });
   };
 
-  window.addEventListener("load", () => {
-    onReady();
-    // Re-run once after load to account for font swap/layout changes
-    setTimeout(positionRail, 350);
+  const openMobileNav = () => {
+    if (!mobileNav) return;
+    mobileNav.setAttribute("aria-hidden", "false");
+    navToggle?.setAttribute("aria-expanded", "true");
+    navToggle?.setAttribute("aria-label", "Close menu");
+  };
+
+  navToggle?.addEventListener("click", () => {
+    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+    if (isOpen) closeMobileNav();
+    else openMobileNav();
   });
 
-  window.addEventListener("resize", () => {
-    // Rail is intended to be static per layout, but it must re-align on resize/orientation change.
-    positionRail();
+  mobileNav?.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => closeMobileNav());
   });
+
+  // Collapse menu on scroll (prevents it staying open)
+  let lastScrollY = window.scrollY;
+  window.addEventListener("scroll", () => {
+    const isOpen = navToggle?.getAttribute("aria-expanded") === "true";
+    const dy = Math.abs(window.scrollY - lastScrollY);
+    lastScrollY = window.scrollY;
+    if (isOpen && dy > 8) closeMobileNav();
+  }, { passive: true });
+
+  // -------------------------
+  // Header CTA visibility (no duplicate CTA on same frame)
+  // Uses IntersectionObserver 
+  // -------------------------
+  const headerCta = document.getElementById("headerCta");
+  const heroCtaBlock = document.getElementById("heroCtaBlock");
+  const ctaBlock = document.getElementById("ctaBlock");
+
+  // Only for desktop/tablet where header CTA exists
+  if (headerCta && heroCtaBlock && "IntersectionObserver" in window) {
+    let heroVisible = true;
+    let bottomCtaVisible = false;
+
+    const syncHeaderCta = () => {
+      // show header CTA only when hero CTA is NOT visible and bottom CTA is NOT visible
+      const shouldShow = !heroVisible && !bottomCtaVisible;
+      headerCta.classList.toggle("is-visible", shouldShow);
+    };
+
+    const heroObs = new IntersectionObserver((entries) => {
+      heroVisible = entries.some(e => e.isIntersecting);
+      syncHeaderCta();
+    }, { threshold: 0.20 });
+
+    heroObs.observe(heroCtaBlock);
+
+    if (ctaBlock) {
+      const bottomObs = new IntersectionObserver((entries) => {
+        bottomCtaVisible = entries.some(e => e.isIntersecting);
+        syncHeaderCta();
+      }, { threshold: 0.25 });
+
+      bottomObs.observe(ctaBlock);
+    }
+  }
+
+  // -------------------------
+  // “Magic wand” sheen on all cards
+  // -------------------------
+  const sheenEls = Array.from(document.querySelectorAll(".sheen"));
+  const onMove = (el, ev) => {
+    const r = el.getBoundingClientRect();
+    const x = ((ev.clientX - r.left) / r.width) * 100;
+    const y = ((ev.clientY - r.top) / r.height) * 100;
+    el.style.setProperty("--mx", `${x}%`);
+    el.style.setProperty("--my", `${y}%`);
+  };
+
+  if (!prefersReduced && matchMedia("(pointer: fine)").matches) {
+    sheenEls.forEach(el => {
+      el.addEventListener("mousemove", (ev) => onMove(el, ev));
+    });
+  }
+
+  // -------------------------
+  // How we work: click/hover accordion only
+  // Rail dots are created ON the rail (not on cards)
+  // -------------------------
+  const stepsWrap = document.getElementById("workSteps");
+  const railDots = document.getElementById("railDots");
+  const railTrack = document.getElementById("railTrack");
+  const railFill = document.getElementById("railFill");
+
+  if (stepsWrap && railDots && railTrack && railFill) {
+    const stepCards = Array.from(stepsWrap.querySelectorAll(".step-card"));
+    const isFinePointer = matchMedia("(pointer: fine)").matches;
+
+    let lockedIndex = null;   // click sets this
+    let hoverIndex = null;    // hover temporarily previews
+
+    const dots = [];
+
+    const buildDots = () => {
+      railDots.innerHTML = "";
+      dots.length = 0;
+
+      stepCards.forEach((card, i) => {
+        const dot = document.createElement("div");
+        dot.className = "rail-dot";
+        dot.dataset.index = String(i);
+        railDots.appendChild(dot);
+        dots.push(dot);
+      });
+    };
+
+    const placeRail = () => {
+      const railBox = railDots.getBoundingClientRect();
+
+      // Position dots centered on each step trigger
+      const dotTops = stepCards.map((card, i) => {
+        const trigger = card.querySelector(".step-trigger");
+        const tBox = trigger.getBoundingClientRect();
+        const centerY = (tBox.top + tBox.height / 2) - railBox.top;
+        dots[i].style.top = `${centerY}px`;
+        return centerY;
+      });
+
+      // Track should start at first dot and end at last dot
+      const first = dotTops[0] ?? 0;
+      const last = dotTops[dotTops.length - 1] ?? first;
+
+      railTrack.style.top = `${first}px`;
+      railTrack.style.height = `${Math.max(0, last - first)}px`;
+
+      // Fill depends on active
+      const active = getActiveIndex();
+      if (active == null) {
+        railFill.style.top = `${first}px`;
+        railFill.style.height = `0px`;
+      } else {
+        railFill.style.top = `${first}px`;
+        railFill.style.height = `${Math.max(0, dotTops[active] - first)}px`;
+      }
+    };
+
+    const getActiveIndex = () => (hoverIndex != null ? hoverIndex : lockedIndex);
+
+    const setDotActive = (active) => {
+      dots.forEach((d, i) => d.classList.toggle("is-active", active === i));
+    };
+
+    const setPanel = (card, open) => {
+      const btn = card.querySelector(".step-trigger");
+      const icon = card.querySelector(".step-icon");
+      const panel = card.querySelector(".step-panel");
+
+      card.dataset.open = open ? "true" : "false";
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      icon.textContent = open ? "−" : "+";
+
+      // Smooth height animation
+      if (open) {
+        panel.hidden = false;
+        panel.classList.add("is-open");
+        panel.style.height = "0px";
+        const h = panel.scrollHeight;
+        requestAnimationFrame(() => {
+          panel.style.height = `${h}px`;
+        });
+
+        const onEnd = (e) => {
+          if (e.propertyName !== "height") return;
+          panel.style.height = "auto";
+          panel.removeEventListener("transitionend", onEnd);
+        };
+        panel.addEventListener("transitionend", onEnd);
+      } else {
+        if (panel.hidden) return;
+        panel.style.height = `${panel.scrollHeight}px`;
+        requestAnimationFrame(() => {
+          panel.style.height = "0px";
+        });
+
+        const onEnd = (e) => {
+          if (e.propertyName !== "height") return;
+          panel.hidden = true;
+          panel.classList.remove("is-open");
+          panel.removeEventListener("transitionend", onEnd);
+        };
+        panel.addEventListener("transitionend", onEnd);
+      }
+    };
+
+    const syncOpenState = () => {
+      const active = getActiveIndex();
+
+      stepCards.forEach((card, i) => {
+        setPanel(card, active === i);
+      });
+
+      setDotActive(active);
+      placeRail();
+    };
+
+    // Click to lock/unlock
+    stepCards.forEach((card, i) => {
+      const btn = card.querySelector(".step-trigger");
+      btn.addEventListener("click", () => {
+        const isOpen = lockedIndex === i;
+        lockedIndex = isOpen ? null : i;
+        hoverIndex = null;
+        syncOpenState();
+      });
+
+      // Hover preview (desktop only)
+      if (isFinePointer) {
+        card.addEventListener("mouseenter", () => {
+          hoverIndex = i;
+          syncOpenState();
+        });
+        card.addEventListener("mouseleave", () => {
+          hoverIndex = null;
+          syncOpenState();
+        });
+      }
+    });
+
+    // Close everything when section leaves viewport (keeps page feeling clean)
+    if ("IntersectionObserver" in window) {
+      const howSection = document.getElementById("how");
+      if (howSection) {
+        const closeObs = new IntersectionObserver((entries) => {
+          const inView = entries.some(e => e.isIntersecting);
+          if (!inView) {
+            lockedIndex = null;
+            hoverIndex = null;
+            syncOpenState();
+          }
+        }, { threshold: 0.0 });
+        closeObs.observe(howSection);
+      }
+    }
+
+    // Init
+    buildDots();
+    // Default: nothing open, but titles/subtitles visible
+    syncOpenState();
+
+    window.addEventListener("resize", () => {
+      // Re-place rail and keep everything aligned
+      placeRail();
+    });
+  }
 })();
