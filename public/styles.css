@@ -91,7 +91,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 .brand{
   display:flex;
   align-items:center;
-  gap: 5px;              /* tighter header logo ↔ name */
+  gap: 3px;              /* tighter header logo ↔ name */
   min-width: 160px;
 }
 .brand-logo{ width: 24px; height: 24px; border-radius: 8px; }
@@ -366,6 +366,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   border: 0;
   padding: 16px 16px;
   cursor: pointer;
+  color: inherit;
 }
 .step-meta{
   font-size: 12px;
@@ -380,11 +381,15 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   gap: 12px;
   margin-top: 4px;
 }
+
+/* Force desktop-like color everywhere (fixes mobile blue titles) */
 .step-title{
   font-size: 20px;
   font-weight: 900;
   letter-spacing: -0.02em;
+  color: rgba(11,18,32,0.96) !important;
 }
+
 .step-icon{
   width: 44px;
   height: 44px;
@@ -515,11 +520,11 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   gap: 18px;
 }
 
-/* Footer left: logo + name tight */
+/* Footer left: logo + name tighter */
 .footer-brand{
   display:flex;
   align-items:flex-start;
-  gap: 5px;                 /* tighter footer logo ↔ name */
+  gap: 3px;                 /* tighter footer logo ↔ name */
 }
 
 .footer-logo{
