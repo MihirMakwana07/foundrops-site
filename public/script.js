@@ -1,5 +1,6 @@
 (() => {
   const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isFinePointer = matchMedia("(pointer: fine)").matches;
 
   // -------------------------
   // Mobile nav
@@ -73,7 +74,7 @@
   }
 
   // -------------------------
-  // Scroll reveal (subtle + professional)
+  // Scroll reveal
   // -------------------------
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
   if (!revealEls.length) return;
@@ -96,7 +97,6 @@
   // -------------------------
   // Sheen mouse tracking (fine pointer only)
   // -------------------------
-  const isFinePointer = matchMedia("(pointer: fine)").matches;
   if (!prefersReduced && isFinePointer) {
     const sheenEls = Array.from(document.querySelectorAll(".sheen"));
     const onMove = (el, ev) => {
@@ -110,8 +110,7 @@
   }
 
   // -------------------------
-  // How we work (rail does NOT shift when cards open)
-  // Rail geometry measured only on load/resize.
+  // How we work rail (does not shift on accordion open)
   // -------------------------
   const stepsWrap = document.getElementById("workSteps");
   const railDots = document.getElementById("railDots");
@@ -201,7 +200,6 @@
 
     const syncOpenState = () => {
       const active = getActiveIndex();
-
       stepCards.forEach((card, i) => setPanel(card, active === i));
       setDotActive(active);
       updateFill();
@@ -241,6 +239,31 @@
       resizeRaf = requestAnimationFrame(() => {
         resizeRaf = null;
         placeRail();
+      });
+    });
+  }
+
+  // -------------------------
+  // FAQs hover open/close on desktop (fine pointer)
+  // -------------------------
+  const faqList = document.getElementById("faqList");
+  if (faqList && isFinePointer) {
+    const items = Array.from(faqList.querySelectorAll(".faq-item"));
+
+    const closeAllExcept = (keep) => {
+      items.forEach(it => {
+        if (it !== keep) it.removeAttribute("open");
+      });
+    };
+
+    items.forEach((item) => {
+      item.addEventListener("mouseenter", () => {
+        closeAllExcept(item);
+        item.setAttribute("open", "");
+      });
+
+      item.addEventListener("mouseleave", () => {
+        item.removeAttribute("open");
       });
     });
   }
