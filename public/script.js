@@ -31,7 +31,6 @@
     a.addEventListener("click", () => closeMobileNav());
   });
 
-  // Collapse menu on scroll (prevents it staying open)
   let lastScrollY = window.scrollY;
   window.addEventListener("scroll", () => {
     const isOpen = navToggle?.getAttribute("aria-expanded") === "true";
@@ -41,20 +40,17 @@
   }, { passive: true });
 
   // -------------------------
-  // Header CTA visibility (no duplicate CTA on same frame)
-  // Uses IntersectionObserver 
+  // Header CTA visibility
   // -------------------------
   const headerCta = document.getElementById("headerCta");
   const heroCtaBlock = document.getElementById("heroCtaBlock");
   const ctaBlock = document.getElementById("ctaBlock");
 
-  // Only for desktop/tablet where header CTA exists
   if (headerCta && heroCtaBlock && "IntersectionObserver" in window) {
     let heroVisible = true;
     let bottomCtaVisible = false;
 
     const syncHeaderCta = () => {
-      // show header CTA only when hero CTA is NOT visible and bottom CTA is NOT visible
       const shouldShow = !heroVisible && !bottomCtaVisible;
       headerCta.classList.toggle("is-visible", shouldShow);
     };
@@ -72,12 +68,12 @@
         syncHeaderCta();
       }, { threshold: 0.25 });
 
-      bottomObs.observe(ctaBlock);
+        bottomObs.observe(ctaBlock);
     }
   }
 
   // -------------------------
-  // “Magic wand” sheen on all cards
+  // “Magic wand” sheen
   // -------------------------
   const sheenEls = Array.from(document.querySelectorAll(".sheen"));
   const onMove = (el, ev) => {
@@ -95,8 +91,9 @@
   }
 
   // -------------------------
-  // How we work: click/hover accordion only
-  // Rail dots are created ON the rail (not on cards)
+  // How we work (optimized)
+  // - No JS height animation (removes jank)
+  // - Rail fill uses transform scaleY (smoother than height)
   // -------------------------
   const stepsWrap = document.getElementById("workSteps");
   const railDots = document.getElementById("railDots");
@@ -107,8 +104,8 @@
     const stepCards = Array.from(stepsWrap.querySelectorAll(".step-card"));
     const isFinePointer = matchMedia("(pointer: fine)").matches;
 
-    let lockedIndex = null;   // click sets this
-    let hoverIndex = null;    // hover temporarily previews
+    let lockedIndex = null;
+    let hoverIndex = null;
 
     const dots = [];
 
@@ -125,10 +122,15 @@
       });
     };
 
+    const getActiveIndex = () => (hoverIndex != null ? hoverIndex : lockedIndex);
+
+    const setDotActive = (active) => {
+      dots.forEach((d, i) => d.classList.toggle("is-active", active === i));
+    };
+
     const placeRail = () => {
       const railBox = railDots.getBoundingClientRect();
 
-      // Position dots centered on each step trigger
       const dotTops = stepCards.map((card, i) => {
         const trigger = card.querySelector(".step-trigger");
         const tBox = trigger.getBoundingClientRect();
@@ -137,28 +139,25 @@
         return centerY;
       });
 
-      // Track should start at first dot and end at last dot
       const first = dotTops[0] ?? 0;
       const last = dotTops[dotTops.length - 1] ?? first;
+      const trackH = Math.max(0, last - first);
 
       railTrack.style.top = `${first}px`;
-      railTrack.style.height = `${Math.max(0, last - first)}px`;
+      railTrack.style.height = `${trackH}px`;
 
-      // Fill depends on active
+      railFill.style.top = `${first}px`;
+      railFill.style.height = `${trackH}px`;
+
       const active = getActiveIndex();
-      if (active == null) {
-        railFill.style.top = `${first}px`;
-        railFill.style.height = `0px`;
-      } else {
-        railFill.style.top = `${first}px`;
-        railFill.style.height = `${Math.max(0, dotTops[active] - first)}px`;
+
+      if (active == null || trackH === 0) {
+        railFill.style.transform = "scaleY(0)";
+        return;
       }
-    };
 
-    const getActiveIndex = () => (hoverIndex != null ? hoverIndex : lockedIndex);
-
-    const setDotActive = (active) => {
-      dots.forEach((d, i) => d.classList.toggle("is-active", active === i));
+      const frac = Math.max(0, Math.min(1, (dotTops[active] - first) / trackH));
+      railFill.style.transform = `scaleY(${frac})`;
     };
 
     const setPanel = (card, open) => {
@@ -170,37 +169,8 @@
       btn.setAttribute("aria-expanded", open ? "true" : "false");
       icon.textContent = open ? "−" : "+";
 
-      // Smooth height animation
-      if (open) {
-        panel.hidden = false;
-        panel.classList.add("is-open");
-        panel.style.height = "0px";
-        const h = panel.scrollHeight;
-        requestAnimationFrame(() => {
-          panel.style.height = `${h}px`;
-        });
-
-        const onEnd = (e) => {
-          if (e.propertyName !== "height") return;
-          panel.style.height = "auto";
-          panel.removeEventListener("transitionend", onEnd);
-        };
-        panel.addEventListener("transitionend", onEnd);
-      } else {
-        if (panel.hidden) return;
-        panel.style.height = `${panel.scrollHeight}px`;
-        requestAnimationFrame(() => {
-          panel.style.height = "0px";
-        });
-
-        const onEnd = (e) => {
-          if (e.propertyName !== "height") return;
-          panel.hidden = true;
-          panel.classList.remove("is-open");
-          panel.removeEventListener("transitionend", onEnd);
-        };
-        panel.addEventListener("transitionend", onEnd);
-      }
+      panel.classList.toggle("is-open", open);
+      panel.setAttribute("aria-hidden", open ? "false" : "true");
     };
 
     const syncOpenState = () => {
@@ -214,9 +184,9 @@
       placeRail();
     };
 
-    // Click to lock/unlock
     stepCards.forEach((card, i) => {
       const btn = card.querySelector(".step-trigger");
+
       btn.addEventListener("click", () => {
         const isOpen = lockedIndex === i;
         lockedIndex = isOpen ? null : i;
@@ -224,7 +194,6 @@
         syncOpenState();
       });
 
-      // Hover preview (desktop only)
       if (isFinePointer) {
         card.addEventListener("mouseenter", () => {
           hoverIndex = i;
@@ -237,7 +206,6 @@
       }
     });
 
-    // Close everything when section leaves viewport (keeps page feeling clean)
     if ("IntersectionObserver" in window) {
       const howSection = document.getElementById("how");
       if (howSection) {
@@ -253,14 +221,18 @@
       }
     }
 
-    // Init
     buildDots();
-    // Default: nothing open, but titles/subtitles visible
-    syncOpenState();
+    requestAnimationFrame(() => {
+      syncOpenState();
+    });
 
+    let resizeRaf = null;
     window.addEventListener("resize", () => {
-      // Re-place rail and keep everything aligned
-      placeRail();
+      if (resizeRaf) return;
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = null;
+        placeRail();
+      });
     });
   }
 })();
