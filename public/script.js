@@ -2,9 +2,7 @@
   const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isFinePointer = matchMedia("(pointer: fine)").matches;
 
-  // -------------------------
   // Mobile nav
-  // -------------------------
   const navToggle = document.getElementById("navToggle");
   const mobileNav = document.getElementById("mobileNav");
 
@@ -40,9 +38,7 @@
     if (isOpen && dy > 8) closeMobileNav();
   }, { passive: true });
 
-  // -------------------------
   // Header CTA visibility
-  // -------------------------
   const headerCta = document.getElementById("headerCta");
   const heroCtaBlock = document.getElementById("heroCtaBlock");
   const ctaBlock = document.getElementById("ctaBlock");
@@ -73,9 +69,7 @@
     }
   }
 
-  // -------------------------
   // Scroll reveal
-  // -------------------------
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
   if (!revealEls.length) return;
 
@@ -94,9 +88,7 @@
     revealEls.forEach(el => obs.observe(el));
   }
 
-  // -------------------------
   // Sheen mouse tracking (fine pointer only)
-  // -------------------------
   if (!prefersReduced && isFinePointer) {
     const sheenEls = Array.from(document.querySelectorAll(".sheen"));
     const onMove = (el, ev) => {
@@ -109,9 +101,7 @@
     sheenEls.forEach(el => el.addEventListener("mousemove", (ev) => onMove(el, ev)));
   }
 
-  // -------------------------
   // How we work rail (does not shift on accordion open)
-  // -------------------------
   const stepsWrap = document.getElementById("workSteps");
   const railDots = document.getElementById("railDots");
   const railTrack = document.getElementById("railTrack");
@@ -243,9 +233,7 @@
     });
   }
 
-  // -------------------------
   // FAQs hover open/close on desktop (fine pointer)
-  // -------------------------
   const faqList = document.getElementById("faqList");
   if (faqList && isFinePointer) {
     const items = Array.from(faqList.querySelectorAll(".faq-item"));
