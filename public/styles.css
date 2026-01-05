@@ -21,6 +21,8 @@ body{
     radial-gradient(1200px 650px at 20% 0%, rgba(24,184,166,0.06) 0%, rgba(24,184,166,0.00) 62%),
     radial-gradient(900px 520px at 82% 20%, rgba(24,184,166,0.04) 0%, rgba(24,184,166,0.00) 58%),
     var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a{ color: inherit; text-decoration: none; }
@@ -30,6 +32,20 @@ p{ margin:0; }
 .container{
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
+}
+
+/* Remove iOS tap highlight (fixes grey flash on mobile) */
+a, button, summary{
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Keep keyboard focus nice, remove ugly tap focus boxes */
+button:focus{ outline: none; }
+summary:focus{ outline: none; }
+button:focus-visible, summary:focus-visible, a:focus-visible{
+  outline: 3px solid rgba(24,184,166,0.35);
+  outline-offset: 3px;
+  border-radius: 14px;
 }
 
 .skip{
@@ -198,14 +214,16 @@ p{ margin:0; }
   color: rgba(11,18,32,0.82);
 }
 .hero-actions{ margin-top: 20px; }
+
+/* Fix 3: 2x more space between Book a call and cards below */
 .hero-cards{
-  margin-top: 22px;
+  margin-top: 44px;
   display:grid;
   grid-template-columns: 1fr;
   gap: 16px;
 }
 
-/* Sections (reduced spacing) */
+/* Sections */
 .section{ padding: 40px 0; }
 .section-head{ margin-bottom: 16px; }
 .section-head h2{
@@ -279,10 +297,8 @@ p{ margin:0; }
   font-weight: 600;
 }
 
-/* Fix 1: “What you get” divider + tagline lower and more uniform */
-.card-get .tagline{
-  margin-top: auto;
-}
+/* “What you get” */
+.card-get .tagline{ margin-top: auto; }
 .tagline{
   margin-top: auto;
   padding-top: 16px;
@@ -407,7 +423,6 @@ p{ margin:0; }
   border-color: rgba(24,184,166,0.22);
 }
 
-/* Fix 2: divider line spacing above bullets */
 .step-panel{
   display: grid;
   grid-template-rows: 0fr;
@@ -417,7 +432,7 @@ p{ margin:0; }
 }
 .step-panel > .step-panel-inner{
   overflow: hidden;
-  padding: 12px 16px 16px; /* top padding added */
+  padding: 12px 16px 16px;
 }
 .step-panel.is-open{
   grid-template-rows: 1fr;
@@ -425,7 +440,7 @@ p{ margin:0; }
   border-top-color: rgba(15,23,42,0.10);
 }
 
-/* FAQ */
+/* FAQs */
 .faq{ display:flex; flex-direction: column; gap: 12px; }
 .faq-item{
   position: relative;
@@ -462,7 +477,7 @@ p{ margin:0; }
   line-height: 1.6;
 }
 
-/* CTA (reduced spacing) */
+/* CTA */
 .cta{ padding: 40px 0 48px; }
 .cta-card{
   position: relative;
@@ -512,12 +527,12 @@ p{ margin:0; }
   max-width: 28ch;
 }
 
-/* Fix 5: email + LinkedIn closer */
+/* Fix 1: LinkedIn below email */
 .footer-links{
   display:flex;
-  flex-direction: row;
-  align-items:center;
-  gap: 10px;
+  flex-direction: column;
+  align-items:flex-end;
+  gap: 6px;
 }
 .footer-link{
   font-weight: 900;
@@ -534,7 +549,7 @@ p{ margin:0; }
 }
 .footer-linkedin:hover img{ opacity: 1; }
 
-/* Fix 4: Sheen lighter + only on fine pointers (no “stuck” on mobile) */
+/* Sheen */
 .sheen{ position: relative; }
 .sheen::before{
   content:"";
@@ -560,7 +575,7 @@ p{ margin:0; }
   .hero-cards{
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-top: 24px;
+    margin-top: 44px;
   }
   .grid-3{ grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
   .grid-2{ grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -571,25 +586,23 @@ p{ margin:0; }
   .nav-toggle{ display:flex; margin-left:auto; }
   .header-cta{ display:none; }
   .footer-inner{ flex-direction: column; }
+  .footer-links{ align-items:flex-start; }
 }
 
 @media (max-width: 520px){
   .hero{ padding: 40px 0 18px; }
   .hero-actions{ margin-top: 18px; }
-  .hero-cards{ margin-top: 26px; }
+  .hero-cards{ margin-top: 52px; }
   .section{ padding: 34px 0; }
   .cta{ padding: 34px 0 40px; }
   .section-head h2{ font-size: 30px; }
   .hero-sub{ font-size: 17px; }
   .step-title{ font-size: 19px; }
 
-  /* Mobile: simplify “How we work” */
   .work{ grid-template-columns: 1fr; }
   .work-rail{ display:none; }
 
-  /* Footer: stack on small screens */
   .footer-links{
-    flex-direction: column;
     align-items:flex-start;
     gap: 8px;
   }
