@@ -332,20 +332,32 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   transition: transform .26s cubic-bezier(.2,.8,.2,1);
 }
 .rail-dots{ position:absolute; inset: 0; }
+
+/* FIXED: dots are perfectly centered on the rail and opaque (rail won't show through) */
 .rail-dot{
   position:absolute;
-  left: calc(var(--rail-x) - 5px);
+
+  /* Center dot on the centerline of the rail */
+  left: calc(var(--rail-x) + (var(--rail-w) / 2) - 5px);
+
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: rgba(15,23,42,0.18);
-  border: 2px solid rgba(247,250,252,0.95);
+
+  /* Opaque fill so the rail is not visible through the dot */
+  background: var(--bg);
+
+  /* Clean outline */
+  border: 2px solid rgba(15,23,42,0.20);
+
   box-shadow: 0 6px 18px rgba(11,18,32,0.10);
   transform: translateY(-50%);
-  transition: transform .18s ease, background .18s ease;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
 }
+
 .rail-dot.is-active{
   background: var(--accent);
+  border-color: rgba(247,250,252,1);
   transform: translateY(-50%) scale(1.18);
 }
 
