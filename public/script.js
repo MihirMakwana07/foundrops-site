@@ -73,27 +73,45 @@
   }
 
   // -------------------------
-  // Sheen mouse tracking
+  // Scroll reveal (subtle + professional)
   // -------------------------
-  const sheenEls = Array.from(document.querySelectorAll(".sheen"));
-  const onMove = (el, ev) => {
-    const r = el.getBoundingClientRect();
-    const x = ((ev.clientX - r.left) / r.width) * 100;
-    const y = ((ev.clientY - r.top) / r.height) * 100;
-    el.style.setProperty("--mx", `${x}%`);
-    el.style.setProperty("--my", `${y}%`);
-  };
+  const revealEls = Array.from(document.querySelectorAll(".reveal"));
+  if (!revealEls.length) return;
 
-  if (!prefersReduced && matchMedia("(pointer: fine)").matches) {
-    sheenEls.forEach(el => {
-      el.addEventListener("mousemove", (ev) => onMove(el, ev));
-    });
+  if (prefersReduced || !("IntersectionObserver" in window)) {
+    revealEls.forEach(el => el.classList.add("is-revealed"));
+  } else {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-revealed");
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => obs.observe(el));
   }
 
   // -------------------------
-  // How we work (premium feel)
-  // Key change: rail positions are measured ONLY on load/resize
-  // This prevents rail displacement when accordion opens/closes.
+  // Sheen mouse tracking (fine pointer only)
+  // -------------------------
+  const isFinePointer = matchMedia("(pointer: fine)").matches;
+  if (!prefersReduced && isFinePointer) {
+    const sheenEls = Array.from(document.querySelectorAll(".sheen"));
+    const onMove = (el, ev) => {
+      const r = el.getBoundingClientRect();
+      const x = ((ev.clientX - r.left) / r.width) * 100;
+      const y = ((ev.clientY - r.top) / r.height) * 100;
+      el.style.setProperty("--mx", `${x}%`);
+      el.style.setProperty("--my", `${y}%`);
+    };
+    sheenEls.forEach(el => el.addEventListener("mousemove", (ev) => onMove(el, ev)));
+  }
+
+  // -------------------------
+  // How we work (rail does NOT shift when cards open)
+  // Rail geometry measured only on load/resize.
   // -------------------------
   const stepsWrap = document.getElementById("workSteps");
   const railDots = document.getElementById("railDots");
@@ -102,7 +120,6 @@
 
   if (stepsWrap && railDots && railTrack && railFill) {
     const stepCards = Array.from(stepsWrap.querySelectorAll(".step-card"));
-    const isFinePointer = matchMedia("(pointer: fine)").matches;
 
     let lockedIndex = null;
     let hoverIndex = null;
@@ -129,7 +146,6 @@
       dots.forEach((d, i) => d.classList.toggle("is-active", active === i));
     };
 
-    // Measure rail dot positions only on load/resize
     const placeRail = () => {
       const railBox = railDots.getBoundingClientRect();
 
@@ -186,10 +202,7 @@
     const syncOpenState = () => {
       const active = getActiveIndex();
 
-      stepCards.forEach((card, i) => {
-        setPanel(card, active === i);
-      });
-
+      stepCards.forEach((card, i) => setPanel(card, active === i));
       setDotActive(active);
       updateFill();
     };
@@ -215,21 +228,6 @@
         });
       }
     });
-
-    if ("IntersectionObserver" in window) {
-      const howSection = document.getElementById("how");
-      if (howSection) {
-        const closeObs = new IntersectionObserver((entries) => {
-          const inView = entries.some(e => e.isIntersecting);
-          if (!inView) {
-            lockedIndex = null;
-            hoverIndex = null;
-            syncOpenState();
-          }
-        }, { threshold: 0.0 });
-        closeObs.observe(howSection);
-      }
-    }
 
     buildDots();
     requestAnimationFrame(() => {
