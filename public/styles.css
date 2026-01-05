@@ -526,7 +526,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  margin-top: -14px;   /* key change: reduces spacing massively */
+  margin-top: -20px;   /* key change: reduces spacing massively */
   padding: 0;
 }
 
