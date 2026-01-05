@@ -91,7 +91,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 .brand{
   display:flex;
   align-items:center;
-  gap: 10px;
+  gap: 5px;              /* tighter header logo ↔ name */
   min-width: 160px;
 }
 .brand-logo{ width: 24px; height: 24px; border-radius: 8px; }
@@ -215,7 +215,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 }
 .hero-actions{ margin-top: 20px; }
 
-/* Fix 3: 2x more space between Book a call and cards below */
+/* 2x more space between Book a call and cards below */
 .hero-cards{
   margin-top: 44px;
   display:grid;
@@ -501,7 +501,6 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 }
 .cta-actions{ margin-top: 16px; }
 
-
 /* Footer */
 .footer{
   padding: 22px 0 30px;
@@ -511,16 +510,16 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 
 .footer-inner{
   display:flex;
-  align-items:flex-start;           /* top aligned */
+  align-items:flex-start;
   justify-content: space-between;
   gap: 18px;
 }
 
-/* Left block: logo + name on same line, tagline aligned under name */
+/* Footer left: logo + name tight */
 .footer-brand{
   display:flex;
   align-items:flex-start;
-  gap: 10px;
+  gap: 5px;                 /* tighter footer logo ↔ name */
 }
 
 .footer-logo{
@@ -528,17 +527,16 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   height: 22px;
   border-radius: 8px;
   flex: 0 0 auto;
-  margin-top: 2px;                 /* tiny nudge to align with text baseline */
+  margin-top: 2px;
 }
 
-/* Wrap text so tagline aligns with the name (not under the logo) */
 .footer-text{
   display:flex;
   flex-direction: column;
 }
 
 .footer-name{
-  font-weight: 900;                /* bold */
+  font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
@@ -550,7 +548,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   max-width: 34ch;
 }
 
-/* Right block: email above LinkedIn, very tight spacing */
+/* Footer right: email + LinkedIn ultra tight */
 .footer-links{
   display:flex;
   flex-direction: column;
@@ -572,25 +570,17 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  margin-top: -25px;               /* your chosen tight spacing */
+  margin-top: -25px;
   padding: 0;
 }
 
 .footer-linkedin img{
-  width: 77px;                     /* 30% smaller than 110 */
+  width: 77px;
   height: 77px;
   display:block;
   opacity: 0.92;
 }
 .footer-linkedin:hover img{ opacity: 1; }
-
-/* Mobile */
-@media (max-width: 860px){
-  .footer-inner{ flex-direction: column; }
-  .footer-links{ align-items:flex-start; }
-}
-
-
 
 /* Sheen */
 .sheen{ position: relative; }
@@ -628,6 +618,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   .nav{ display:none; }
   .nav-toggle{ display:flex; margin-left:auto; }
   .header-cta{ display:none; }
+
   .footer-inner{ flex-direction: column; }
   .footer-links{ align-items:flex-start; }
 }
@@ -647,7 +638,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 
   .footer-links{
     align-items:flex-start;
-    gap: 8px;
+    gap: 0px;
   }
 }
 
