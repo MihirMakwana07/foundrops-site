@@ -68,12 +68,12 @@
         syncHeaderCta();
       }, { threshold: 0.25 });
 
-        bottomObs.observe(ctaBlock);
+      bottomObs.observe(ctaBlock);
     }
   }
 
   // -------------------------
-  // “Magic wand” sheen
+  // Sheen mouse tracking
   // -------------------------
   const sheenEls = Array.from(document.querySelectorAll(".sheen"));
   const onMove = (el, ev) => {
@@ -91,9 +91,9 @@
   }
 
   // -------------------------
-  // How we work (optimized)
-  // - No JS height animation (removes jank)
-  // - Rail fill uses transform scaleY (smoother than height)
+  // How we work (premium feel)
+  // Key change: rail positions are measured ONLY on load/resize
+  // This prevents rail displacement when accordion opens/closes.
   // -------------------------
   const stepsWrap = document.getElementById("workSteps");
   const railDots = document.getElementById("railDots");
@@ -108,6 +108,9 @@
     let hoverIndex = null;
 
     const dots = [];
+    let railGeom = { first: 0, trackH: 1, dotTops: [] };
+
+    const getActiveIndex = () => (hoverIndex != null ? hoverIndex : lockedIndex);
 
     const buildDots = () => {
       railDots.innerHTML = "";
@@ -122,12 +125,11 @@
       });
     };
 
-    const getActiveIndex = () => (hoverIndex != null ? hoverIndex : lockedIndex);
-
     const setDotActive = (active) => {
       dots.forEach((d, i) => d.classList.toggle("is-active", active === i));
     };
 
+    // Measure rail dot positions only on load/resize
     const placeRail = () => {
       const railBox = railDots.getBoundingClientRect();
 
@@ -141,7 +143,9 @@
 
       const first = dotTops[0] ?? 0;
       const last = dotTops[dotTops.length - 1] ?? first;
-      const trackH = Math.max(0, last - first);
+      const trackH = Math.max(1, last - first);
+
+      railGeom = { first, trackH, dotTops };
 
       railTrack.style.top = `${first}px`;
       railTrack.style.height = `${trackH}px`;
@@ -149,14 +153,20 @@
       railFill.style.top = `${first}px`;
       railFill.style.height = `${trackH}px`;
 
-      const active = getActiveIndex();
+      updateFill();
+    };
 
-      if (active == null || trackH === 0) {
+    const updateFill = () => {
+      const active = getActiveIndex();
+      const { first, trackH, dotTops } = railGeom;
+
+      if (active == null) {
         railFill.style.transform = "scaleY(0)";
         return;
       }
 
-      const frac = Math.max(0, Math.min(1, (dotTops[active] - first) / trackH));
+      const y = dotTops[active] ?? first;
+      const frac = Math.max(0, Math.min(1, (y - first) / trackH));
       railFill.style.transform = `scaleY(${frac})`;
     };
 
@@ -181,7 +191,7 @@
       });
 
       setDotActive(active);
-      placeRail();
+      updateFill();
     };
 
     stepCards.forEach((card, i) => {
@@ -223,6 +233,7 @@
 
     buildDots();
     requestAnimationFrame(() => {
+      placeRail();
       syncOpenState();
     });
 
