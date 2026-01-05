@@ -113,10 +113,10 @@
     let lockedIndex = null;
     let hoverIndex = null;
 
+    const getActiveIndex = () => (hoverIndex != null ? hoverIndex : lockedIndex);
+
     const dots = [];
     let railGeom = { first: 0, trackH: 1, dotTops: [] };
-
-    const getActiveIndex = () => (hoverIndex != null ? hoverIndex : lockedIndex);
 
     const buildDots = () => {
       railDots.innerHTML = "";
