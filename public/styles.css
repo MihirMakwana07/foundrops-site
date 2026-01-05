@@ -501,70 +501,43 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 }
 .cta-actions{ margin-top: 16px; }
 
-/* Footer */
-.footer{
-  padding: 22px 0 30px;
-  border-top: 1px solid rgba(15,23,42,0.08);
-  background: rgba(247,250,252,0.70);
-}
-.footer-inner{
-  display:flex;
-  align-items:flex-start;
-  justify-content: space-between;
-  gap: 18px;
-}
-.footer-brand{
-  display:flex;
-  align-items:flex-start;
-  gap: 10px;
-}
-.footer-logo{ width: 22px; height: 22px; border-radius: 8px; }
-.footer-name{ font-weight: 900; letter-spacing: -0.02em; }
-.footer-sub{
-  margin-top: 6px;
-  color: rgba(11,18,32,0.64);
-  line-height: 1.5;
-  max-width: 28ch;
-}
-
-/* Footer links: keep 2 lines but close together */
+/* Footer links: keep 2 lines but extremely tight */
 .footer-links{
   display:flex;
   flex-direction: column;
   align-items:flex-end;
-  gap: 2px; /* reduced spacing */
+  gap: 0px;            /* no flex gap */
+  line-height: 1;      /* tighter baseline */
 }
 
+/* Email line: remove any extra spacing */
 .footer-link{
   font-weight: 900;
   letter-spacing: -0.01em;
   color: rgba(11,18,32,0.78);
-  line-height: 1.15; /* tighter */
-  margin: 0; /* ensure no extra spacing */
+  line-height: 1.05;
+  margin: 0;
+  padding: 0;
 }
 .footer-link:hover{ color: rgba(11,18,32,0.95); }
 
-/* Reduce LinkedIn size by 30% (110 -> 77) and pull it up slightly */
+/* Pull the LinkedIn mark up much closer */
 .footer-linkedin{
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  margin-top: -2px; /* brings it closer to the email */
+  margin-top: -14px;   /* key change: reduces spacing massively */
+  padding: 0;
 }
 
 .footer-linkedin img{
-  width: 77px;
+  width: 77px;         /* 30% smaller than 110 */
   height: 77px;
   display:block;
   opacity: 0.92;
 }
 .footer-linkedin:hover img{ opacity: 1; }
 
-/* Mobile alignment */
-@media (max-width: 860px){
-  .footer-inner{ flex-direction: column; }
-  .footer-links{ align-items:flex-start; }
-}
 
 /* Sheen */
 .sheen{ position: relative; }
