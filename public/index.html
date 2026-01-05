@@ -11,11 +11,16 @@
   <!-- Favicon / tab icon -->
   <link rel="icon" type="image/png" href="group.png" />
   <link rel="apple-touch-icon" href="group.png" />
+
+  <!-- Preload CSS -->
+  <link rel="preload" href="styles.css" as="style" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -35,7 +40,6 @@
         <a class="nav-link" href="#faq">FAQ</a>
       </nav>
 
-      <!-- Header CTA: hidden until hero CTA is out of view, and hidden again when bottom CTA is in view -->
       <a class="btn btn-primary header-cta" id="headerCta" href="https://calendly.com/mihirmakwana5720/20min" target="_blank" rel="noopener">
         Book a call
       </a>
@@ -84,6 +88,9 @@
             </div>
           </div>
         </div>
+
+        <!-- Fix heading order: H2 exists before H3s -->
+        <h2 class="sr-only">Highlights</h2>
 
         <div class="hero-cards">
           <article class="card sheen">
@@ -178,12 +185,14 @@
                 <div class="step-out">Outputs: scope, success metrics, weekly cadence</div>
               </button>
 
-              <div class="step-panel" id="stepPanel0" role="region" aria-labelledby="stepBtn0" hidden>
-                <ul class="bullets tight">
-                  <li>Clarify priorities and what “done” looks like</li>
-                  <li>Map the workflow, tools, and handoffs</li>
-                  <li>Agree weekly cadence and reporting format</li>
-                </ul>
+              <div class="step-panel" id="stepPanel0" role="region" aria-labelledby="stepBtn0" aria-hidden="true">
+                <div class="step-panel-inner">
+                  <ul class="bullets tight">
+                    <li>Clarify priorities and what “done” looks like</li>
+                    <li>Map the workflow, tools, and handoffs</li>
+                    <li>Agree weekly cadence and reporting format</li>
+                  </ul>
+                </div>
               </div>
             </article>
 
@@ -198,12 +207,14 @@
                 <div class="step-out">Outputs: setup, playbooks, dashboards</div>
               </button>
 
-              <div class="step-panel" id="stepPanel1" role="region" aria-labelledby="stepBtn1" hidden>
-                <ul class="bullets tight">
-                  <li>Set up tooling and clean structure</li>
-                  <li>Create templates, checklists, trackers</li>
-                  <li>Install QA so execution stays consistent</li>
-                </ul>
+              <div class="step-panel" id="stepPanel1" role="region" aria-labelledby="stepBtn1" aria-hidden="true">
+                <div class="step-panel-inner">
+                  <ul class="bullets tight">
+                    <li>Set up tooling and clean structure</li>
+                    <li>Create templates, checklists, trackers</li>
+                    <li>Install QA so execution stays consistent</li>
+                  </ul>
+                </div>
               </div>
             </article>
 
@@ -218,12 +229,14 @@
                 <div class="step-out">Outputs: shipped work, reporting, improvements</div>
               </button>
 
-              <div class="step-panel" id="stepPanel2" role="region" aria-labelledby="stepBtn2" hidden>
-                <ul class="bullets tight">
-                  <li>Execute weekly with speed and consistency</li>
-                  <li>Track outcomes and tighten the loop</li>
-                  <li>Improve what matters, cut what doesn’t</li>
-                </ul>
+              <div class="step-panel" id="stepPanel2" role="region" aria-labelledby="stepBtn2" aria-hidden="true">
+                <div class="step-panel-inner">
+                  <ul class="bullets tight">
+                    <li>Execute weekly with speed and consistency</li>
+                    <li>Track outcomes and tighten the loop</li>
+                    <li>Improve what matters, cut what doesn’t</li>
+                  </ul>
+                </div>
               </div>
             </article>
 
@@ -238,12 +251,14 @@
                 <div class="step-out">Outputs: SOPs, checklists, ownership transfer</div>
               </button>
 
-              <div class="step-panel" id="stepPanel3" role="region" aria-labelledby="stepBtn3" hidden>
-                <ul class="bullets tight">
-                  <li>Document the system end-to-end</li>
-                  <li>Transfer ownership with clear standards</li>
-                  <li>Leave behind a workflow your team can run</li>
-                </ul>
+              <div class="step-panel" id="stepPanel3" role="region" aria-labelledby="stepBtn3" aria-hidden="true">
+                <div class="step-panel-inner">
+                  <ul class="bullets tight">
+                    <li>Document the system end-to-end</li>
+                    <li>Transfer ownership with clear standards</li>
+                    <li>Leave behind a workflow your team can run</li>
+                  </ul>
+                </div>
               </div>
             </article>
           </div>
@@ -354,7 +369,7 @@
         <div class="footer-links">
           <a class="footer-link" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
           <a class="footer-linkedin" href="https://www.linkedin.com/in/makwana-mihir/" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <img src="linkedin.png" alt="LinkedIn" loading="lazy" />
+            <img src="linkedin.png" alt="LinkedIn" width="22" height="22" loading="lazy" />
           </a>
         </div>
       </div>
