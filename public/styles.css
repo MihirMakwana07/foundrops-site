@@ -458,7 +458,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 }
 
 /* FAQs */
-.faq{ display:flex; flex-direction: column; gap: 12px; min-height: 340px; }
+.faq{ display:flex; flex-direction: column; gap: 12px; min-height: 260px; }
 .faq-item{
   position: relative;
   border-radius: var(--radius2);
@@ -493,9 +493,16 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   color: rgba(11,18,32,0.70);
   line-height: 1.6;
 }
+@keyframes faq-body-in{
+  from{ opacity:0; transform:translateY(-5px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.faq-item[open] .faq-body{
+  animation: faq-body-in 0.22s ease;
+}
 
 /* CTA */
-.cta{ padding: 40px 0 48px; }
+.cta{ padding: 20px 0 48px; }
 .cta-card{
   position: relative;
   border-radius: 30px;
