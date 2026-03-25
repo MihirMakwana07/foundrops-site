@@ -458,7 +458,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 }
 
 /* FAQs */
-.faq{ display:flex; flex-direction: column; gap: 12px; }
+.faq{ display:flex; flex-direction: column; gap: 12px; contain: layout; }
 .faq-item{
   position: relative;
   border-radius: var(--radius2);
@@ -484,14 +484,23 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
   border-right: 2px solid rgba(11,18,32,0.56);
   border-bottom: 2px solid rgba(11,18,32,0.56);
   transform: rotate(45deg);
-  transition: transform .18s ease;
+  transition: transform .28s ease;
   margin-left: 8px;
+  flex-shrink: 0;
 }
-.faq-item[open] .chev{ transform: rotate(-135deg); }
+.faq-item.is-open .chev{ transform: rotate(-135deg); }
 .faq-body{
-  padding: 0 16px 16px;
+  overflow: hidden;
+  max-height: 0;
+  padding: 0 16px;
+  padding-bottom: 0;
   color: rgba(11,18,32,0.70);
   line-height: 1.6;
+  transition: max-height 0.3s ease, padding-bottom 0.24s ease;
+}
+.faq-item.is-open .faq-body{
+  max-height: 300px;
+  padding-bottom: 16px;
 }
 
 /* CTA */
