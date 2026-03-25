@@ -245,19 +245,15 @@
     const closeItem = (item) => item.classList.remove("is-open");
 
     items.forEach((item) => {
-      // Prevent native details toggle; handle click for coarse pointer (mobile)
+      // Prevent native details toggle; click toggles on mobile
       item.querySelector("summary").addEventListener("click", (e) => {
         e.preventDefault();
-        if (!isFinePointer) {
-          item.classList.contains("is-open") ? closeItem(item) : openItem(item);
-        }
+        item.classList.contains("is-open") ? closeItem(item) : openItem(item);
       });
 
-      // Hover for fine pointer (desktop)
-      if (isFinePointer) {
-        item.addEventListener("mouseenter", () => openItem(item));
-        item.addEventListener("mouseleave", () => closeItem(item));
-      }
+      // Hover (mouseenter/mouseleave won't fire on touch devices)
+      item.addEventListener("mouseenter", () => openItem(item));
+      item.addEventListener("mouseleave", () => closeItem(item));
     });
   }
 })();
