@@ -233,31 +233,26 @@
     });
   }
 
-  // FAQs accordion
+  // FAQs hover open/close on desktop (fine pointer)
   const faqList = document.getElementById("faqList");
-  if (faqList) {
+  if (faqList && isFinePointer) {
     const items = Array.from(faqList.querySelectorAll(".faq-item"));
 
-    const openItem = (item) => {
-      items.forEach(it => { if (it !== item) it.classList.remove("is-open"); });
-      item.classList.add("is-open");
+    const closeAllExcept = (keep) => {
+      items.forEach(it => {
+        if (it !== keep) it.removeAttribute("open");
+      });
     };
-    const closeItem = (item) => item.classList.remove("is-open");
 
     items.forEach((item) => {
-      // Prevent native details toggle; handle click for coarse pointer (mobile)
-      item.querySelector("summary").addEventListener("click", (e) => {
-        e.preventDefault();
-        if (!isFinePointer) {
-          item.classList.contains("is-open") ? closeItem(item) : openItem(item);
-        }
+      item.addEventListener("mouseenter", () => {
+        closeAllExcept(item);
+        item.setAttribute("open", "");
       });
 
-      // Hover for fine pointer (desktop)
-      if (isFinePointer) {
-        item.addEventListener("mouseenter", () => openItem(item));
-        item.addEventListener("mouseleave", () => closeItem(item));
-      }
+      item.addEventListener("mouseleave", () => {
+        item.removeAttribute("open");
+      });
     });
   }
 })();
