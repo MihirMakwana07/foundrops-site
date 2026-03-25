@@ -494,6 +494,7 @@ button:focus-visible, summary:focus-visible, a:focus-visible{
 }
 .faq-item.is-open .chev{ transform: rotate(-135deg); }
 .faq-body{
+  display: block; /* override <details> native display:none */
   position: absolute;
   left: -1px;
   right: -1px;
