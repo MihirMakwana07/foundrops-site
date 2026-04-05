@@ -270,41 +270,83 @@
     }
 
     /* Footer */
-    .pb-footer {
+    .footer {
       padding: 22px 0 30px;
       border-top: 1px solid rgba(15,23,42,0.08);
       background: rgba(247,250,252,0.70);
     }
 
-    .pb-footer-inner {
+    .footer-inner {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 16px;
+      gap: 18px;
     }
 
-    .pb-footer-left {
+    .footer-brand {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 3px;
     }
 
-    .pb-footer-logo { width: 20px; height: 20px; border-radius: 6px; }
+    .footer-logo {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
 
-    .pb-footer-text {
-      font-weight: 800;
-      font-size: 14px;
+    .footer-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-name {
+      font-weight: 900;
       letter-spacing: -0.02em;
-      color: rgba(11,18,32,0.56);
+      line-height: 1.15;
     }
 
-    .pb-footer-link {
-      font-weight: 700;
-      font-size: 14px;
-      color: rgba(11,18,32,0.56);
-      transition: color 0.18s ease;
+    .footer-sub {
+      margin-top: 6px;
+      color: rgba(11,18,32,0.64);
+      line-height: 1.5;
+      max-width: 34ch;
     }
-    .pb-footer-link:hover { color: rgba(11,18,32,0.90); }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0px;
+    }
+
+    .footer-link {
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: rgba(11,18,32,0.78);
+      line-height: 1.05;
+      margin: 0;
+      padding: 0;
+    }
+    .footer-link:hover { color: rgba(11,18,32,0.95); }
+
+    .footer-linkedin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: -25px;
+      padding: 0;
+    }
+
+    .footer-linkedin img {
+      width: 77px;
+      height: 77px;
+      display: block;
+      opacity: 0.92;
+    }
+    .footer-linkedin:hover img { opacity: 1; }
 
     /* Reveal animation */
     .pb-reveal {
@@ -352,7 +394,8 @@
       .pb-hero-sub { font-size: 16px; }
       .pb-grid { padding: 32px 0 60px; }
       .pb-card { padding: 24px 20px; }
-      .pb-footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; }
+      .footer-links { align-items: flex-start; gap: 0px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -478,13 +521,22 @@
   </main>
 
   <!-- Footer -->
-  <footer class="pb-footer">
-    <div class="container pb-footer-inner">
-      <div class="pb-footer-left">
-        <img src="/group.png" alt="" class="pb-footer-logo" width="20" height="20" loading="lazy" />
-        <span class="pb-footer-text">FoundrOps</span>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="/group.png" alt="" class="footer-logo" width="22" height="22" loading="lazy" />
+        <div class="footer-text">
+          <div class="footer-name">FoundrOps</div>
+          <div class="footer-sub">High-trust execution partner for founders.</div>
+        </div>
       </div>
-      <a class="pb-footer-link" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
+
+      <div class="footer-links">
+        <a class="footer-link" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
+        <a class="footer-linkedin" href="https://www.linkedin.com/in/makwana-mihir/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="/linkedin.png" alt="LinkedIn" width="77" height="77" loading="lazy" />
+        </a>
+      </div>
     </div>
   </footer>
 
