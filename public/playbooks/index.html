@@ -208,15 +208,15 @@
     .pb-card-footer {
       display: flex;
       align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      justify-content: space-between;
       margin-top: 20px;
       padding-top: 16px;
       border-top: 1px solid rgba(15,23,42,0.08);
     }
 
-    .pb-card-cta {
-      margin-right: auto;
+    .pb-card-tags {
+      display: flex;
+      gap: 6px;
     }
 
     .pb-card-cta {
@@ -385,9 +385,6 @@
         gap: 14px;
       }
 
-      .pb-card h2 {
-        min-height: 3.6em;
-      }
     }
 
     @media (max-width: 819px) and (min-width: 521px) {
@@ -496,8 +493,10 @@
             <span class="pb-card-cta">
               Read playbook <span class="pb-card-cta-arrow">&rarr;</span>
             </span>
-            <span class="pb-card-tag">Sales Ops</span>
-            <span class="pb-card-tag">Fundraise Ops</span>
+            <div class="pb-card-tags">
+              <span class="pb-card-tag">Sales Ops</span>
+              <span class="pb-card-tag">Fundraise Ops</span>
+            </div>
           </div>
         </a>
 
