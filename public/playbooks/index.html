@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0B1220" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>Playbooks | FoundrOps</title>
+  <meta name="description" content="Curated playbooks from FoundrOps — systems, strategies, and frameworks for B2B founders." />
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #F7FAFC;
+      --ink: #0B1220;
+      --stroke: rgba(15, 23, 42, 0.12);
+      --accent: #18B8A6;
+      --accent2: #0FA69A;
+      --radius2: 26px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 650px at 20% 0%, rgba(24,184,166,0.06) 0%, rgba(24,184,166,0.00) 62%),
+        radial-gradient(900px 520px at 82% 20%, rgba(24,184,166,0.04) 0%, rgba(24,184,166,0.00) 58%),
+        var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    p { margin: 0; }
+
+    a, button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Header — minimal, no navigation */
+    .pb-header {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(15,23,42,0.06);
+      background: rgba(247,250,252,0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    .pb-header-inner {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .pb-logo { width: 24px; height: 24px; border-radius: 8px; }
+    .pb-name { font-weight: 800; letter-spacing: -0.02em; font-size: 18px; }
+
+    /* Hero */
+    .pb-hero {
+      padding: 64px 0 20px;
+      text-align: center;
+    }
+
+    .pb-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(24,184,166,0.20);
+      background: rgba(24,184,166,0.06);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--accent2);
+      margin-bottom: 24px;
+    }
+
+    .pb-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .pb-hero h1 {
+      font-size: clamp(36px, 4.8vw, 60px);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      margin: 0 0 16px;
+      text-wrap: balance;
+    }
+
+    .pb-hero h1 .accent { color: var(--accent); }
+
+    .pb-hero-sub {
+      color: rgba(11,18,32,0.64);
+      font-size: 18px;
+      line-height: 1.55;
+      max-width: 52ch;
+      margin: 0 auto;
+    }
+
+    /* Playbook cards */
+    .pb-grid {
+      padding: 40px 0 80px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .pb-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(15,23,42,0.10);
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 10px 30px rgba(11,18,32,0.06);
+      padding: 32px 28px;
+      overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .pb-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(11,18,32,0.12);
+      border-color: rgba(24,184,166,0.28);
+    }
+
+    .pb-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .pb-card-icon {
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .pb-card:nth-child(1) .pb-card-icon {
+      background: rgba(24,184,166,0.10);
+      border: 1px solid rgba(24,184,166,0.18);
+    }
+
+    .pb-card:nth-child(2) .pb-card-icon {
+      background: rgba(11,18,32,0.06);
+      border: 1px solid rgba(11,18,32,0.10);
+    }
+
+    .pb-card:nth-child(3) .pb-card-icon {
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.16);
+    }
+
+    .pb-card-number {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: rgba(11,18,32,0.38);
+      margin-bottom: 6px;
+    }
+
+    .pb-card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .pb-card p {
+      color: rgba(11,18,32,0.62);
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0;
+      flex: 1;
+    }
+
+    .pb-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(15,23,42,0.08);
+    }
+
+    .pb-card-cta {
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color: var(--accent2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.18s ease;
+    }
+
+    .pb-card:hover .pb-card-cta {
+      gap: 10px;
+    }
+
+    .pb-card-cta-arrow {
+      display: inline-block;
+      transition: transform 0.18s ease;
+    }
+
+    .pb-card:hover .pb-card-cta-arrow {
+      transform: translateX(2px);
+    }
+
+    .pb-card-tag {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: rgba(11,18,32,0.40);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.08);
+      background: rgba(255,255,255,0.60);
+    }
+
+    /* Sheen effect */
+    .sheen { position: relative; }
+    .sheen::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(24,184,166,0.10),
+        rgba(24,184,166,0.00) 62%);
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      pointer-events: none;
+    }
+    @media (pointer: fine) {
+      .sheen:hover::before { opacity: 1; }
+    }
+    @media (pointer: coarse) {
+      .sheen::before { display: none; }
+    }
+
+    /* Footer */
+    .pb-footer {
+      padding: 22px 0 30px;
+      border-top: 1px solid rgba(15,23,42,0.08);
+      background: rgba(247,250,252,0.70);
+    }
+
+    .pb-footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .pb-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .pb-footer-logo { width: 20px; height: 20px; border-radius: 6px; }
+
+    .pb-footer-text {
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: -0.02em;
+      color: rgba(11,18,32,0.56);
+    }
+
+    .pb-footer-link {
+      font-weight: 700;
+      font-size: 14px;
+      color: rgba(11,18,32,0.56);
+      transition: color 0.18s ease;
+    }
+    .pb-footer-link:hover { color: rgba(11,18,32,0.90); }
+
+    /* Reveal animation */
+    .pb-reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .pb-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children */
+    .pb-reveal-delay-1 { transition-delay: 0.08s; }
+    .pb-reveal-delay-2 { transition-delay: 0.16s; }
+    .pb-reveal-delay-3 { transition-delay: 0.24s; }
+
+    /* Desktop grid */
+    @media (min-width: 820px) {
+      .pb-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 22px;
+      }
+
+      .pb-card {
+        padding: 36px 30px;
+      }
+
+      .pb-card-header {
+        flex-direction: column;
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 819px) and (min-width: 521px) {
+      .pb-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .pb-hero { padding: 48px 0 16px; }
+      .pb-hero h1 { font-size: 32px; }
+      .pb-hero-sub { font-size: 16px; }
+      .pb-grid { padding: 32px 0 60px; }
+      .pb-card { padding: 24px 20px; }
+      .pb-footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pb-card, .pb-card-cta-arrow, .pb-reveal {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="pb-header">
+    <div class="container pb-header-inner">
+      <a href="/" aria-label="FoundrOps home">
+        <img src="/group.png" alt="" class="pb-logo" width="24" height="24" loading="eager" />
+      </a>
+      <span class="pb-name">FoundrOps</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="pb-hero">
+      <div class="container">
+        <div class="pb-reveal">
+          <div class="pb-badge">
+            <span class="pb-badge-dot"></span>
+            PLAYBOOKS
+          </div>
+        </div>
+
+        <h1 class="pb-reveal pb-reveal-delay-1">
+          Systems we use to help<br>founders <span class="accent">ship faster</span>.
+        </h1>
+
+        <p class="pb-hero-sub pb-reveal pb-reveal-delay-2">
+          Frameworks, workflows, and strategies we've built from working with B2B founders. Pick the one that fits where you are right now.
+        </p>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section class="container">
+      <div class="pb-grid">
+        <!-- Playbook 1: Founders Playbook -->
+        <a class="pb-card sheen pb-reveal pb-reveal-delay-1"
+           href="https://locrian-grenadilla-464.notion.site/Helping-Founders-Win-Back-Their-Time-3231dd48315f80f29980ddf2661c273b"
+           target="_blank" rel="noopener">
+          <div class="pb-card-header">
+            <div class="pb-card-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0FA69A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <div class="pb-card-number">PLAYBOOK 01</div>
+              <h2>How we are helping founders win back their time</h2>
+            </div>
+          </div>
+          <p>The operating system behind how we take execution off a founder's plate — priorities, systems, cadence, and clean handoffs that actually stick.</p>
+          <div class="pb-card-footer">
+            <span class="pb-card-cta">
+              Read playbook <span class="pb-card-cta-arrow">&rarr;</span>
+            </span>
+            <span class="pb-card-tag">Founder Ops</span>
+          </div>
+        </a>
+
+        <!-- Playbook 2: B2B Outbound -->
+        <a class="pb-card sheen pb-reveal pb-reveal-delay-2"
+           href="https://locrian-grenadilla-464.notion.site/B2B-Outbound-Playbook-2026-3231dd48315f80c9b1c4ff87d4523120"
+           target="_blank" rel="noopener">
+          <div class="pb-card-header">
+            <div class="pb-card-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2L11 13"/>
+                <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="pb-card-number">PLAYBOOK 02</div>
+              <h2>B2B outbound playbook</h2>
+            </div>
+          </div>
+          <p>ICP definition, list building, sequencing, deliverability, follow-ups, and tracking — everything you need to build a repeatable outbound engine.</p>
+          <div class="pb-card-footer">
+            <span class="pb-card-cta">
+              Read playbook <span class="pb-card-cta-arrow">&rarr;</span>
+            </span>
+            <span class="pb-card-tag">Sales Ops</span>
+          </div>
+        </a>
+
+        <!-- Playbook 3: LinkedIn Warm Network -->
+        <a class="pb-card sheen pb-reveal pb-reveal-delay-3"
+           href="https://locrian-grenadilla-464.notion.site/LinkedIn-Warm-Network-Playbook-3231dd48315f8022b047cdaaa388d5c4"
+           target="_blank" rel="noopener">
+          <div class="pb-card-header">
+            <div class="pb-card-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="pb-card-number">PLAYBOOK 03</div>
+              <h2>LinkedIn warm network playbook</h2>
+            </div>
+          </div>
+          <p>How to activate your existing network on LinkedIn — warm outreach, engagement workflows, and conversion strategies that don't feel spammy.</p>
+          <div class="pb-card-footer">
+            <span class="pb-card-cta">
+              Read playbook <span class="pb-card-cta-arrow">&rarr;</span>
+            </span>
+            <span class="pb-card-tag">LinkedIn</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="pb-footer">
+    <div class="container pb-footer-inner">
+      <div class="pb-footer-left">
+        <img src="/group.png" alt="" class="pb-footer-logo" width="20" height="20" loading="lazy" />
+        <span class="pb-footer-text">FoundrOps</span>
+      </div>
+      <a class="pb-footer-link" href="mailto:hello@foundrops.co">hello@foundrops.co</a>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const isFinePointer = matchMedia("(pointer: fine)").matches;
+
+      // Reveal animations
+      const els = Array.from(document.querySelectorAll(".pb-reveal"));
+      if (prefersReduced || !("IntersectionObserver" in window)) {
+        els.forEach(el => el.classList.add("is-visible"));
+      } else {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-visible");
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        els.forEach(el => obs.observe(el));
+      }
+
+      // Sheen mouse tracking
+      if (!prefersReduced && isFinePointer) {
+        const sheenEls = Array.from(document.querySelectorAll(".sheen"));
+        sheenEls.forEach(el => {
+          el.addEventListener("mousemove", (ev) => {
+            const r = el.getBoundingClientRect();
+            el.style.setProperty("--mx", `${((ev.clientX - r.left) / r.width) * 100}%`);
+            el.style.setProperty("--my", `${((ev.clientY - r.top) / r.height) * 100}%`);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
